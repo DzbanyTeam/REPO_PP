@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.pp.model.AdminAccount;
-import pl.polsl.pp.model.Role;
 import pl.polsl.pp.service.AdminAccountServiceInterface;
 import pl.polsl.pp.service.RoleServiceInterface;
 
