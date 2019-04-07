@@ -67,7 +67,7 @@ public class AdminController {
         if(bindingResult.hasErrors()) {
 
             // dla Piotrka:
-            /*
+
             System.out.println("ERROR LIST: ");
             List<ObjectError> errorList = bindingResult.getAllErrors();
             for(ObjectError e: errorList) {
@@ -76,7 +76,7 @@ public class AdminController {
                 // wypisuje wiadomosc
                 System.out.println(e.getDefaultMessage());
             }
-            */
+
             return "adminPages/edit";
         }
 

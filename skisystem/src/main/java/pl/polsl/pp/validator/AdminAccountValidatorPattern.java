@@ -22,7 +22,7 @@ class AdminAccountValidatorPattern {
     private String nameMessage = "Imię może składać się tylko z liter i minimum 3 znaków";
 
     private String surnamePattern = "[a-zA-Z]{2,}";
-    private String surnameErrorcode = "NAME_ERROR";
+    private String surnameErrorcode = "SURNAME_ERROR";
     private String surnameMessage = "Nazwisko może składać się tylko z liter i minimum 2 znaków";
 
     private String emailPattern = "^[a-zA-Z0-9_!#$%&+/=?-]+@[a-zA-Z0-9.-]+$";

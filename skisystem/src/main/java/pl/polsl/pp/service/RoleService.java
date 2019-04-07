@@ -10,13 +10,13 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class RoleService implements RoleServiceInterface {
+
     @Autowired
     @Qualifier("roleRepository")
     private RoleRepository roleRepository;
 
     public boolean saveRole(Role role) {
         try {
-
             roleRepository.save(role);
             return true;
         }catch(Exception ex) {
@@ -38,7 +38,7 @@ public class RoleService implements RoleServiceInterface {
     }
 
     @PostConstruct
-    private void initalizeRoleTable(){
+    private void initializeRoleTable(){
         this.saveRole(new Role("ROLE_ADMIN"));
         this.saveRole(new Role("ROLE_CUSTOMER"));
     }

@@ -54,16 +54,13 @@ public class AdminAccountService implements AdminAccountServiceInterface {
     public boolean saveAdminAccount(AdminAccount adminAccount) {
 
         try {
-            adminAccount.setPassword(passwordEncoder.encode(adminAccount.getPassword()));
             Role role = roleService.getByRole("ROLE_ADMIN");
-            if(role != null){
-                adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
-                adminAccountRepository.save(adminAccount);
-                return true;
-            }
-            else{
-                return false;
-            }
+            adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
+
+            adminAccount.setPassword(passwordEncoder.encode(adminAccount.getPassword()));
+            adminAccountRepository.save(adminAccount);
+            return true;
+
         } catch(Exception ex) {
             return false;
         }
@@ -72,6 +69,20 @@ public class AdminAccountService implements AdminAccountServiceInterface {
     @Override
     public boolean saveAdminAccountWithoutHashing(AdminAccount adminAccount) {
 
+
+        try {
+            Role role = roleService.getByRole("ROLE_ADMIN");
+            adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
+
+            adminAccountRepository.save(adminAccount);
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
+
+        // tak nie dziala bo getRoles() jest zawsze nullem
+        // trzeba by pobierac informacje z tabeli USERS_ROLES
+        /*
         try {
             if(adminAccount.getRoles() != null) {
                 adminAccount.setRoles(adminAccount.getRoles());
@@ -83,6 +94,7 @@ public class AdminAccountService implements AdminAccountServiceInterface {
         } catch(Exception ex) {
             return false;
         }
+        */
     }
 
     @Override
