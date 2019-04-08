@@ -20,7 +20,7 @@ public class AdminAccount implements Serializable {
     private String password;
 
     @Column
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column
     private String name;
@@ -67,11 +67,11 @@ public class AdminAccount implements Serializable {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 

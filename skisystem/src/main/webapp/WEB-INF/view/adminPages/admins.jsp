@@ -37,8 +37,14 @@
 
 <div class="container py-5">
     <h1 id="header">Administratorzy</h1>
-    <form action="<springc:url value="/admin/admins/update"/>" method="GET">
-        <table class="table mt-5">
+    <form action="<springc:url value="/admin/admins/update"/>" method="GET" class="mt-5">
+        <c:if test="${alertText != null}">
+            <div class="alert alert-${alertType}">
+                    ${alertText}
+                <button class="close" onclick="$(this.closest('.alert')).slideUp(); return false;">&times;</button>
+            </div>
+        </c:if>
+        <table class="table">
             <thead class="thead-dark">
             <tr>
                 <th></th>
@@ -49,21 +55,21 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${admins}" var="admin">
+            <c:forEach items="${adminAccounts}" var="adminAccount">
             <tr>
-                <td><input type="checkbox" name="ids[]" value="${admin.id}"></td>
-                <td>${admin.username}</td>
-                <td>${admin.name} ${admin.surname}</td>
-                <c:if test="${admin.isActive()}">
-                    <td><a class="text-success" href="<springc:url value="/admin/admins/update?ids%5B%5D=${admin.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
+                <td><input type="checkbox" name="ids[]" value="${adminAccount.id}"></td>
+                <td>${adminAccount.username}</td>
+                <td>${adminAccount.name} ${adminAccount.surname}</td>
+                <c:if test="${adminAccount.getIsActive()}">
+                    <td><a class="text-success" href="<springc:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>
-                <c:if test="${!admin.isActive()}">
-                    <td><a class="text-success" href="<springc:url value="/admin/admins/update?ids%5B%5D=${admin.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
+                <c:if test="${!adminAccount.getIsActive()}">
+                    <td><a class="text-success" href="<springc:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
                 </c:if>
                 <td class="text-right py-2">
                     <div class="btn-group">
-                        <a class="btn btn-primary fas fa-pen" href="<springc:url value="/admin/admins/edit/${admin.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<springc:url value="/admin/admins/update?ids%5B%5D=${admin.id}&action=delete"/>"></a>
+                        <a class="btn btn-primary fas fa-pen" href="<springc:url value="/admin/admins/edit/${adminAccount.id}"/>"></a>
+                        <a class="btn btn-light fas fa-trash-alt" href="<springc:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=delete"/>"></a>
                     </div>
                 </td>
             </tr>
