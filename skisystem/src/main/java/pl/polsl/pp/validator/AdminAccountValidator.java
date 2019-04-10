@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.polsl.pp.model.AdminAccount;
-import pl.polsl.pp.service.AdminAccountServiceInterface;
+import pl.polsl.pp.service.interfaces.IAdminAccountService;
 
 @Component
 public class AdminAccountValidator implements Validator {
@@ -14,7 +14,7 @@ public class AdminAccountValidator implements Validator {
 
     @Autowired
     @Qualifier("adminAccountService")
-    private AdminAccountServiceInterface adminAccountService;
+    private IAdminAccountService adminAccountService;
 
     private AdminAccountValidatorPattern validatorPattern;
 

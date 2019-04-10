@@ -1,14 +1,12 @@
 package pl.polsl.pp.model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "AdminAccounts")
-@SequenceGenerator(name="users_sequence", allocationSize = 1)
-public class AdminAccount implements Serializable {
+@Table(name = "CustomerAccounts")
+public class CustomerAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "users_sequence")
@@ -36,10 +34,13 @@ public class AdminAccount implements Serializable {
     private String phoneNumber;
 
 //    @ManyToMany
-//    @JoinTable(name="Permission", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
+//    @JoinTable(name="Users2Roles", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
 //    private Set<Role> roles;
 
-    public AdminAccount(String username, String password, boolean isActive, String name, String surname, String email, String phoneNumber) {
+    public CustomerAccount() {
+    }
+
+    public CustomerAccount(String username, String password, Boolean isActive, String name, String surname, String email, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.isActive = isActive;
@@ -49,30 +50,35 @@ public class AdminAccount implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public AdminAccount() {
+    public long getId() {
+        return id;
     }
 
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Boolean getIsActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setIsActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

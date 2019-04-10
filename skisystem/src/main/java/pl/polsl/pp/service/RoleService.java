@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.RoleRepository;
+import pl.polsl.pp.service.interfaces.IRoleService;
 
 import javax.annotation.PostConstruct;
 
 @Service
-public class RoleService implements RoleServiceInterface {
+public class RoleService implements IRoleService {
 
     @Autowired
     @Qualifier("roleRepository")
@@ -40,6 +41,6 @@ public class RoleService implements RoleServiceInterface {
     @PostConstruct
     private void initializeRoleTable(){
         this.saveRole(new Role("ROLE_ADMIN"));
-        this.saveRole(new Role("ROLE_CUSTOMER"));
+        this.saveRole(new Role("ROLE_USER"));
     }
 }
