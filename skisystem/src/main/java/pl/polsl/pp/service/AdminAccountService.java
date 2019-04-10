@@ -7,18 +7,23 @@ import org.springframework.stereotype.Service;
 import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.AdminAccountRepository;
+import pl.polsl.pp.service.interfaces.IAdminAccountService;
+import pl.polsl.pp.service.interfaces.IPermissionService;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class AdminAccountService implements AdminAccountServiceInterface {
+public class AdminAccountService implements IAdminAccountService {
 
 
     @Autowired
     @Qualifier("adminAccountRepository")
     private AdminAccountRepository adminAccountRepository;
+
+    @Autowired
+    @Qualifier("permissionService")
+    private IPermissionService permissionService;
 
     @Autowired
     @Qualifier("roleService")
@@ -54,9 +59,6 @@ public class AdminAccountService implements AdminAccountServiceInterface {
     public boolean saveAdminAccount(AdminAccount adminAccount) {
 
         try {
-            Role role = roleService.getByRole("ROLE_ADMIN");
-            adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
-
             String newPassword = adminAccount.getPassword();
             if(newPassword.isEmpty()) {
                 String oldPassword = getAdminAccountById(adminAccount.getId()).getPassword();
@@ -66,6 +68,8 @@ public class AdminAccountService implements AdminAccountServiceInterface {
                 adminAccount.setPassword(passwordEncoder.encode(newPassword));
             }
             adminAccountRepository.save(adminAccount);
+            Role role = roleService.getByRole("ROLE_ADMIN");
+            permissionService.savePermission(adminAccount.getId(),role.getId());
             return true;
 
         } catch(Exception ex) {

@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.RoleRepository;
+import pl.polsl.pp.service.interfaces.IRoleService;
 
 import javax.annotation.PostConstruct;
 
 @Service
-public class RoleService implements RoleServiceInterface {
+public class RoleService implements IRoleService {
 
     @Autowired
     @Qualifier("roleRepository")
@@ -26,20 +27,20 @@ public class RoleService implements RoleServiceInterface {
 
     @Override
     public Role getByRole(String role) {
-        Iterable<Role> roles = roleRepository.findAll();
-        Role returnRole = null;
 
-        for (Role rl : roles) {
-            if (rl.getRole().equals(role)) {
-                returnRole = rl;
+        Iterable<Role> roles = roleRepository.findAll();
+
+        for (Role roleReturn : roles) {
+            if (roleReturn.getRole().equals(role)) {
+                return roleReturn;
             }
         }
-        return returnRole;
+        return null;
     }
 
     @PostConstruct
     private void initializeRoleTable(){
         this.saveRole(new Role("ROLE_ADMIN"));
-        this.saveRole(new Role("ROLE_CUSTOMER"));
+        this.saveRole(new Role("ROLE_USER"));
     }
 }

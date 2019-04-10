@@ -1,10 +1,10 @@
-package pl.polsl.pp.service;
+package pl.polsl.pp.service.interfaces;
 
 
 import pl.polsl.pp.model.AdminAccount;
 import java.util.List;
 
-public interface AdminAccountServiceInterface {
+public interface IAdminAccountService {
 
 
     AdminAccount getAdminAccountById(Long id);

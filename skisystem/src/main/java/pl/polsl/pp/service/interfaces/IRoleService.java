@@ -1,9 +1,9 @@
-package pl.polsl.pp.service;
+package pl.polsl.pp.service.interfaces;
 
 
 import pl.polsl.pp.model.Role;
 
-public interface RoleServiceInterface {
+public interface IRoleService {
     Role getByRole(String role);
     boolean saveRole(Role role);
 }
