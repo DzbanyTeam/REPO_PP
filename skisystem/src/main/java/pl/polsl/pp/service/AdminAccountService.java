@@ -57,52 +57,17 @@ public class AdminAccountService implements AdminAccountServiceInterface {
             Role role = roleService.getByRole("ROLE_ADMIN");
             adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
 
-            adminAccount.setPassword(passwordEncoder.encode(adminAccount.getPassword()));
-            adminAccountRepository.save(adminAccount);
-            return true;
-
-        } catch(Exception ex) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean saveAdminAccountWithoutHashing(AdminAccount adminAccount) {
-
-
-        try {
-            Role role = roleService.getByRole("ROLE_ADMIN");
-            adminAccount.setRoles(new HashSet<Role>(Arrays.asList(role)));
-
-            adminAccountRepository.save(adminAccount);
-            return true;
-        } catch(Exception ex) {
-            return false;
-        }
-
-        // tak nie dziala bo getRoles() jest zawsze nullem
-        // trzeba by pobierac informacje z tabeli USERS_ROLES
-        /*
-        try {
-            if(adminAccount.getRoles() != null) {
-                adminAccount.setRoles(adminAccount.getRoles());
-                adminAccountRepository.save(adminAccount);
-                return true;
-            } else {
-                return false;
+            String newPassword = adminAccount.getPassword();
+            if(newPassword.isEmpty()) {
+                String oldPassword = getAdminAccountById(adminAccount.getId()).getPassword();
+                adminAccount.setPassword(oldPassword);
             }
-        } catch(Exception ex) {
-            return false;
-        }
-        */
-    }
-
-    @Override
-    public boolean deleteAdminAccount(Long id) {
-
-        try {
-            adminAccountRepository.delete(this.getAdminAccountById(id));
+            else {
+                adminAccount.setPassword(passwordEncoder.encode(newPassword));
+            }
+            adminAccountRepository.save(adminAccount);
             return true;
+
         } catch(Exception ex) {
             return false;
         }
@@ -130,7 +95,7 @@ public class AdminAccountService implements AdminAccountServiceInterface {
             adminAccountList = (List<AdminAccount>) adminAccountRepository.findAllById(ids);
 
             for (AdminAccount adminAccount : adminAccountList) {
-                adminAccount.setActive(false);
+                adminAccount.setIsActive(false);
                 adminAccountRepository.save(adminAccount);
             }
             return true;
@@ -147,7 +112,7 @@ public class AdminAccountService implements AdminAccountServiceInterface {
             adminAccountList = (List<AdminAccount>) adminAccountRepository.findAllById(ids);
 
             for (AdminAccount adminAccount : adminAccountList) {
-                adminAccount.setActive(true);
+                adminAccount.setIsActive(true);
                 adminAccountRepository.save(adminAccount);
             }
             return true;

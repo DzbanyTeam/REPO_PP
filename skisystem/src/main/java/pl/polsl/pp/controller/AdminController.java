@@ -9,6 +9,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.service.AdminAccountServiceInterface;
 import pl.polsl.pp.service.RoleServiceInterface;
@@ -45,72 +46,57 @@ public class AdminController {
 
     @GetMapping("/admins")
     public String showAdmins(Model model){
-        model.addAttribute("admins", adminAccountService.getAllAdminAccounts());
+        model.addAttribute("adminAccounts", adminAccountService.getAllAdminAccounts());
         return "adminPages/admins"; }
 
     @GetMapping("/admins/edit/{id}")
     public String showAdminsEdit(Model model, @PathVariable Long id){
-        model.addAttribute("admin", adminAccountService.getAdminAccountById(id));
+        model.addAttribute("adminAccount", adminAccountService.getAdminAccountById(id));
         return "adminPages/edit";
     }
 
     @GetMapping("/admins/add")
     public String showAdminsAdd(Model model){
-        model.addAttribute("admin", new AdminAccount());
+        model.addAttribute("adminAccount", new AdminAccount());
         return "adminPages/edit";
     }
 
     @PostMapping("/admins/submit")
-    public String submitAdmin(@ModelAttribute("admin") @Validated AdminAccount adminAccountRequest, BindingResult bindingResult, @RequestParam(name = "isActive", required = false) String isActive, @RequestParam(name = "id") Long id) {
-
-
+    public String submitAdmin(@ModelAttribute("adminAccount") @Validated AdminAccount adminAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
-
-            // dla Piotrka:
-
-            System.out.println("ERROR LIST: ");
-            List<ObjectError> errorList = bindingResult.getAllErrors();
-            for(ObjectError e: errorList) {
-                // wypisuje kod
-                System.out.println(e.getCode());
-                // wypisuje wiadomosc
-                System.out.println(e.getDefaultMessage());
-            }
-
+            model.addAttribute("alertText", "Nie można zapisać administratora. Sprawdź błędy formularza.");
+            model.addAttribute("alertType", "danger");
             return "adminPages/edit";
         }
 
-        adminAccountRequest.setActive(isActive != null ? true:false);
+        adminAccountService.saveAdminAccount(adminAccountRequest);
 
-        if(adminAccountRequest.getId().toString().equals("0")){
-            adminAccountService.saveAdminAccount(adminAccountRequest);
-        } else {
-            if(adminAccountRequest.getPassword().isEmpty()) {
-                adminAccountRequest.setPassword(adminAccountService.getAdminAccountById(id).getPassword());
-                adminAccountService.saveAdminAccountWithoutHashing(adminAccountRequest);
-            } else {
-                adminAccountService.saveAdminAccount(adminAccountRequest);
-            }
-        }
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano administratora.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
 
-        return "redirect:../admins"; }
+        return "redirect:/admin/admins/edit/" + adminAccountRequest.getId();
+    }
 
     @GetMapping("/admins/update")
-    public String showAdminsUpdate(@RequestParam(name = "action")String action,@RequestParam(name ="ids[]", required = false) List<Long> ids){
+    public String showAdminsUpdate(@RequestParam(name = "action")String action,@RequestParam(name ="ids[]", required = false) List<Long> ids, final RedirectAttributes redirectAttributes){
+        int size = ids.size();
 
-        if(ids != null) {
-            switch (action) {
-                case "delete":
-                    adminAccountService.deleteAdminAccounts(ids);
-                    break;
-                case "activate":
-                    adminAccountService.activateAdminAccounts(ids);
-                    break;
-                case "deactivate":
-                    adminAccountService.deactivateAdminAccounts(ids);
-                    break;
-            }
+        switch (action) {
+            case "delete":
+                adminAccountService.deleteAdminAccounts(ids);
+                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Usunięto administatora." : ("Usunięto " + size + " administratorów."));
+                break;
+            case "activate":
+                adminAccountService.activateAdminAccounts(ids);
+                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Aktywowano administatora." : ("Aktywowano " + size + " administratorów."));
+                break;
+            case "deactivate":
+                adminAccountService.deactivateAdminAccounts(ids);
+                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Dezaktywowano administatora." : ("Dezaktywowano " + size + " administratorów."));
+                break;
         }
-        return "redirect:../admins";
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
+        return "redirect:/admin/admins";
     }
 }
