@@ -41,24 +41,24 @@ public class AdminController {
 
     @GetMapping("")
     public String showAdmin() {
-        return "adminPages/admin";
+        return "cms/home/index";
     }
 
     @GetMapping("/admins")
     public String showAdmins(Model model){
         model.addAttribute("adminAccounts", adminAccountService.getAllAdminAccounts());
-        return "adminPages/admins"; }
+        return "cms/adminAccount/index"; }
 
     @GetMapping("/admins/edit/{id}")
     public String showAdminsEdit(Model model, @PathVariable Long id){
         model.addAttribute("adminAccount", adminAccountService.getAdminAccountById(id));
-        return "adminPages/edit";
+        return "cms/adminAccount/edit";
     }
 
     @GetMapping("/admins/add")
     public String showAdminsAdd(Model model){
         model.addAttribute("adminAccount", new AdminAccount());
-        return "adminPages/edit";
+        return "cms/adminAccount/edit";
     }
 
     @PostMapping("/admins/submit")
@@ -66,7 +66,7 @@ public class AdminController {
         if(bindingResult.hasErrors()) {
             model.addAttribute("alertText", "Nie można zapisać administratora. Sprawdź błędy formularza.");
             model.addAttribute("alertType", "danger");
-            return "adminPages/edit";
+            return "cms/adminAccount/edit";
         }
 
         adminAccountService.saveAdminAccount(adminAccountRequest);
