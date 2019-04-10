@@ -26,15 +26,15 @@ public class RoleService implements RoleServiceInterface {
 
     @Override
     public Role getByRole(String role) {
-        Iterable<Role> roles = roleRepository.findAll();
-        Role returnRole = null;
 
-        for (Role rl : roles) {
-            if (rl.getRole().equals(role)) {
-                returnRole = rl;
+        Iterable<Role> roles = roleRepository.findAll();
+
+        for (Role roleReturn : roles) {
+            if (roleReturn.getRole().equals(role)) {
+                return roleReturn;
             }
         }
-        return returnRole;
+        return null;
     }
 
     @PostConstruct
