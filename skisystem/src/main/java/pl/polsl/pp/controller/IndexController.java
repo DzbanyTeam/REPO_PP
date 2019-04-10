@@ -35,7 +35,7 @@ public class IndexController {
 
     @GetMapping("/slopes")
     public String showSlopes() {
-        CustomerAccount ca = new CustomerAccount("Username"+ id,"Password",true,"Pawel","Debil","dada@o2.pl","dada");
+        CustomerAccount ca = new CustomerAccount("Username","Password",true,"Pawel","Debil","dada@o2.pl","dada");
         customerAccountService.saveCustomerAccount(ca);
         return "site/ski/slopes";
     }
