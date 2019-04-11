@@ -31,10 +31,8 @@ public class AppConfig implements WebMvcConfigurer
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("admin/login").setViewName("adminPages/login");
+        registry.addViewController("/login").setViewName("cms/auth/login");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-
-
     }
 
 

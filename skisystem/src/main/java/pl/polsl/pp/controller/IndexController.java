@@ -20,24 +20,23 @@ public class IndexController {
 
     @GetMapping("/")
     public String showIndexPage(){
-        return "index";
+        return "site/home/index";
     }
 
     @GetMapping("/prices")
     public String showPrices() {
-        return "index";
+        return "site/ski/prices";
     }
 
     @GetMapping("/lifts")
     public String showLifts() {
-        return "index";
+        return "site/ski/lifts";
     }
 
-    @GetMapping("/slopes/{id}")
-    public String showSlopes(@PathVariable String id) {
-        CustomerAccount ca = new CustomerAccount("Username"+ id,"Password",true,"Pawel","Debil","dada@o2.pl","dada");
+    @GetMapping("/slopes")
+    public String showSlopes() {
+        CustomerAccount ca = new CustomerAccount("Username","Password",true,"Pawel","Debil","dada@o2.pl","dada");
         customerAccountService.saveCustomerAccount(ca);
-        return "index";
+        return "site/ski/slopes";
     }
-
 }

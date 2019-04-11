@@ -24,9 +24,9 @@
     <c:if test="${adminAccount.id == 0}">
         <title>SkiSystem - panel administracyjny - dodawanie administratora</title>
     </c:if>
-    <link rel="stylesheet" href="<springc:url value="/resources/css/bootstrap.min.css"/>">
-    <link rel="stylesheet" href="<springc:url value="/resources/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<springc:url value="/resources/css/style.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/common/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/cms/css/style.css"/>">
 </head>
 
 <body>
