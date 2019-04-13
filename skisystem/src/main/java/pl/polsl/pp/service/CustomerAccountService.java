@@ -10,6 +10,7 @@ import pl.polsl.pp.repository.PermissionRepository;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 import pl.polsl.pp.service.interfaces.IPermissionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAccountService implements ICustomerAccountService {
@@ -32,11 +33,17 @@ public class CustomerAccountService implements ICustomerAccountService {
 
     @Override
     public CustomerAccount getCustomerAccountById(Long id) {
-        return null;
+        return customerAccountRepository.findById(id).get();
     }
 
     @Override
     public CustomerAccount getCustomerAccountByUsername(String username) {
+        List<CustomerAccount> customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAll();
+        for (CustomerAccount customerAccount : customerAccountList) {
+            if(customerAccount.getUsername().equals(username)) {
+                return customerAccount;
+            }
+        }
         return null;
     }
 
@@ -52,7 +59,7 @@ public class CustomerAccountService implements ICustomerAccountService {
                 customerAccount.setPassword(passwordEncoder.encode(newPassword));
             }
             customerAccountRepository.save(customerAccount);
-            Role role = roleService.getByRole("ROLE_USER");
+            Role role = roleService.getByRole("ROLE_CUSTOMER");
             permissionService.savePermission(customerAccount.getId(),role.getId());
             return true;
 
@@ -63,7 +70,16 @@ public class CustomerAccountService implements ICustomerAccountService {
 
     @Override
     public boolean deleteCustomerAccounts(List<Long> ids) {
-        return false;
+        try {
+            List<CustomerAccount> customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAllById(ids);
+            customerAccountRepository.deleteAll(customerAccountList);
+
+            permissionService.deletePermissions(ids);
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     @Override
@@ -78,6 +94,8 @@ public class CustomerAccountService implements ICustomerAccountService {
 
     @Override
     public List<CustomerAccount> getAllCustomerAccounts() {
-        return null;
+        List<CustomerAccount> customerAccountList = new ArrayList<>();
+        customerAccountRepository.findAll().forEach(ca -> customerAccountList.add(ca));
+        return customerAccountList;
     }
 }

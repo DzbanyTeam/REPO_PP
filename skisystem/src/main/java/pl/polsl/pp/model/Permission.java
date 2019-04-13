@@ -12,40 +12,36 @@ public class Permission implements Serializable {
     long id;
 
     @Column(nullable = false,unique = true)
-    private long user_id;
+    private long userId;
 
     @Column(nullable = false)
-    private long role_id;
+    private long roleId;
 
     public Permission() {
     }
 
-    public Permission(long user_id, long role_id) {
-        this.user_id = user_id;
-        this.role_id = role_id;
+    public Permission(long userId, long roleId) {
+        this.userId = userId;
+        this.roleId = roleId;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getUserId() {
+        return userId;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public long getRoleId() {
+        return roleId;
     }
 
-    public long getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(long role_id) {
-        this.role_id = role_id;
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
     }
 }

@@ -1,5 +1,8 @@
 package pl.polsl.pp.service.interfaces;
 
+import java.util.List;
+
 public interface IPermissionService {
-    public boolean savePermission(long userId, long roleId);
+    boolean savePermission(long userId, long roleId);
+    boolean deletePermissions(List<Long> userIds);
 }

@@ -55,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 
-                .antMatchers("/user","/user/login","/user/register","/user/remind-password/**","/user/reset-password").permitAll()
-                .antMatchers("/user/**").hasAuthority("ROLE_USER")
+                .antMatchers("/customer","/customer/login","/customer/register","/customer/remind-password/**","/customer/reset-password").permitAll()
+                .antMatchers("/customer/**").hasAuthority("ROLE_CUSTOMER")
 
                 .anyRequest().authenticated()
                 .and().csrf().disable()

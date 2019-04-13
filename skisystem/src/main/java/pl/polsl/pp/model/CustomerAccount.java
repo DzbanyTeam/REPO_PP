@@ -33,10 +33,6 @@ public class CustomerAccount implements Serializable {
     @Column
     private String phoneNumber;
 
-//    @ManyToMany
-//    @JoinTable(name="Users2Roles", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
-//    private Set<Role> roles;
-
     public CustomerAccount() {
     }
 
@@ -50,7 +46,7 @@ public class CustomerAccount implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

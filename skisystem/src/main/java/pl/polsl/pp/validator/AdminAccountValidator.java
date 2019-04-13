@@ -9,17 +9,15 @@ import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.service.interfaces.IAdminAccountService;
 
 @Component
-public class AdminAccountValidator implements Validator {
+public class AdminAccountValidator extends UserAccountValidator implements Validator {
 
 
     @Autowired
     @Qualifier("adminAccountService")
     private IAdminAccountService adminAccountService;
 
-    private AdminAccountValidatorPattern validatorPattern;
-
     public AdminAccountValidator() {
-        validatorPattern = new AdminAccountValidatorPattern();
+       super();
     }
 
     @Override
@@ -60,47 +58,11 @@ public class AdminAccountValidator implements Validator {
 
     }
 
-    private void validateUsernameForPattern(String username, Errors errors) {
-        if(!username.matches(validatorPattern.getUsernamePattern())) {
-            errors.rejectValue("username", validatorPattern.getUsernameErrorcodePattern(), validatorPattern.getUsernameMessagePattern());
-        }
-    }
-
     private void validateUsernameForRepetition(String username, Errors errors) {
-         if(adminAccountService.getAdminAccountByUsername(username) != null) {
+        if(adminAccountService.getAdminAccountByUsername(username) != null) {
             errors.rejectValue("username", validatorPattern.getUsernameErrorcodeRepetition(), validatorPattern.getUsernameMessageRepetition());
         }
     }
 
-    private void validatePassword(String password, Errors errors){
-        if(!password.matches(validatorPattern.getPasswordPattern())) {
-            errors.rejectValue("password", validatorPattern.getPasswordErrorcode(), validatorPattern.getPasswordMessage());
-        }
-    }
-
-    private void validateName(String name, Errors errors){
-        if(!name.matches(validatorPattern.getNamePattern())) {
-            errors.rejectValue("name", validatorPattern.getNameErrorcode(), validatorPattern.getNameMessage());
-        }
-    }
-
-    private void validateSurname(String surname, Errors errors){
-        if(!surname.matches(validatorPattern.getSurnamePattern())) {
-            errors.rejectValue("surname", validatorPattern.getSurnameErrorcode(), validatorPattern.getSurnameMessage());
-        }
-    }
-
-
-    private void validateEmail(String email, Errors errors){
-        if(!email.matches(validatorPattern.getEmailPattern())) {
-            errors.rejectValue("email", validatorPattern.getEmailErrorcode(), validatorPattern.getEmailMessage());
-        }
-    }
-
-    private void validatePhoneNumber(String phoneNumber, Errors errors){
-        if(!phoneNumber.matches(validatorPattern.getPhoneNumberPattern())) {
-            errors.rejectValue("phoneNumber", validatorPattern.getPhoneNumberErrorcode(), validatorPattern.getPhoneNumberMessage());
-        }
-    }
 
 }
