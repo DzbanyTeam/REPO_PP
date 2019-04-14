@@ -35,9 +35,6 @@ public class AdminAccount implements Serializable {
     @Column
     private String phoneNumber;
 
-//    @ManyToMany
-//    @JoinTable(name="Permission", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
-//    private Set<Role> roles;
 
     public AdminAccount(String username, String password, boolean isActive, String name, String surname, String email, String phoneNumber) {
         this.username = username;

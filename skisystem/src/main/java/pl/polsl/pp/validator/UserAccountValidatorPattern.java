@@ -1,29 +1,26 @@
 package pl.polsl.pp.validator;
 
-class AdminAccountValidatorPattern {
+class UserAccountValidatorPattern {
 
 
-    private String usernamePattern = "[a-zA-Z0-9_-]{3,}";
+    private String usernamePattern = "[a-zA-Z0-9]{3,}";
     private String usernameErrorcodePattern = "USERNAME_ERROR_PATTERN";
-    private String usernameMessagePattern = "Login może zawierać małe i wielkie litery, cyfry lub znaki: -_ oraz" +
-            "powinien składać się z minimum trzech znaków";
+    private String usernameMessagePattern = "Użyj małych lub wielkich liter lub cyfr oraz minimum 3 znaków";
 
     private String usernameErrorcodeRepetition = "USERNAME_ERROR_REPETITON";
-    private String usernameMessageRepetition = "Taki login juz istnieje";
+    private String usernameMessageRepetition = "Taki login już istnieje";
 
-
-    private String passwordPattern = "((?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%!-_]).{8,})";
+    private String passwordPattern = "((?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{6,})";
     private String passwordErrorcode = "PASSWORD_ERROR";
-    private String passwordMessage = "Hasło powinno zawierać małe i wielkie litery, cyfrę oraz jeden ze znaków @#$%!-_ oraz" +
-            "powinno składać się z minimum 8 znaków";
+    private String passwordMessage = "Użyj małych i wielkich liter, cyfr oraz minimum 6 znaków";
 
     private String namePattern = "[a-zA-Z]{3,}";
     private String nameErrorcode = "NAME_ERROR";
-    private String nameMessage = "Imię może składać się tylko z liter i minimum 3 znaków";
+    private String nameMessage = "Użyj małych lub wielkich liter i minimum 3 znaków";
 
     private String surnamePattern = "[a-zA-Z]{2,}";
     private String surnameErrorcode = "SURNAME_ERROR";
-    private String surnameMessage = "Nazwisko może składać się tylko z liter i minimum 2 znaków";
+    private String surnameMessage = "Użyj małych lub wielkich liter i minimum 2 znaków";
 
     private String emailPattern = "^[a-zA-Z0-9_!#$%&+/=?-]+@[a-zA-Z0-9.-]+$";
     private String emailErrorcode = "EMIAL_ERROR";

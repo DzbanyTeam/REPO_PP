@@ -9,6 +9,7 @@ import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.AdminAccountRepository;
 import pl.polsl.pp.service.interfaces.IAdminAccountService;
 import pl.polsl.pp.service.interfaces.IPermissionService;
+import pl.polsl.pp.service.interfaces.IRoleService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class AdminAccountService implements IAdminAccountService {
 
     @Autowired
     @Qualifier("roleService")
-    private RoleService roleService;
+    private IRoleService roleService;
 
     @Autowired
     @Qualifier("passwordEncoder")
@@ -84,6 +85,9 @@ public class AdminAccountService implements IAdminAccountService {
             List<AdminAccount> adminAccountList;
             adminAccountList = (List<AdminAccount>) adminAccountRepository.findAllById(ids);
             adminAccountRepository.deleteAll(adminAccountList);
+
+            permissionService.deletePermissions(ids);
+
             return true;
         } catch (Exception ex) {
             return false;

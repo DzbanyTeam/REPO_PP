@@ -27,20 +27,20 @@ public class RoleService implements IRoleService {
 
     @Override
     public Role getByRole(String role) {
-
         Iterable<Role> roles = roleRepository.findAll();
+        Role returnRole = null;
 
-        for (Role roleReturn : roles) {
-            if (roleReturn.getRole().equals(role)) {
-                return roleReturn;
+        for (Role rl : roles) {
+            if (rl.getRole().equals(role)) {
+                returnRole = rl;
             }
         }
-        return null;
+        return returnRole;
     }
 
     @PostConstruct
     private void initializeRoleTable(){
         this.saveRole(new Role("ROLE_ADMIN"));
-        this.saveRole(new Role("ROLE_USER"));
+        this.saveRole(new Role("ROLE_CUSTOMER"));
     }
 }

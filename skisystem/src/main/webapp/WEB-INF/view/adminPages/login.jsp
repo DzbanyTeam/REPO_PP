@@ -14,9 +14,9 @@
 <head>
     <meta charset="utf-8">
     <title>SkiSystem - panel administracyjny - logowanie</title>
-    <link rel="stylesheet" href="<c:url value="/resources/common/css/bootstrap.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/common/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/cms/css/style.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>">
 </head>
 
 <body class="bg-light">

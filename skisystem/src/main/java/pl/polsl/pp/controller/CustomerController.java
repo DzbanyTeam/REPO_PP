@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/customer")
+public class CustomerController {
 
 //    @GetMapping("/login")
 //    public String loginCustomer() {
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String showUser() {
+    public String showCustomer() {
         return "index";
     }
 
