@@ -1,16 +1,36 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Przemek-PC
-  Date: 26.03.2019
-  Time: 17:01
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!doctype html>
+<html lang="pl">
 <head>
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>SkiSystem</title>
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/site/css/home.css"/>">
 </head>
 <body>
-STRONA STARTOWA
+<div class="container">
+    <header class="masthead">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="<spring:url value="/"/>">Strona główna</a>
+                <a class="nav-link" href="<spring:url value="/lifts"/>">Wyciągi</a>
+                <a class="nav-link" href="<spring:url value="/slopes"/>">Strona główna</a>
+                <a class="nav-link" href="<spring:url value="/prices"/>">Cennik karnetów</a>
+                <a class="nav-link" href="<spring:url value="/customer"/>">Strefa klienta</a>
+            </nav>
+            <h3 class="masthead-brand">SkiSystem</h3>
+        </div>
+    </header>
+
+    <main class="cover">
+        <h1 class="cover-heading">SkiSystem</h1>
+        <p class="lead">Tekst zachęcający potencjalnych klientów do zapoznania się z ofertą i odwiedzenia kompleksu narciarskiego</p>
+        <p>
+            <a href="<spring:url value="/customer/tickets/purchase"/>" class="btn btn-lg btn-secondary">Kup karnet online</a>
+        </p>
+    </main>
+</div>
 </body>
 </html>

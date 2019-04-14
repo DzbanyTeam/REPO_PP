@@ -18,11 +18,11 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${adminAccount.id != 0}">
-        <title>SkiSystem - panel administracyjny - edycja administratora ${adminAccount.username}</title>
+    <c:if test="${customerAccount.id != 0}">
+        <title>SkiSystem - panel administracyjny - edycja klienta ${customerAccount.username}</title>
     </c:if>
-    <c:if test="${adminAccount.id == 0}">
-        <title>SkiSystem - panel administracyjny - dodawanie administratora</title>
+    <c:if test="${customerAccount.id == 0}">
+        <title>SkiSystem - panel administracyjny - dodawanie klienta</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
@@ -34,10 +34,10 @@
     <a class="navbar-brand" href="<spring:url value="/admin"/>">SkiSystem</a>
 
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/admins"/>">Administratorzy</a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
     </ul>
@@ -51,16 +51,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/admins"/>"><i class="fas fa-arrow-left"></i></a>
+            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/customers"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${adminAccount.id != 0}">
-                <h1 id="header">Edycja administratora ${adminAccount.username}</h1>
+            <c:if test="${customerAccount.id != 0}">
+                <h1 id="header">Edycja customeristratora ${customerAccount.username}</h1>
             </c:if>
-            <c:if test="${adminAccount.id == 0}">
-                <h1 id="header">Dodawanie administratora</h1>
+            <c:if test="${customerAccount.id == 0}">
+                <h1 id="header">Dodawanie customeristratora</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="adminAccount" action="/admin/admins/submit">
+            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/customer/customers/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}
@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label>Hasło</label>
                     <spring:bind path="password">
-                        <input class="form-control ${status.error ? 'is-invalid' : ''}" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${adminAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
+                        <input class="form-control ${status.error ? 'is-invalid' : ''}" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${customerAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
                     </spring:bind>
                     <form:errors path="password" class="invalid-feedback" />
 
@@ -119,7 +119,7 @@
                     </label>
                 </div>
                 <div class="text-right">
-                    <a href="<spring:url value="/admin/admins"/>" class="btn btn-light">Wróć</a>&ensp;
+                    <a href="<spring:url value="/admin/customers"/>" class="btn btn-light">Wróć</a>&ensp;
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </form:form>

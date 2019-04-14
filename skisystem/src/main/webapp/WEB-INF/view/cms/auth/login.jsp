@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!doctype html>
 
@@ -14,9 +14,9 @@
 <head>
     <meta charset="utf-8">
     <title>SkiSystem - panel administracyjny - logowanie</title>
-    <link rel="stylesheet" href="<c:url value="/resources/common/css/bootstrap.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/common/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="/resources/cms/css/style.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
 </head>
 
 <body class="bg-light">

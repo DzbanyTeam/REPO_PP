@@ -22,9 +22,12 @@
 <nav class="navbar navbar-expand bg-light">
     <a class="navbar-brand" href="<c:url value="/admin"/>">SkiSystem</a>
 
-    <ul class="navbar-nav mr-auto" id="navbar">
-        <li class="nav-item" id="navbar-item-schedule">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
             <a class="nav-link" href="<c:url value="/admin/admins"/>">Administratorzy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/customers"/>">Klienci</a>
         </li>
     </ul>
 

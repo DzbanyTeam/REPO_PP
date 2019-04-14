@@ -13,7 +13,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>SkiSystem - panel administracyjny - edycja administratorów</title>
+    <title>SkiSystem - panel administracyjny - edycja klientów</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -23,11 +23,11 @@
 <nav class="navbar navbar-expand bg-light">
     <a class="navbar-brand" href="<spring:url value="/admin"/>">SkiSystem</a>
 
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+    <ul class="navbar-nav mr-auto" id="navbar">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/admins"/>">Administratorzy</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
     </ul>
@@ -39,8 +39,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Administratorzy</h1>
-    <form action="<spring:url value="/admin/admins/update"/>" method="GET" class="mt-5">
+    <h1 id="header">customeristratorzy</h1>
+    <form action="<spring:url value="/admin/customers/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
@@ -58,21 +58,21 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${adminAccounts}" var="adminAccount">
+            <c:forEach items="${customerAccounts}" var="customerAccount">
             <tr>
-                <td><input type="checkbox" name="ids[]" value="${adminAccount.id}"></td>
-                <td>${adminAccount.username}</td>
-                <td>${adminAccount.name} ${adminAccount.surname}</td>
-                <c:if test="${adminAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
+                <td><input type="checkbox" name="ids[]" value="${customerAccount.id}"></td>
+                <td>${customerAccount.username}</td>
+                <td>${customerAccount.name} ${customerAccount.surname}</td>
+                <c:if test="${customerAccount.getIsActive()}">
+                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>
-                <c:if test="${!adminAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
+                <c:if test="${!customerAccount.getIsActive()}">
+                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
                 </c:if>
                 <td class="text-right py-2">
                     <div class="btn-group">
-                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/admins/edit/${adminAccount.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/admins/update?ids%5B%5D=${adminAccount.id}&action=delete"/>"></a>
+                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/customers/edit/${customerAccount.id}"/>"></a>
+                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=delete"/>"></a>
                     </div>
                 </td>
             </tr>
@@ -80,7 +80,7 @@
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/admins/add"/>" class="btn btn-primary float-right">Dodaj administratora&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/customers/add"/>" class="btn btn-primary float-right">Dodaj customeristratora&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>
