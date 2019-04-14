@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 
 @Controller
@@ -20,24 +17,22 @@ public class IndexController {
 
     @GetMapping("/")
     public String showIndexPage(){
-        return "index";
+        return "site/home/index";
     }
 
     @GetMapping("/prices")
     public String showPrices() {
-        return "index";
+        return "site/ski/prices";
     }
 
     @GetMapping("/lifts")
     public String showLifts() {
-        return "index";
+        return "site/ski/lifts";
     }
 
-    @GetMapping("/slopes/{id}")
-    public String showSlopes(@PathVariable String id) {
-        CustomerAccount ca = new CustomerAccount("Username"+ id,"Password",true,"Pawel","Debil","dada@o2.pl","dada");
-        customerAccountService.saveCustomerAccount(ca);
-        return "index";
+    @GetMapping("/slopes")
+    public String showSlopes() {
+        return "site/ski/slopes";
     }
 
 }

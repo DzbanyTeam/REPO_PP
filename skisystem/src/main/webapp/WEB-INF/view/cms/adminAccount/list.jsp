@@ -14,9 +14,9 @@
 <head>
     <meta charset="utf-8">
     <title>SkiSystem - panel administracyjny - edycja administratorów</title>
-    <link rel="stylesheet" href="<springc:url value="/resources/css/bootstrap.min.css"/>">
-    <link rel="stylesheet" href="<springc:url value="/resources/css/fontawesome.min.css"/>">
-    <link rel="stylesheet" href="<springc:url value="/resources/css/style.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/common/css/fontawesome.min.css"/>">
+    <link rel="stylesheet" href="<springc:url value="/resources/cms/css/style.css"/>">
 </head>
 
 <body>
@@ -88,7 +88,7 @@
     </form>
 </div>
 
-<script src="<springc:url value="/resources/js/jquery.js"/>"></script>
+<script src="<springc:url value="/resources/common/js/jquery.js"/>"></script>
 
 </body>
 </html>
