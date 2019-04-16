@@ -39,7 +39,7 @@
 
 
 <div class="container py-5">
-    <h1 id="header">customeristratorzy</h1>
+    <h1 id="header">Klienci</h1>
     <form action="<spring:url value="/admin/customers/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
@@ -80,7 +80,7 @@
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/customers/add"/>" class="btn btn-primary float-right">Dodaj customeristratora&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/customers/add"/>" class="btn btn-primary float-right">Dodaj klienta&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>

@@ -10,16 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @GetMapping("/login")
-    public String loginCustomer() {
-        return "site/auth/login";
-    }
-//
-//    @PostMapping("/login")
-//    public String submitLoginCustomer() {
-//        return "index";
-//    }
-
     @GetMapping("/register")
     public String showRegister() {
         return "site/auth/register";
@@ -47,7 +37,7 @@ public class CustomerController {
 
     @GetMapping("")
     public String showCustomer() {
-        return "index";
+        return "site/ski/lifts";
     }
 
     @GetMapping("/data")

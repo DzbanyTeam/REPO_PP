@@ -54,13 +54,13 @@
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/customers"/>"><i class="fas fa-arrow-left"></i></a>
 
             <c:if test="${customerAccount.id != 0}">
-                <h1 id="header">Edycja customeristratora ${customerAccount.username}</h1>
+                <h1 id="header">Edycja klienta ${customerAccount.username}</h1>
             </c:if>
             <c:if test="${customerAccount.id == 0}">
-                <h1 id="header">Dodawanie customeristratora</h1>
+                <h1 id="header">Dodawanie klienta</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/customer/customers/submit">
+            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/admin/customers/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}

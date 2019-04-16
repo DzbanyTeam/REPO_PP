@@ -11,8 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan("pl.polsl.pp.controller")
 @EnableWebMvc
-public class AppConfig implements WebMvcConfigurer
-{
+public class AppConfig implements WebMvcConfigurer {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -31,9 +30,10 @@ public class AppConfig implements WebMvcConfigurer
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("admin/login").setViewName("cms/auth/login");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
+        registry.addViewController("admin/login").setViewName("cms/auth/login");
+        registry.addViewController("customer/login").setViewName("site/auth/login");
+        registry.setOrder(Ordered.LOWEST_PRECEDENCE);
 
     }
 

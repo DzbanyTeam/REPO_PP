@@ -16,7 +16,7 @@
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link active" href="<spring:url value="/"/>">Strona główna</a>
                 <a class="nav-link" href="<spring:url value="/lifts"/>">Wyciągi</a>
-                <a class="nav-link" href="<spring:url value="/slopes"/>">Strona główna</a>
+                <a class="nav-link" href="<spring:url value="/slopes"/>">Stoki</a>
                 <a class="nav-link" href="<spring:url value="/prices"/>">Cennik karnetów</a>
                 <a class="nav-link" href="<spring:url value="/customer"/>">Strefa klienta</a>
             </nav>

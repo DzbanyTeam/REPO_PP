@@ -3,6 +3,7 @@ package pl.polsl.pp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.CustomerAccountRepository;
@@ -84,12 +85,38 @@ public class CustomerAccountService implements ICustomerAccountService {
 
     @Override
     public boolean deactivateCustomerAccounts(List<Long> ids) {
-        return false;
+
+
+        try {
+            List<CustomerAccount> customerAccountList;
+            customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAllById(ids);
+
+            for (CustomerAccount customerAccount : customerAccountList) {
+                customerAccount.setIsActive(false);
+                customerAccountRepository.save(customerAccount);
+            }
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
     }
 
     @Override
     public boolean activateCustomerAccounts(List<Long> ids) {
-        return false;
+
+        try {
+            List<CustomerAccount> customerAccountList;
+            customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAllById(ids);
+
+            for (CustomerAccount customerAccount : customerAccountList) {
+                customerAccount.setIsActive(true);
+                customerAccountRepository.save(customerAccount);
+            }
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
+
     }
 
     @Override
