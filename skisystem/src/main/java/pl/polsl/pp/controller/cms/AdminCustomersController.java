@@ -1,4 +1,4 @@
-package pl.polsl.pp.controller;
+package pl.polsl.pp.controller.cms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,98 +20,42 @@ import pl.polsl.pp.validator.CustomerAccountValidator;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
-
-    @Autowired
-    @Qualifier("adminAccountService")
-    private IAdminAccountService adminAccountService;
+@RequestMapping("/admin/customers")
+public class AdminCustomersController {
 
     @Autowired
     @Qualifier("customerAccountService")
     private ICustomerAccountService customerAccountService;
 
-    //@Autowired
-    //private AdminAccountValidator adminAccountValidator;
-
     @Autowired
     private CustomerAccountValidator customerAccountValidator;
 
-//    @InitBinder("CustomerAccount")
-//    protected void initBinderCustomer(WebDataBinder binder) {
-//        binder.addValidators(customerAccountValidator);
-//    }
-
-    @InitBinder //("CUSTOMER_FORM")
+    @InitBinder
     protected void initBinderCustomer(WebDataBinder binder) {
         binder.addValidators(customerAccountValidator);
     }
 
-   // @InitBinder("ADMIN_FORM")
-    //protected void initBinderAdmin(WebDataBinder binder) {
-    //    binder.addValidators(adminAccountValidator);
-    //}
-
-    public AdminController() {
+    public AdminCustomersController() {
     }
 
     @GetMapping("")
-    public String showAdmin() {
-        return "cms/home/index";
-    }
-
-    @GetMapping("/customers")
     public String showCustomers(Model model) {
         model.addAttribute("customerAccounts", customerAccountService.getAllCustomerAccounts());
         return "cms/customerAccount/list";
     }
-    @GetMapping("/customers/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showCustomersEdit(Model model, @PathVariable Long id) {
         model.addAttribute("customerAccount", customerAccountService.getCustomerAccountById(id));
         return "cms/customerAccount/edit";
     }
 
-    @GetMapping("/customers/add")
+    @GetMapping("/add")
     public String showCustomersAdd(Model model) {
         model.addAttribute("customerAccount", new CustomerAccount());
         return "cms/customerAccount/edit";
     }
 
-    @PostMapping("/admins/submit")
-    public String submitAdmin(@ModelAttribute("adminAccount") @Validated AdminAccount adminAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("alertText", "Nie można zapisać administratora. Sprawdź błędy formularza.");
-            model.addAttribute("alertType", "danger");
-            return "cms/adminAccount/edit";
-        }
-
-        adminAccountService.saveAdminAccount(adminAccountRequest);
-
-        redirectAttributes.addFlashAttribute("alertText", "Zapisano administratora.");
-        redirectAttributes.addFlashAttribute("alertType", "success");
-
-        return "redirect:/admin/admins/edit/" + adminAccountRequest.getId();
-    }
-
-    @GetMapping("/admins")
-    public String showAdmins(Model model) {
-        model.addAttribute("adminAccounts", adminAccountService.getAllAdminAccounts());
-        return "cms/adminAccount/list";
-    }
-
-    @GetMapping("/admins/edit/{id}")
-    public String showAdminsEdit(Model model, @PathVariable Long id) {
-        model.addAttribute("adminAccount", adminAccountService.getAdminAccountById(id));
-        return "cms/adminAccount/edit";
-    }
-
-    @GetMapping("/admins/add")
-    public String showAdminsAdd(Model model) {
-        model.addAttribute("adminAccount", new AdminAccount());
-        return "cms/adminAccount/edit";
-    }
-
-    @PostMapping("/customers/submit")
+    @PostMapping("/submit")
     public String submitCustomer(@ModelAttribute("customerAccount") @Validated CustomerAccount customerAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("alertText", "Nie można zapisać klienta. Sprawdź błędy formularza.");
@@ -127,7 +71,7 @@ public class AdminController {
         return "redirect:/admin/customers/edit/" + customerAccountRequest.getId();
     }
 
-    @GetMapping("/customers/update")
+    @GetMapping("/update")
     public String showCustomersUpdate(@RequestParam(name = "action") String action, @RequestParam(name = "ids[]", required = false) List<Long> ids, final RedirectAttributes redirectAttributes) {
         int size = ids.size();
 
@@ -150,26 +94,4 @@ public class AdminController {
         return "redirect:/admin/customers";
     }
 
-    @GetMapping("/admins/update")
-    public String showAdminsUpdate(@RequestParam(name = "action") String action, @RequestParam(name = "ids[]", required = false) List<Long> ids, final RedirectAttributes redirectAttributes) {
-        int size = ids.size();
-
-        switch (action) {
-            case "delete":
-                adminAccountService.deleteAdminAccounts(ids);
-                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Usunięto administatora." : ("Usunięto " + size + " administratorów."));
-                break;
-            case "activate":
-                adminAccountService.activateAdminAccounts(ids);
-                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Aktywowano administatora." : ("Aktywowano " + size + " administratorów."));
-                break;
-            case "deactivate":
-                adminAccountService.deactivateAdminAccounts(ids);
-                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Dezaktywowano administatora." : ("Dezaktywowano " + size + " administratorów."));
-                break;
-        }
-        redirectAttributes.addFlashAttribute("alertType", "success");
-
-        return "redirect:/admin/admins";
-    }
 }
