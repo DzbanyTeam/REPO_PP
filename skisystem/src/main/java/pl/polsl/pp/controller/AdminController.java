@@ -31,21 +31,26 @@ public class AdminController {
     @Qualifier("customerAccountService")
     private ICustomerAccountService customerAccountService;
 
-    @Autowired
-    private AdminAccountValidator adminAccountValidator;
+    //@Autowired
+    //private AdminAccountValidator adminAccountValidator;
 
-//    @Autowired
-//    private CustomerAccountValidator customerAccountValidator;
+    @Autowired
+    private CustomerAccountValidator customerAccountValidator;
 
 //    @InitBinder("CustomerAccount")
 //    protected void initBinderCustomer(WebDataBinder binder) {
 //        binder.addValidators(customerAccountValidator);
 //    }
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(adminAccountValidator);
+    @InitBinder //("CUSTOMER_FORM")
+    protected void initBinderCustomer(WebDataBinder binder) {
+        binder.addValidators(customerAccountValidator);
     }
+
+   // @InitBinder("ADMIN_FORM")
+    //protected void initBinderAdmin(WebDataBinder binder) {
+    //    binder.addValidators(adminAccountValidator);
+    //}
 
     public AdminController() {
     }

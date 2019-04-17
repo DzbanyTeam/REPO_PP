@@ -2,11 +2,13 @@ package pl.polsl.pp.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 
+@Component
 public class CustomerAccountValidator extends UserAccountValidator implements Validator {
 
     @Autowired
@@ -20,8 +22,8 @@ public class CustomerAccountValidator extends UserAccountValidator implements Va
     @Override
     public boolean supports(Class<?> aClass) {
         // odkomentowac gdy walidator bedzie potrzebny
-        //return CustomerAccount.class.isAssignableFrom(aClass);
-        return false;
+        return CustomerAccount.class.isAssignableFrom(aClass);
+        //return false;
     }
 
     @SuppressWarnings("Duplicates")

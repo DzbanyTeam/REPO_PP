@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label>Hasło</label>
                     <spring:bind path="password">
-                        <input class="form-control ${status.error ? 'is-invalid' : ''}" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${adminAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
+                        <input class="form-control ${status.error ? 'is-invalid' : ''}" name="password" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${adminAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
                     </spring:bind>
                     <form:errors path="password" class="invalid-feedback" />
 
