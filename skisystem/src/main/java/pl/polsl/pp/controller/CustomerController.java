@@ -1,14 +1,37 @@
 package pl.polsl.pp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.polsl.pp.model.CustomerAccount;
+import pl.polsl.pp.service.interfaces.ICustomerAccountService;
+import pl.polsl.pp.validator.CustomerAccountValidator;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
+
+    @Autowired
+    @Qualifier("customerAccountService")
+    private ICustomerAccountService customerAccountService;
+
+    @Autowired
+    private CustomerAccountValidator customerAccountValidator;
+
+    @InitBinder
+    protected void initBinderCustomer(WebDataBinder binder) {
+        binder.addValidators(customerAccountValidator);
+    }
+
+    public CustomerController() {
+
+    }
 
     @GetMapping("/register")
     public String showRegister() {
@@ -16,8 +39,19 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public String submitRegister() {
-        return "index";
+    public String submitRegister(@ModelAttribute("customerAccount") @Validated CustomerAccount customerAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("alertText", "Nie można zapisać klienta. Sprawdź błędy formularza.");
+            model.addAttribute("alertType", "danger");
+            return "site/auth/register";
+        }
+
+        customerAccountService.saveCustomerAccount(customerAccountRequest);
+
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano klienta.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
+        return "redirect:/customer/register";
     }
 
     @GetMapping("/remind-password")

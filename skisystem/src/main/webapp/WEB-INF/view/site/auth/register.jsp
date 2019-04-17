@@ -39,10 +39,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2 col-6">
                     <div class="form-group">
-                        <label>Imię i nazwisko</label>
+                        <label>Imię</label>
                         <input class="form-control" name="name">
+                    </div>
+                </div>
+                <div class="col-md-2 col-6">
+                    <div class="form-group">
+                        <label>Nazwisko</label>
+                        <input class="form-control" name="surname">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -54,7 +60,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Numer telefonu</label>
-                        <input class="form-control" name="phone">
+                        <input class="form-control" name="phoneNumber">
                     </div>
                 </div>
             </div>
