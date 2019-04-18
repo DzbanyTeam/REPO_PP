@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pl.polsl.pp.service.AdminAccountService;
 import pl.polsl.pp.service.CustomerAccountService;
-import pl.polsl.pp.service.PermissionService;
 import pl.polsl.pp.service.RoleService;
+import pl.polsl.pp.service.PermissionService;
 
 
 
@@ -17,6 +18,11 @@ import pl.polsl.pp.service.RoleService;
 @EnableJpaRepositories(basePackages = {"pl.polsl.pp.repository"})
 @EnableTransactionManagement
 public class JpaConfig {
+    @Bean
+    @Qualifier("adminAccountService")
+    public AdminAccountService adminAccountServiceInterface() {
+        return new AdminAccountService();
+    }
 
     @Bean
     @Qualifier("customerAccountService")

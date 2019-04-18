@@ -3,9 +3,11 @@ package pl.polsl.pp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.model.Role;
 import pl.polsl.pp.repository.CustomerAccountRepository;
+import pl.polsl.pp.repository.PermissionRepository;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 import pl.polsl.pp.service.interfaces.IPermissionService;
 
@@ -39,7 +41,7 @@ public class CustomerAccountService implements ICustomerAccountService {
     public CustomerAccount getCustomerAccountByUsername(String username) {
         List<CustomerAccount> customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAll();
         for (CustomerAccount customerAccount : customerAccountList) {
-            if (customerAccount.getUsername().equals(username)) {
+            if(customerAccount.getUsername().equals(username)) {
                 return customerAccount;
             }
         }
@@ -50,18 +52,19 @@ public class CustomerAccountService implements ICustomerAccountService {
     public boolean saveCustomerAccount(CustomerAccount customerAccount) {
         try {
             String newPassword = customerAccount.getPassword();
-            if (newPassword.isEmpty()) {
+            if(newPassword.isEmpty()) {
                 String oldPassword = getCustomerAccountById(customerAccount.getId()).getPassword();
                 customerAccount.setPassword(oldPassword);
-            } else {
+            }
+            else {
                 customerAccount.setPassword(passwordEncoder.encode(newPassword));
             }
             customerAccountRepository.save(customerAccount);
             Role role = roleService.getByRole("ROLE_CUSTOMER");
-            permissionService.savePermission(customerAccount.getId(), role.getId());
+            permissionService.savePermission(customerAccount.getId(),role.getId());
             return true;
 
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             return false;
         }
     }
@@ -93,7 +96,7 @@ public class CustomerAccountService implements ICustomerAccountService {
                 customerAccountRepository.save(customerAccount);
             }
             return true;
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             return false;
         }
     }
@@ -110,7 +113,7 @@ public class CustomerAccountService implements ICustomerAccountService {
                 customerAccountRepository.save(customerAccount);
             }
             return true;
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             return false;
         }
 

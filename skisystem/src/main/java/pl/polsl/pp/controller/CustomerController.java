@@ -40,16 +40,21 @@ public class CustomerController {
 
     @PostMapping("/register")
     public String submitRegister(@ModelAttribute("customerAccount") @Validated CustomerAccount customerAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) { //tutaj odbywa sie rowniez walidacja czy taki username istnieje
             model.addAttribute("alertText", "Nie można zapisać klienta. Sprawdź błędy formularza.");
             model.addAttribute("alertType", "danger");
             return "site/auth/register";
         }
 
-        customerAccountService.saveCustomerAccount(customerAccountRequest);
-
-        redirectAttributes.addFlashAttribute("alertText", "Zapisano klienta.");
-        redirectAttributes.addFlashAttribute("alertType", "success");
+        if (customerAccountRequest.getIsActive() != null) { //sprawdzenie czy uzytkownik wyrazil zgode na przetwarzanie danych osobowych
+            customerAccountRequest.setIsActive(false);
+            customerAccountService.saveCustomerAccount(customerAccountRequest);
+            redirectAttributes.addFlashAttribute("alertText", "Zapisano klienta.");
+            redirectAttributes.addFlashAttribute("alertType", "success");
+        } else {
+            redirectAttributes.addFlashAttribute("alertText", "Zaakceptuj zgodę na przetwarzanie danych osobowych.");
+            redirectAttributes.addFlashAttribute("alertType", "danger");
+        }
 
         return "redirect:/customer/register";
     }
@@ -125,5 +130,7 @@ public class CustomerController {
     }
 
     @PostMapping("/tickets/purchase")
-    public String submitTicketsPurchase() { return "index"; }
+    public String submitTicketsPurchase() {
+        return "index";
+    }
 }
