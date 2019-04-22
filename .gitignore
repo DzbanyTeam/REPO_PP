@@ -2,4 +2,6 @@
 
 *.class
 
-skisystem/\.idea/
+SkiSystem/\.idea/
+
+SkiSystem/\out/
