@@ -5,7 +5,3 @@
 skisystem/out
 
 skisystem/\.idea/*
-
-!skisystem/\.idea/modules\.xml
-!skisystem/\.idea/misc.xml
-!skisystem/\.idea/workspace.xml
