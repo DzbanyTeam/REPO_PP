@@ -27,7 +27,7 @@ public class Slope {
     private Integer endElevation;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="difficulty_id")
+    @JoinColumn(name="difficulty_id", nullable = false)
     private Difficulty difficulty;
 
     @Column(nullable = false)
@@ -39,6 +39,9 @@ public class Slope {
             joinColumns=@JoinColumn(name="slope_id", referencedColumnName="id", nullable = false),
             inverseJoinColumns=@JoinColumn(name="lift_id", referencedColumnName="id", nullable = false))
     private List<Lift> associatedLifts;
+
+    public Slope() {
+    }
 
     public Slope(String name, Integer length, Integer startElevation, Integer endElevation, Difficulty difficulty, Boolean isActive) {
         this.name = name;

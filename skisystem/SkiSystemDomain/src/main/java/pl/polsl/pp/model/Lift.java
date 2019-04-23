@@ -32,6 +32,9 @@ public class Lift {
     @ManyToMany(mappedBy = "associatedLifts")
     private List<Slope> associatedSlopes;
 
+    public Lift() {
+    }
+
     public Lift(String name, Integer length, Integer startElevation, Integer endElevation, Boolean isActive) {
         this.name = name;
         this.length = length;

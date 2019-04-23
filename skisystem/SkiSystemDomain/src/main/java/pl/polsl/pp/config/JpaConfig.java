@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pl.polsl.pp.model.Slope;
 import pl.polsl.pp.service.*;
 
 
@@ -41,4 +42,12 @@ public class JpaConfig {
     @Bean
     @Qualifier("difficultyService")
     public DifficultyService difficultyServiceInterface() { return new DifficultyService(); }
+
+    @Bean
+    @Qualifier("liftService")
+    public LiftService liftServiceInterface(){return new LiftService(); }
+
+    @Bean
+    @Qualifier("slopeService")
+    public SlopeService slopeServiceInterface(){return new SlopeService(); }
 }
