@@ -38,4 +38,7 @@ public class JpaConfig {
         return new PermissionService();
     }
 
+    @Bean
+    @Qualifier("difficultyService")
+    public DifficultyService difficultyServiceInterface() { return new DifficultyService(); }
 }

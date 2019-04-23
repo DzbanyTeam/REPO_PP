@@ -16,6 +16,9 @@ public class Difficulty {
     @Column(nullable = false, length = 50)
     private String name;
 
+    public Difficulty() {
+    }
+
     public Difficulty(String name) {
         this.name = name;
     }
