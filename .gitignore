@@ -2,6 +2,8 @@
 
 *.class
 
-SkiSystem/\.idea/
+skisystem/out
 
-SkiSystem/\out/
+skisystem/\.idea/*
+
+!skisystem/\.idea/modules\.xml

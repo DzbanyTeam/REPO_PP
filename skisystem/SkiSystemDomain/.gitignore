@@ -17,6 +17,8 @@ HELP.md
 *.iml
 *.ipr
 
+!SkiSystemDomain.iml
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

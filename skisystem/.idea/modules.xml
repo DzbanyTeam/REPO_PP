@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SkiSystemAdmin/SkiSystemAdmin.iml" filepath="$PROJECT_DIR$/SkiSystemAdmin/SkiSystemAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SkiSystemCustomer/SkiSystemCustomer.iml" filepath="$PROJECT_DIR$/SkiSystemCustomer/SkiSystemCustomer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SkiSystemDomain/SkiSystemDomain.iml" filepath="$PROJECT_DIR$/SkiSystemDomain/SkiSystemDomain.iml" />
+    </modules>
+  </component>
+</project>
