@@ -1,0 +1,7 @@
+cp -R intellij-config-init-files/.idea/. skisystem/.idea
+
+cp -R intellij-config-init-files/SkiSystemAdmin/. skisystem/SkiSystemAdmin
+
+cp -R intellij-config-init-files/SkiSystemCustomer/. skisystem/SkiSystemCustomer
+
+cp -R intellij-config-init-files/SkiSystemDomain/. skisystem/SkiSystemDomain
