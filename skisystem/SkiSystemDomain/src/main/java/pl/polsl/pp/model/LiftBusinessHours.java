@@ -8,13 +8,16 @@ import java.sql.Time;
  */
 @Entity
 @Table(name="Lifts_Business_Hours")
-public class LiftsBusinessHours extends BusinessHours {
+public class LiftBusinessHours extends BusinessHours {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="lift_id",nullable = false)
     private Lift lift;
 
-    public LiftsBusinessHours(Long dayId, Time openingHour, Time closingHour, Lift lift) {
+    public LiftBusinessHours() {
+    }
+
+    public LiftBusinessHours(Long dayId, Time openingHour, Time closingHour, Lift lift) {
         super(dayId, openingHour, closingHour);
         this.lift = lift;
     }

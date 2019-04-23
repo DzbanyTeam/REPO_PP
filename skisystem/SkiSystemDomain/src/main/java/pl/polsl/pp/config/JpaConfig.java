@@ -50,4 +50,36 @@ public class JpaConfig {
     @Bean
     @Qualifier("slopeService")
     public SlopeService slopeServiceInterface(){return new SlopeService(); }
+
+    @Bean
+    @Qualifier("ticketCategoryService")
+    public TicketCategoryService ticketCategoryServiceInterface() {return new TicketCategoryService();}
+
+    @Bean
+    @Qualifier("ticketTypeService")
+    public TicketTypeService ticketTypeServiceInterface() {return new TicketTypeService();}
+
+    @Bean
+    @Qualifier("priceService")
+    public PriceService priceServiceInterface() {return new PriceService();}
+
+    @Bean
+    @Qualifier("purchasedTicketService")
+    public PurchasedTicketService purchasedTicketServiceInterface() {return new PurchasedTicketService();}
+
+    @Bean
+    @Qualifier("ticketUseService")
+    public TicketUseService ticketUseServiceInterface() {return new TicketUseService();}
+
+    @Bean
+    @Qualifier("liftBusinessHoursService")
+    public LiftBusinessHoursService liftBusinessHoursServiceInterface() {return new LiftBusinessHoursService();}
+
+    @Bean
+    @Qualifier("slopeBusinessHoursService")
+    public SlopeBusinessHoursService slopeBusinessHoursServiceInterface() {return new SlopeBusinessHoursService();}
+
+    @Bean
+    @Qualifier("dayOfTheWeekService")
+    public DayOfTheWeekService dayOfTheWeekServiceInterface() {return new DayOfTheWeekService();}
 }

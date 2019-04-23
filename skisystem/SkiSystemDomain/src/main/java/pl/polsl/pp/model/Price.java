@@ -32,6 +32,9 @@ public class Price {
     @Column
     private Date endDatetime;
 
+    public Price() {
+    }
+
     public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, Date startDatetime, Date endDatetime) {
         this.ticketType = ticketType;
         this.ticketCategory = ticketCategory;

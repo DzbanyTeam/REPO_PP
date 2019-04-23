@@ -8,13 +8,16 @@ import java.sql.Time;
  */
 @Entity
 @Table(name="Slopes_Business_Hours")
-public class SlopesBusinessHours extends BusinessHours {
+public class SlopeBusinessHours extends BusinessHours {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="slope_id", nullable = false)
     private Slope slope;
 
-    public SlopesBusinessHours(Long dayId, Time openingHour, Time closingHour, Slope slope) {
+    public SlopeBusinessHours() {
+    }
+
+    public SlopeBusinessHours(Long dayId, Time openingHour, Time closingHour, Slope slope) {
         super(dayId, openingHour, closingHour);
         this.slope = slope;
     }

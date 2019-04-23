@@ -31,6 +31,9 @@ public class PurchasedTicket {
     @Column(nullable = false)
     boolean isActive;
 
+    public PurchasedTicket() {
+    }
+
     public PurchasedTicket(CustomerAccount customer, Price price, Date purchaseDatetime, Date expirationDatetime, boolean isActive) {
         this.customer = customer;
         this.price = price;

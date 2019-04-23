@@ -19,6 +19,9 @@ public class TicketCategory {
     @Column //default length is 255
     private String description;
 
+    public TicketCategory() {
+    }
+
     public TicketCategory(String name, String description) {
         this.name = name;
         this.description = description;

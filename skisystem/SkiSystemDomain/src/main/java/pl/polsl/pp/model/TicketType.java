@@ -25,6 +25,9 @@ public class TicketType {
     @Column(nullable = false)
     private boolean isActive;
 
+    public TicketType() {
+    }
+
     public TicketType(String name, int numberOfHours, String description, boolean isActive) {
         this.name = name;
         this.numberOfHours = numberOfHours;

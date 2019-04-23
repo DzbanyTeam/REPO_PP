@@ -25,6 +25,9 @@ public class TicketUse {
     @Column(nullable = false)
     private Date datetime;
 
+    public TicketUse() {
+    }
+
     public TicketUse(PurchasedTicket ticket, Lift lift, Date datetime) {
         this.ticket = ticket;
         this.lift = lift;

@@ -16,6 +16,9 @@ public class DayOfTheWeek {
     @Column(nullable = false, length = 50)
     private String name;
 
+    public DayOfTheWeek() {
+    }
+
     public DayOfTheWeek(String name) {
         this.name = name;
     }
