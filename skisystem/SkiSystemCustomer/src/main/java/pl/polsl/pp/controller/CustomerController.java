@@ -76,7 +76,7 @@ public class CustomerController {
 
     @GetMapping("")
     public String showCustomer() {
-        return "site/ski/lifts";
+        return "site/customer/panel";
     }
 
     @GetMapping("/data")
@@ -133,4 +133,5 @@ public class CustomerController {
     public String submitTicketsPurchase() {
         return "index";
     }
+
 }

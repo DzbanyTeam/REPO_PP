@@ -9,7 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.polsl.pp.model.AdminAccount;
 import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 import pl.polsl.pp.validator.CustomerAccountValidator;
