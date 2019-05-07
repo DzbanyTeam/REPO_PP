@@ -51,16 +51,16 @@ public class AdminSlopesController {
     @GetMapping("/edit/{id}")
     public String showSlopesEdit(Model model, @PathVariable Long id) {
         model.addAttribute("slope", slopeService.getSlopeById(id));
-        model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
-        model.addAttribute("lifts", liftService.getAllLiftsNames());
+        model.addAttribute("difficulties", difficultyService.getAllDifficulties());
+        model.addAttribute("lifts", liftService.getAllLifts());
         return "cms/slope/edit";
     }
 
     @GetMapping("/add")
     public String showSlopesAdd(Model model) {
         model.addAttribute("slope", new Slope());
-        model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
-        model.addAttribute("lifts", liftService.getAllLiftsNames());
+        model.addAttribute("difficulties", difficultyService.getAllDifficulties());
+        model.addAttribute("lifts", liftService.getAllLifts());
         return "cms/slope/edit";
     }
 

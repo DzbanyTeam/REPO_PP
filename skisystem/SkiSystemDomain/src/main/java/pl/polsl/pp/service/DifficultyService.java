@@ -48,11 +48,4 @@ public class DifficultyService implements IDifficultyService {
         difficultyRepository.findAll().forEach(d -> difficultyList.add(d));
         return difficultyList;
     }
-
-    @Override
-    public Map<Long, String> getAllDifficultiesNames() {
-        Map<Long, String> names = new HashMap<Long, String>();
-        difficultyRepository.findAll().forEach(d -> names.put(d.getId(), d.getName()));
-        return names;
-    }
 }

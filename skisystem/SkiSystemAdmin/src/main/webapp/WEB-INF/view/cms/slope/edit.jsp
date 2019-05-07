@@ -120,13 +120,13 @@
                 <div class="form-group">
                     <label>Trudność</label>
                     <form:select class="custom-select" path="difficulty">
-                        <form:options items="${difficulties}" />
+                        <form:options items="${difficulties}" itemValue="id" itemLabel="name"/>
                     </form:select>
                 </div>
                 <div class="form-group">
                     <label>Powiązane wyciągi</label>
                     <form:select class="custom-select" path="associatedLifts" multiple="true">
-                        <form:options items="${lifts}" />
+                        <form:options items="${lifts}" itemValue="id" itemLabel="name" />
                     </form:select>
                 </div>
                 <div class="form-check">

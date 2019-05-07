@@ -13,5 +13,4 @@ public interface ILiftService {
     boolean activateLifts(List<Long> ids);
     boolean deactivateLifts(List<Long> ids);
     List<Lift> getAllLifts();
-    Map<Long, String> getAllLiftsNames();
 }

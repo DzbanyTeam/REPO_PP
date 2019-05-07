@@ -72,11 +72,4 @@ public class LiftService implements ILiftService {
         liftRepository.findAll().forEach(l -> liftList.add(l));
         return liftList;
     }
-
-    @Override
-    public Map<Long, String> getAllLiftsNames() {
-        Map<Long, String> names = new HashMap<Long, String>();
-        liftRepository.findAll().forEach(d -> names.put(d.getId(), d.getName()));
-        return names;
-    }
 }

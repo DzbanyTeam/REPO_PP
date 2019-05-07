@@ -11,5 +11,4 @@ public interface IDifficultyService {
     boolean saveDifficulty(Difficulty difficulty);
     boolean deleteDifficulties(List<Long> ids);
     List<Difficulty> getAllDifficulties();
-    Map<Long, String> getAllDifficultiesNames();
 }
