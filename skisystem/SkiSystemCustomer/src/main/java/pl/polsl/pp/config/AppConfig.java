@@ -32,6 +32,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
 
         registry.addViewController("customer/login").setViewName("site/auth/login");
+        registry.addViewController("customer/panel").setViewName("site/customer/panel");
         registry.setOrder(Ordered.LOWEST_PRECEDENCE);
 
     }
