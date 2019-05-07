@@ -10,6 +10,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.polsl.pp.model.Slope;
+import pl.polsl.pp.service.interfaces.IDifficultyService;
 import pl.polsl.pp.service.interfaces.ISlopeService;
 
 import java.util.List;
@@ -21,6 +22,10 @@ public class AdminSlopesController {
     @Autowired
     @Qualifier("slopeServiceInterface")
     private ISlopeService slopeService;
+
+    @Autowired
+    @Qualifier("difficultyServiceInterface")
+    private IDifficultyService difficultyService;
 
     //@Autowired
     //private SlopeValidator slopeValidator;
@@ -41,12 +46,14 @@ public class AdminSlopesController {
     @GetMapping("/edit/{id}")
     public String showSlopesEdit(Model model, @PathVariable Long id) {
         model.addAttribute("slope", slopeService.getSlopeById(id));
+        model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
         return "cms/slope/edit";
     }
 
     @GetMapping("/add")
     public String showSlopesAdd(Model model) {
         model.addAttribute("slope", new Slope());
+        model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
         return "cms/slope/edit";
     }
 

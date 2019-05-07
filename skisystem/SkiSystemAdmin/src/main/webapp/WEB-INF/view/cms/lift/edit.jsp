@@ -117,6 +117,7 @@
                     </spring:bind>
                     <form:errors path="endElevation" class="invalid-feedback" />
                 </div>
+
                 <div class="form-check">
                     <label class="form-check-label">
                         <form:checkbox path="isActive" class="form-check-input"/>

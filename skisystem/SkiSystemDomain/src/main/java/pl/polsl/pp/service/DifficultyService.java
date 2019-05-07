@@ -7,7 +7,9 @@ import pl.polsl.pp.repository.DifficultyRepository;
 import pl.polsl.pp.service.interfaces.IDifficultyService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DifficultyService implements IDifficultyService {
 
@@ -45,5 +47,12 @@ public class DifficultyService implements IDifficultyService {
         List<Difficulty> difficultyList = new ArrayList<>();
         difficultyRepository.findAll().forEach(d -> difficultyList.add(d));
         return difficultyList;
+    }
+
+    @Override
+    public Map<Long, String> getAllDifficultiesNames() {
+        Map<Long, String> names = new HashMap<Long, String>();
+        difficultyRepository.findAll().forEach(d -> names.put(d.getId(), d.getName()));
+        return names;
     }
 }

@@ -117,6 +117,12 @@
                     </spring:bind>
                     <form:errors path="endElevation" class="invalid-feedback" />
                 </div>
+                <div class="form-group">
+                    <label>Trudność</label>
+                    <form:select class="custom-select" path="difficulty">
+                        <form:options items="${difficulties}" />
+                    </form:select>
+                </div>
                 <div class="form-check">
                     <label class="form-check-label">
                         <form:checkbox path="isActive" class="form-check-input"/>
