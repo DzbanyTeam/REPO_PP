@@ -70,7 +70,7 @@
                 <td><input type="checkbox" name="ids[]" value="${slope.id}"></td>
                 <td>${slope.name}</td>
                 <td>${slope.length} m</td>
-                <td>${slope.difficulty ? slope.difficulty.getName() : ""}</td>
+                <td>${slope.difficulty != null ? slope.difficulty.getName() : ""}</td>
                 <c:if test="${slope.getIsActive()}">
                     <td><a class="text-success" href="<spring:url value="/admin/slopes/update?ids%5B%5D=${slope.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>

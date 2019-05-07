@@ -7,7 +7,9 @@ import pl.polsl.pp.repository.LiftRepository;
 import pl.polsl.pp.service.interfaces.ILiftService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LiftService implements ILiftService {
 
@@ -69,5 +71,12 @@ public class LiftService implements ILiftService {
         List<Lift> liftList = new ArrayList<>();
         liftRepository.findAll().forEach(l -> liftList.add(l));
         return liftList;
+    }
+
+    @Override
+    public Map<Long, String> getAllLiftsNames() {
+        Map<Long, String> names = new HashMap<Long, String>();
+        liftRepository.findAll().forEach(d -> names.put(d.getId(), d.getName()));
+        return names;
     }
 }

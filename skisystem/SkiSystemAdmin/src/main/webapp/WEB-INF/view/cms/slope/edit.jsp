@@ -123,6 +123,12 @@
                         <form:options items="${difficulties}" />
                     </form:select>
                 </div>
+                <div class="form-group">
+                    <label>Powiązane wyciągi</label>
+                    <form:select class="custom-select" path="associatedLifts" multiple="true">
+                        <form:options items="${lifts}" />
+                    </form:select>
+                </div>
                 <div class="form-check">
                     <label class="form-check-label">
                         <form:checkbox path="isActive" class="form-check-input"/>

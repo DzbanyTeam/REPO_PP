@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.polsl.pp.model.Slope;
 import pl.polsl.pp.service.interfaces.IDifficultyService;
+import pl.polsl.pp.service.interfaces.ILiftService;
 import pl.polsl.pp.service.interfaces.ISlopeService;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class AdminSlopesController {
     @Autowired
     @Qualifier("difficultyServiceInterface")
     private IDifficultyService difficultyService;
+
+    @Autowired
+    @Qualifier("liftServiceInterface")
+    private ILiftService liftService;
 
     //@Autowired
     //private SlopeValidator slopeValidator;
@@ -47,6 +52,7 @@ public class AdminSlopesController {
     public String showSlopesEdit(Model model, @PathVariable Long id) {
         model.addAttribute("slope", slopeService.getSlopeById(id));
         model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
+        model.addAttribute("lifts", liftService.getAllLiftsNames());
         return "cms/slope/edit";
     }
 
@@ -54,6 +60,7 @@ public class AdminSlopesController {
     public String showSlopesAdd(Model model) {
         model.addAttribute("slope", new Slope());
         model.addAttribute("difficulties", difficultyService.getAllDifficultiesNames());
+        model.addAttribute("lifts", liftService.getAllLiftsNames());
         return "cms/slope/edit";
     }
 
@@ -70,7 +77,7 @@ public class AdminSlopesController {
         redirectAttributes.addFlashAttribute("alertText", "Zapisano stok.");
         redirectAttributes.addFlashAttribute("alertType", "success");
 
-        return "redirect:/admin/slope/edit/" + slopeRequest.getId();
+        return "redirect:/admin/slopes/edit/" + slopeRequest.getId();
     }
 
     @GetMapping("/update")

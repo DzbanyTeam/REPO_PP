@@ -3,6 +3,7 @@ package pl.polsl.pp.service.interfaces;
 import pl.polsl.pp.model.Lift;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ILiftService {
 
@@ -12,4 +13,5 @@ public interface ILiftService {
     boolean activateLifts(List<Long> ids);
     boolean deactivateLifts(List<Long> ids);
     List<Lift> getAllLifts();
+    Map<Long, String> getAllLiftsNames();
 }
