@@ -12,17 +12,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${customerAccount.id != 0}">
-        <title>SkiSystem - panel administracyjny - edycja klienta ${customerAccount.username}</title>
+    <c:if test="${slope.id != 0}">
+        <title>SkiSystem - panel administracyjny - edycja stoku ${slope.name}</title>
     </c:if>
-    <c:if test="${customerAccount.id == 0}">
-        <title>SkiSystem - panel administracyjny - dodawanie klienta</title>
+    <c:if test="${slope.id == 0}">
+        <title>SkiSystem - panel administracyjny - dodawanie stoku</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
@@ -37,10 +36,10 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/admins"/>">Administratorzy</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
         </li>
         <li class="nav-item">
@@ -57,16 +56,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/customers"/>"><i class="fas fa-arrow-left"></i></a>
+            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/slopes"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${customerAccount.id != 0}">
-                <h1 id="header">Edycja klienta ${customerAccount.username}</h1>
+            <c:if test="${slope.id != 0}">
+                <h1 id="header">Edycja stoku ${slope.name}</h1>
             </c:if>
-            <c:if test="${customerAccount.id == 0}">
-                <h1 id="header">Dodawanie klienta</h1>
+            <c:if test="${slope.id == 0}">
+                <h1 id="header">Dodawanie stoku</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/admin/customers/submit">
+            <form:form method="post" class="mt-5" modelAttribute="slope" action="/admin/slopes/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}
@@ -76,47 +75,47 @@
 
                 <form:hidden path="id" name="id"/>
                 <div class="form-group">
-                    <label>Nazwa użytkownika</label>
-                    <spring:bind path="username">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="username"/>
-                    </spring:bind>
-                    <form:errors path="username" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Hasło</label>
-                    <spring:bind path="password">
-                        <input class="form-control ${status.error ? 'is-invalid' : ''}" name="password" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${customerAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
-                    </spring:bind>
-                    <form:errors path="password" class="invalid-feedback" />
-
-                </div>
-                <div class="form-group">
-                    <label>Imię</label>
+                    <label>Nazwa</label>
                     <spring:bind path="name">
                         <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="name"/>
                     </spring:bind>
                     <form:errors path="name" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Nazwisko</label>
-                    <spring:bind path="surname">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="surname"/>
+                    <label>Długość</label>
+                    <spring:bind path="length">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">m</div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="length"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="surname" class="invalid-feedback" />
+                    <form:errors path="length" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Adres e-mail</label>
-                    <spring:bind path="email">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="email"/>
+                    <label>Wysokość początkowa</label>
+                    <spring:bind path="startElevation">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">mnpm</div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="startElevation"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="email" class="invalid-feedback" />
+                    <form:errors path="startElevation" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Numer telefonu</label>
-                    <spring:bind path="phoneNumber">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="phoneNumber"/>
+                    <label>Wysokość końcowa</label>
+                    <spring:bind path="endElevation">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">mnpm</div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="endElevation"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="phoneNumber" class="invalid-feedback" />
+                    <form:errors path="endElevation" class="invalid-feedback" />
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
@@ -125,7 +124,7 @@
                     </label>
                 </div>
                 <div class="text-right">
-                    <a href="<spring:url value="/admin/customers"/>" class="btn btn-light">Wróć</a>&ensp;
+                    <a href="<spring:url value="/admin/slopes"/>" class="btn btn-light">Wróć</a>&ensp;
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </form:form>

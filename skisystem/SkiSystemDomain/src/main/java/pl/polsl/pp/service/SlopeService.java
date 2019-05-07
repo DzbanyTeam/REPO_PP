@@ -55,7 +55,7 @@ public class SlopeService implements ISlopeService {
         try{
             List<Slope> slopeList = (List<Slope>)slopeRepository.findAllById(ids);
             slopeList.forEach(s -> {
-                s.setActive(newStatus);
+                s.setIsActive(newStatus);
             });
             slopeRepository.saveAll(slopeList);
             return true;

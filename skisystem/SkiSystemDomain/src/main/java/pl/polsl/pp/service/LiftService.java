@@ -55,7 +55,7 @@ public class LiftService implements ILiftService {
         try{
             List<Lift> liftList = (List<Lift>)liftRepository.findAllById(ids);
             liftList.forEach(l -> {
-                l.setActive(newStatus);
+                l.setIsActive(newStatus);
             });
             liftRepository.saveAll(liftList);
             return true;

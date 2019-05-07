@@ -30,6 +30,12 @@
         <li class="nav-item active">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
+        </li>
     </ul>
 
     <a href="<spring:url value="/admin/logout"/>" class="navbar-brand" id="logout-button">
