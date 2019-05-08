@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 
@@ -32,10 +33,12 @@
                     <p class="lead mb-5">Logowanie do panelu administracyjnego</p>
                 </div>
 
-                <div class="alert" id="alert" style="display: none">
-                    <span id="alert-content"></span>
-                    <button class="close" onclick="$('#alert').slideUp();">&times;</button>
-                </div>
+                <c:if test="${param.error != null}">
+                    <div class="alert alert-danger">
+                        Podano błędne dane logowania.
+                        <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
+                    </div>
+                </c:if>
 
                 <form method="POST">
                     <div class="form-group">
@@ -60,6 +63,8 @@
         </div>
     </div>
 </div>
+
+<script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
 
 </body>
 </html>

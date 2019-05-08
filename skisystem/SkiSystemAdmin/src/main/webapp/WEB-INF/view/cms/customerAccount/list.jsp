@@ -50,7 +50,7 @@
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
-                <button class="close" onclick="$(this.closest('.alert')).slideUp(); return false;">&times;</button>
+                <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
             </div>
         </c:if>
         <table class="table">

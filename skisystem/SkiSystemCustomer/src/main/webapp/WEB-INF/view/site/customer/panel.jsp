@@ -38,6 +38,7 @@
 <body class="bg-light">
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Strefa klienta SkiProject</h5>
+    <a class="btn btn-default mr-3" href="<spring:url value="/customer/logout"/>"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
     <a class="btn btn-secondary" href="<spring:url value="/"/>">Powrót do serwisu</a>
 </div>
 <div class="d-flex flex-md-row">
