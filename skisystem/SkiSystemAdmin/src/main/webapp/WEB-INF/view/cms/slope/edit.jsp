@@ -24,6 +24,7 @@
         <title>SkiSystem - panel administracyjny - dodawanie stoku</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap-select.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
 </head>
@@ -125,7 +126,7 @@
                 </div>
                 <div class="form-group">
                     <label>Powiązane wyciągi</label>
-                    <form:select class="custom-select" path="associatedLifts" multiple="true">
+                    <form:select path="associatedLifts" multiple="true">
                         <form:options items="${lifts}" itemValue="id" itemLabel="name" />
                     </form:select>
                 </div>
@@ -143,6 +144,17 @@
         </div>
     </div>
 </div>
+
+<script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap.bundle.min.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap-select.min.js"/>"></script>
+<script>
+    $(function () {
+        $('#associatedLifts').selectpicker({
+            width: '100%'
+        });
+    });
+</script>
 
 </body>
 </html>
