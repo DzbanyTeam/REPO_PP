@@ -13,7 +13,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>SkiSystem - panel administracyjny - edycja klientów</title>
+    <title>SkiSystem - panel administracyjny - bilety klienta ${customerAccount.username}</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -45,8 +45,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Klienci</h1>
-    <form action="<spring:url value="/admin/customers/update"/>" method="GET" class="mt-5">
+    <h1 id="header">Bilety klienta ${customerAccount.username}</h1>
+    <form action="<spring:url value="/admin/purchased-tickets/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
@@ -57,34 +57,28 @@
             <thead class="thead-dark">
             <tr>
                 <th></th>
-                <th>Nazwa użytkownika</th>
-                <th>Imię i nazwisko</th>
-                <th>Kupione bilety</th>
+                <th>Bilet</th>
+                <th>Data zakupu</th>
                 <th>Aktywny</th>
                 <th class="text-right">Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${customerAccounts}" var="customerAccount">
+            <c:forEach items="${purchasedTickets}" var="purchasedTicket">
             <tr>
-                <td><input type="checkbox" name="ids[]" value="${customerAccount.id}"></td>
-                <td>${customerAccount.username}</td>
-                <td>${customerAccount.name} ${customerAccount.surname}</td>
-                <td>
-                    <a class="btn btn-secondary" href="<spring:url value="/admin/purchased-tickets/${customerAccount.id}"/>">
-                        ${customerAccount.getPuchasedTickets().size()}
-                    </a>
-                </td>
-                <c:if test="${customerAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
+                <td><input type="checkbox" name="ids[]" value="${purchasedTicket.id}"></td>
+                <td>${purchasedTicket.getPrice().getTicketType().getName()} ${purchasedTicket.getPrice().getTicketCategory().getName()}</td>
+                <td>${purchasedTicket.purchaseDatetime}</td>
+                <c:if test="${purchasedTicket.getIsActive()}">
+                    <td><a class="text-success" href="<spring:url value="/admin/purchased-tickets/update?ids%5B%5D=${purchasedTicket.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>
-                <c:if test="${!customerAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
+                <c:if test="${!purchasedTicket.getIsActive()}">
+                    <td><a class="text-success" href="<spring:url value="/admin/purchased-tickets/update?ids%5B%5D=${purchasedTicket.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
                 </c:if>
                 <td class="text-right py-2">
                     <div class="btn-group">
-                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/customers/edit/${customerAccount.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=delete"/>"></a>
+                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/purchased-tickets/edit/${purchasedTicket.id}"/>"></a>
+                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/purchased-tickets/update?ids%5B%5D=${purchasedTicket.id}&action=delete"/>"></a>
                     </div>
                 </td>
             </tr>
@@ -92,7 +86,7 @@
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/customers/add"/>" class="btn btn-primary float-right">Dodaj klienta&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/purchased-tickets/add"/>" class="btn btn-primary float-right">Dodaj klienta&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>

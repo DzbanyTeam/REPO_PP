@@ -2,6 +2,8 @@ package pl.polsl.pp.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -108,6 +110,10 @@ public class CustomerAccount implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<PurchasedTicket> getPuchasedTickets() {
+        return new LinkedList<>();
     }
 
 }

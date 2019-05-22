@@ -90,4 +90,8 @@ public class Price {
     public void setEndDatetime(Date endDatetime) {
         this.endDatetime = endDatetime;
     }
+
+    public String toString() {
+        return (ticketType == null ? "" : ticketType.getName()) + " " + (ticketCategory == null ? "" : ticketCategory.getName());
+    }
 }
