@@ -112,7 +112,7 @@ public class CustomerAccount implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<PurchasedTicket> getPuchasedTickets() {
+    public List<PurchasedTicket> getPurchasedTickets() {
         return new LinkedList<>();
     }
 

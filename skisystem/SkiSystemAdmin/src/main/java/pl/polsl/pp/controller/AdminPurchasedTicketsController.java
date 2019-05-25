@@ -44,7 +44,7 @@ public class AdminPurchasedTicketsController {
     public String submitPurchasedTicket(@ModelAttribute("purchasedTicket") @Validated PurchasedTicket purchasedTicketRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
         // TODO: implement
 
-        return "redirect:/admin/purchasedTickets/edit/" + purchasedTicketRequest.getId();
+        return "redirect:/admin/purchased-tickets/edit/" + purchasedTicketRequest.getId();
     }
 
     @GetMapping("/update")

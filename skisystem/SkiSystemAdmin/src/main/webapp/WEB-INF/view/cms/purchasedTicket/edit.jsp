@@ -41,6 +41,14 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
+            </div>
+        </li>
     </ul>
 
     <a href="<spring:url value="/admin/logout"/>" class="navbar-brand" id="logout-button">
@@ -105,6 +113,9 @@
         </div>
     </div>
 </div>
+
+<script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap.bundle.min.js"/>"></script>
 
 </body>
 </html>

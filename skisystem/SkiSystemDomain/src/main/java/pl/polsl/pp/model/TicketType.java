@@ -17,13 +17,13 @@ public class TicketType {
     private String name;
 
     @Column(nullable = false)
-    private int numberOfHours;
+    private Integer numberOfHours;
 
     @Column // default length is 255
     private String description;
 
     @Column(nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     public TicketType() {
     }
@@ -67,11 +67,11 @@ public class TicketType {
         this.description = description;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 }

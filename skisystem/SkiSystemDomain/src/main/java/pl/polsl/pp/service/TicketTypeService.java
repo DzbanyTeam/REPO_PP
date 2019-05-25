@@ -55,7 +55,7 @@ public class TicketTypeService implements ITicketTypeService {
         try{
             List<TicketType> ticketTypeList = (List<TicketType>)ticketTypeRepository.findAllById(ids);
             ticketTypeList.forEach(l -> {
-                l.setActive(newStatus);
+                l.setIsActive(newStatus);
             });
             ticketTypeRepository.saveAll(ticketTypeList);
             return true;
