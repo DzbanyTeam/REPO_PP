@@ -92,6 +92,13 @@ public class Price {
     }
 
     public String toString() {
-        return (ticketType == null ? "" : ticketType.getName()) + " " + (ticketCategory == null ? "" : ticketCategory.getName());
+        return (ticketType == null ? "" : ticketType.getName())
+            + " "
+            + (ticketCategory == null ? "" : ticketCategory.getName())
+            + " (od "
+            + startDatetime
+            + " do "
+            + endDatetime
+            + ")";
     }
 }
