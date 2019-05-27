@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/site/css/home.css"/>">
 </head>
-<body>
+<body class="home">
 <div class="container">
     <header class="masthead">
         <div class="inner">
