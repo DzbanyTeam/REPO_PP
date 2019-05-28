@@ -12,4 +12,5 @@ public interface IPurchasedTicketService {
     boolean activatePurchasedTickets(List<Long> ids);
     boolean deactivatePurchasedTickets(List<Long> ids);
     List<PurchasedTicket> getAllPurchasedTickets();
+    List<PurchasedTicket> getAllPurchasedTicketsByCustomerId(Long customerId);
 }

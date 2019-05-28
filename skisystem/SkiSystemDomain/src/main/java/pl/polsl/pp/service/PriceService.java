@@ -21,6 +21,18 @@ public class PriceService implements IPriceService {
     }
 
     @Override
+    public Price getPriceByTypeAndCategory(Long typeId, Long categoryId) {
+
+
+        for(Price price: this.getAllPrices()) {
+            if(price.getTicketType().getId().equals(typeId) && price.getTicketCategory().getId().equals(categoryId)) {
+                return price;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public boolean savePrice(Price price) {
         try{
             priceRepository.save(price);

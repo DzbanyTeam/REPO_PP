@@ -36,6 +36,14 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
+            </div>
+        </li>
     </ul>
 
     <a href="<spring:url value="/admin/logout"/>" class="navbar-brand" id="logout-button">
@@ -59,6 +67,7 @@
                 <th></th>
                 <th>Nazwa użytkownika</th>
                 <th>Imię i nazwisko</th>
+                <th>Kupione bilety</th>
                 <th>Aktywny</th>
                 <th class="text-right">Akcje</th>
             </tr>
@@ -69,6 +78,11 @@
                 <td><input type="checkbox" name="ids[]" value="${customerAccount.id}"></td>
                 <td>${customerAccount.username}</td>
                 <td>${customerAccount.name} ${customerAccount.surname}</td>
+                <td>
+                    <a class="btn btn-secondary py-0" href="<spring:url value="/admin/purchased-tickets/${customerAccount.id}"/>">
+                        ${customerAccount.getPurchasedTickets().size()}
+                    </a>
+                </td>
                 <c:if test="${customerAccount.getIsActive()}">
                     <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>
@@ -97,7 +111,9 @@
     </form>
 </div>
 
+
 <script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap.bundle.min.js"/>"></script>
 
 </body>
 </html>

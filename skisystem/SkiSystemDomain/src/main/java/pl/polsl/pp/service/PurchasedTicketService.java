@@ -55,7 +55,7 @@ public class PurchasedTicketService implements IPurchasedTicketService {
         try{
             List<PurchasedTicket> purchasedTicketList = (List<PurchasedTicket>)purchasedTicketRepository.findAllById(ids);
             purchasedTicketList.forEach(l -> {
-                l.setActive(newStatus);
+                l.setIsActive(newStatus);
             });
             purchasedTicketRepository.saveAll(purchasedTicketList);
             return true;
@@ -69,5 +69,18 @@ public class PurchasedTicketService implements IPurchasedTicketService {
         List<PurchasedTicket> purchasedTicketList = new ArrayList<>();
         purchasedTicketRepository.findAll().forEach(p -> purchasedTicketList.add(p));
         return purchasedTicketList;
+    }
+
+    @Override
+    public List<PurchasedTicket> getAllPurchasedTicketsByCustomerId(Long customerId) {
+
+        List<PurchasedTicket> purchasedTicketOfCustomer = new ArrayList<>();
+
+        for(PurchasedTicket purchasedTicket: this.getAllPurchasedTickets()) {
+            if(purchasedTicket.getCustomer().getId().equals(customerId)) {
+                purchasedTicketOfCustomer.add(purchasedTicket);
+            }
+        }
+        return purchasedTicketOfCustomer;
     }
 }

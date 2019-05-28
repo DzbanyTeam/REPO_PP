@@ -12,19 +12,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!doctype html>
 
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${customerAccount.id != 0}">
-        <title>SkiSystem - panel administracyjny - edycja klienta ${customerAccount.username}</title>
+    <c:if test="${price.id != 0}">
+        <title>SkiSystem - panel administracyjny - edycja ceny biletu ${price}</title>
     </c:if>
-    <c:if test="${customerAccount.id == 0}">
-        <title>SkiSystem - panel administracyjny - dodawanie klienta</title>
+    <c:if test="${price.id == 0}">
+        <title>SkiSystem - panel administracyjny - dodawanie ceny biletu</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap-select.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
 </head>
@@ -37,7 +37,7 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/admins"/>">Administratorzy</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
         <li class="nav-item">
@@ -46,10 +46,10 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
@@ -65,16 +65,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/customers"/>"><i class="fas fa-arrow-left"></i></a>
+            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/prices"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${customerAccount.id != 0}">
-                <h1 id="header">Edycja klienta ${customerAccount.username}</h1>
+            <c:if test="${price.id != 0}">
+                <h1 id="header">Edycja ceny biletu ${price}</h1>
             </c:if>
-            <c:if test="${customerAccount.id == 0}">
-                <h1 id="header">Dodawanie klienta</h1>
+            <c:if test="${price.id == 0}">
+                <h1 id="header">Dodawanie ceny biletu</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/admin/customers/submit">
+            <form:form method="post" class="mt-5" modelAttribute="price" action="/admin/prices/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}
@@ -84,56 +84,55 @@
 
                 <form:hidden path="id" name="id"/>
                 <div class="form-group">
-                    <label>Nazwa użytkownika</label>
-                    <spring:bind path="username">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="username"/>
-                    </spring:bind>
-                    <form:errors path="username" class="invalid-feedback" />
+                    <label>Rodzaj biletu</label>
+                    <form:select class="custom-select" path="ticketType">
+                        <form:options items="${ticketTypes}" itemValue="id" itemLabel="name"/>
+                    </form:select>
                 </div>
                 <div class="form-group">
-                    <label>Hasło</label>
-                    <spring:bind path="password">
-                        <input class="form-control ${status.error ? 'is-invalid' : ''}" name="password" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${customerAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
-                    </spring:bind>
-                    <form:errors path="password" class="invalid-feedback" />
-
+                    <label>Kategoria cenowa</label>
+                    <form:select class="custom-select" path="ticketCategory">
+                        <form:options items="${ticketCategories}" itemValue="id" itemLabel="name"/>
+                    </form:select>
                 </div>
                 <div class="form-group">
-                    <label>Imię</label>
-                    <spring:bind path="name">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="name"/>
+                    <label>Cena</label>
+                    <spring:bind path="price">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">zł</div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="price"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="name" class="invalid-feedback" />
+                    <form:errors path="price" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Nazwisko</label>
-                    <spring:bind path="surname">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="surname"/>
+                    <label>Początek okresu obowiązywania</label>
+                    <spring:bind path="startDatetime">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="startDatetime"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="surname" class="invalid-feedback" />
+                    <form:errors path="startDatetime" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Adres e-mail</label>
-                    <spring:bind path="email">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="email"/>
+                    <label>Koniec okresu obowiązywania</label>
+                    <spring:bind path="endDatetime">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="endDatetime"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="email" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Numer telefonu</label>
-                    <spring:bind path="phoneNumber">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="phoneNumber"/>
-                    </spring:bind>
-                    <form:errors path="phoneNumber" class="invalid-feedback" />
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <form:checkbox path="isActive" class="form-check-input"/>
-                        Aktywny
-                    </label>
+                    <form:errors path="endDatetime" class="invalid-feedback" />
                 </div>
                 <div class="text-right">
-                    <a href="<spring:url value="/admin/customers"/>" class="btn btn-light">Wróć</a>&ensp;
+                    <a href="<spring:url value="/admin/prices"/>" class="btn btn-light">Wróć</a>&ensp;
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </form:form>

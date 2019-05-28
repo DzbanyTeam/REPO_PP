@@ -27,15 +27,15 @@ public class Price {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private Date startDatetime;
+    private String startDatetime;
 
     @Column
-    private Date endDatetime;
+    private String endDatetime;
 
     public Price() {
     }
 
-    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, Date startDatetime, Date endDatetime) {
+    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, String startDatetime, String endDatetime) {
         this.ticketType = ticketType;
         this.ticketCategory = ticketCategory;
         this.price = price;
@@ -75,19 +75,30 @@ public class Price {
         this.price = price;
     }
 
-    public Date getStartDatetime() {
+    public String getStartDatetime() {
         return startDatetime;
     }
 
-    public void setStartDatetime(Date startDatetime) {
+    public void setStartDatetime(String startDatetime) {
         this.startDatetime = startDatetime;
     }
 
-    public Date getEndDatetime() {
+    public String getEndDatetime() {
         return endDatetime;
     }
 
-    public void setEndDatetime(Date endDatetime) {
+    public void setEndDatetime(String endDatetime) {
         this.endDatetime = endDatetime;
+    }
+
+    public String toString() {
+        return (ticketType == null ? "" : ticketType.getName())
+            + " "
+            + (ticketCategory == null ? "" : ticketCategory.getName())
+            + " (od "
+            + startDatetime
+            + " do "
+            + endDatetime
+            + ")";
     }
 }

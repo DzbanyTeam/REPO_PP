@@ -18,12 +18,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${customerAccount.id != 0}">
-        <title>SkiSystem - panel administracyjny - edycja klienta ${customerAccount.username}</title>
-    </c:if>
-    <c:if test="${customerAccount.id == 0}">
-        <title>SkiSystem - panel administracyjny - dodawanie klienta</title>
-    </c:if>
+    <title>SkiSystem - panel administracyjny - bilet klienta ${purchasedTicket.getCustomer().getUsername()}</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -65,16 +60,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/customers"/>"><i class="fas fa-arrow-left"></i></a>
+            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/purchased-tickets/${purchasedTicket.getCustomer().getId()}"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${customerAccount.id != 0}">
-                <h1 id="header">Edycja klienta ${customerAccount.username}</h1>
+            <c:if test="${purchasedTicket.id != 0}">
+                <h1 id="header">Edycja biletu klienta ${purchasedTicket.getCustomer().getUsername()}</h1>
             </c:if>
-            <c:if test="${customerAccount.id == 0}">
-                <h1 id="header">Dodawanie klienta</h1>
+            <c:if test="${purchasedTicket.id == 0}">
+                <h1 id="header">Dodawanie biletu klienta ${purchasedTicket.getCustomer().getUsername()}</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="customerAccount" action="/admin/customers/submit">
+            <form:form method="post" class="mt-5" modelAttribute="purchasedTicket" action="/admin/purchased-tickets/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}
@@ -82,49 +77,37 @@
                     </div>
                 </c:if>
 
-                <form:hidden path="id" name="id"/>
+                <form:hidden path="id"/>
+                <form:hidden path="customer"/>
                 <div class="form-group">
-                    <label>Nazwa użytkownika</label>
-                    <spring:bind path="username">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="username"/>
-                    </spring:bind>
-                    <form:errors path="username" class="invalid-feedback" />
+                    <label>Rodzaj biletu</label>
+                    <form:select class="custom-select" path="price">
+                        <form:options items="${prices}" itemValue="id"/>
+                    </form:select>
                 </div>
                 <div class="form-group">
-                    <label>Hasło</label>
-                    <spring:bind path="password">
-                        <input class="form-control ${status.error ? 'is-invalid' : ''}" name="password" type="password" readonly onfocus="this.removeAttribute('readonly');" <c:if test="${customerAccount.id != 0}"> placeholder="Uzupełnij, aby zmienić" </c:if>>
+                    <label>Data zakupu</label>
+                    <spring:bind path="purchaseDatetime">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="purchaseDatetime"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="password" class="invalid-feedback" />
-
+                    <form:errors path="purchaseDatetime" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
-                    <label>Imię</label>
-                    <spring:bind path="name">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="name"/>
+                    <label>Data wygaśnięcia</label>
+                    <spring:bind path="expirationDatetime">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="expirationDatetime"/>
+                        </div>
                     </spring:bind>
-                    <form:errors path="name" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Nazwisko</label>
-                    <spring:bind path="surname">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="surname"/>
-                    </spring:bind>
-                    <form:errors path="surname" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Adres e-mail</label>
-                    <spring:bind path="email">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="email"/>
-                    </spring:bind>
-                    <form:errors path="email" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Numer telefonu</label>
-                    <spring:bind path="phoneNumber">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="phoneNumber"/>
-                    </spring:bind>
-                    <form:errors path="phoneNumber" class="invalid-feedback" />
+                    <form:errors path="expirationDatetime" class="invalid-feedback" />
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
@@ -133,7 +116,7 @@
                     </label>
                 </div>
                 <div class="text-right">
-                    <a href="<spring:url value="/admin/customers"/>" class="btn btn-light">Wróć</a>&ensp;
+                    <a href="<spring:url value="/admin/purchased-tickets"/>" class="btn btn-light">Wróć</a>&ensp;
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </form:form>
