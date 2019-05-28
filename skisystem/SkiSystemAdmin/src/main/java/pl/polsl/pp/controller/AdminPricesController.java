@@ -25,7 +25,7 @@ public class AdminPricesController {
 
     @GetMapping("/add")
     public String showPricesAdd(Model model) {
-        Price ticket = new Price();
+        model.addAttribute("price", new Price());
         model.addAttribute("ticketCategories", new ArrayList<TicketCategory>()); // TODO: implement
         model.addAttribute("ticketTypes", new ArrayList<TicketType>()); // TODO: implement
         return "cms/price/edit";

@@ -23,7 +23,7 @@ public class AdminTicketCategoriesController {
 
     @GetMapping("/add")
     public String showTicketCategoriesAdd(Model model) {
-        TicketCategory ticket = new TicketCategory();
+        model.addAttribute("ticketCategory", new TicketCategory());
         return "cms/ticketCategory/edit";
     }
 

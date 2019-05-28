@@ -88,14 +88,24 @@
                 <div class="form-group">
                     <label>Data zakupu</label>
                     <spring:bind path="purchaseDatetime">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="purchaseDatetime"/>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="purchaseDatetime"/>
+                        </div>
                     </spring:bind>
                     <form:errors path="purchaseDatetime" class="invalid-feedback" />
                 </div>
                 <div class="form-group">
                     <label>Data wygaśnięcia</label>
                     <spring:bind path="expirationDatetime">
-                        <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="expirationDatetime"/>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="expirationDatetime"/>
+                        </div>
                     </spring:bind>
                     <form:errors path="expirationDatetime" class="invalid-feedback" />
                 </div>

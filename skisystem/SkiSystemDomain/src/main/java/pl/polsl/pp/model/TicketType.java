@@ -51,7 +51,7 @@ public class TicketType {
         this.name = name;
     }
 
-    public int getNumberOfHours() {
+    public Integer getNumberOfHours() {
         return numberOfHours;
     }
 
@@ -67,7 +67,7 @@ public class TicketType {
         this.description = description;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 

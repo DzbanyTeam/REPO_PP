@@ -55,7 +55,7 @@ public class PurchasedTicketService implements IPurchasedTicketService {
         try{
             List<PurchasedTicket> purchasedTicketList = (List<PurchasedTicket>)purchasedTicketRepository.findAllById(ids);
             purchasedTicketList.forEach(l -> {
-                l.setActive(newStatus);
+                l.setIsActive(newStatus);
             });
             purchasedTicketRepository.saveAll(purchasedTicketList);
             return true;

@@ -82,11 +82,11 @@ public class PurchasedTicket {
         this.expirationDatetime = expirationDatetime;
     }
 
-    public boolean isActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 }

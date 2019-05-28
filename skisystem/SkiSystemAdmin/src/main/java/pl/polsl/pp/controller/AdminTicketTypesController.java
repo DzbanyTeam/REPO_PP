@@ -23,7 +23,7 @@ public class AdminTicketTypesController {
 
     @GetMapping("/add")
     public String showTicketTypesAdd(Model model) {
-        TicketType ticket = new TicketType();
+        model.addAttribute("ticketType", new TicketType());
         return "cms/ticketType/edit";
     }
 
