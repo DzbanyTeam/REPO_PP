@@ -72,7 +72,7 @@
             <tbody>
             <c:forEach items="${ticketCategories}" var="ticketCategory">
                 <tr>
-                    <td><input category="checkbox" name="ids[]" value="${ticketCategory.id}"></td>
+                    <td><input type="checkbox" name="ids[]" value="${ticketCategory.id}"></td>
                     <td>${ticketCategory.name}</td>
                     <td class="text-right py-2">
                         <div class="btn-group">
