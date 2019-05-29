@@ -13,7 +13,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>SkiSystem - panel administracyjny - edycja stoków</title>
+    <title>SkiSystem - panel administracyjny - edycja rodzajów biletów</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -30,13 +30,13 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
@@ -53,8 +53,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Stoki</h1>
-    <form action="<spring:url value="/admin/slopes/update"/>" method="GET" class="mt-5">
+    <h1 id="header">Rodzaje biletów</h1>
+    <form action="<spring:url value="/admin/ticket-types/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
@@ -66,37 +66,35 @@
             <tr>
                 <th></th>
                 <th>Nazwa</th>
-                <th>Długość</th>
-                <th>Trudność</th>
+                <th>Czas ważności</th>
                 <th>Aktywny</th>
                 <th class="text-right">Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${slopes}" var="slope">
-            <tr>
-                <td><input type="checkbox" name="ids[]" value="${slope.id}"></td>
-                <td>${slope.name}</td>
-                <td>${slope.length} m</td>
-                <td>${slope.difficulty != null ? slope.difficulty.getName() : ""}</td>
-                <c:if test="${slope.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/slopes/update?ids%5B%5D=${slope.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
-                </c:if>
-                <c:if test="${!slope.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/slopes/update?ids%5B%5D=${slope.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
-                </c:if>
-                <td class="text-right py-2">
-                    <div class="btn-group">
-                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/slopes/edit/${slope.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/slopes/update?ids%5B%5D=${slope.id}&action=delete"/>"></a>
-                    </div>
-                </td>
-            </tr>
+            <c:forEach items="${ticketTypes}" var="ticketType">
+                <tr>
+                    <td><input type="checkbox" name="ids[]" value="${ticketType.id}"></td>
+                    <td>${ticketType.name}</td>
+                    <td>${ticketType.numberOfHours} h</td>
+                    <c:if test="${ticketType.getIsActive()}">
+                        <td><a class="text-success" href="<spring:url value="/admin/ticket-types/update?ids%5B%5D=${ticketType.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
+                    </c:if>
+                    <c:if test="${!ticketType.getIsActive()}">
+                        <td><a class="text-success" href="<spring:url value="/admin/ticket-types/update?ids%5B%5D=${ticketType.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
+                    </c:if>
+                    <td class="text-right py-2">
+                        <div class="btn-group">
+                            <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/ticket-types/edit/${ticketType.id}"/>"></a>
+                            <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/ticket-types/update?ids%5B%5D=${ticketType.id}&action=delete"/>"></a>
+                        </div>
+                    </td>
+                </tr>
             </c:forEach>
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/slopes/add"/>" class="btn btn-primary float-right">Dodaj stok&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/ticket-types/add"/>" class="btn btn-primary float-right">Dodaj rodzaj biletu&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>

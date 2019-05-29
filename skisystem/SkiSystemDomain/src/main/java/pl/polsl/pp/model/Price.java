@@ -24,23 +24,19 @@ public class Price {
     private TicketCategory ticketCategory;
 
     @Column(nullable = false)
-    private BigDecimal price;
+    private BigDecimal priceValue;
 
     @Column(nullable = false)
-    private Date startDatetime;
-
-    @Column
-    private Date endDatetime;
+    private Boolean isSeason;
 
     public Price() {
     }
 
-    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, Date startDatetime, Date endDatetime) {
+    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal priceValue, Boolean isSeason) {
         this.ticketType = ticketType;
         this.ticketCategory = ticketCategory;
-        this.price = price;
-        this.startDatetime = startDatetime;
-        this.endDatetime = endDatetime;
+        this.priceValue = priceValue;
+        this.isSeason = isSeason;
     }
 
     public Long getId() {
@@ -67,27 +63,30 @@ public class Price {
         this.ticketCategory = ticketCategory;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getPriceValue() {
+        return priceValue;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPriceValue(BigDecimal priceValue) {
+        this.priceValue = priceValue;
     }
 
-    public Date getStartDatetime() {
-        return startDatetime;
+
+    public Boolean getIsSeason() {
+        return isSeason;
     }
 
-    public void setStartDatetime(Date startDatetime) {
-        this.startDatetime = startDatetime;
+    public void setIsSeason(Boolean season) {
+        isSeason = season;
     }
 
-    public Date getEndDatetime() {
-        return endDatetime;
-    }
-
-    public void setEndDatetime(Date endDatetime) {
-        this.endDatetime = endDatetime;
+    public String toString() {
+        return (ticketType == null ? "" : ticketType.getName())
+            + ", "
+            + (ticketCategory == null ? "" : ticketCategory.getName())
+            + ", "
+            + (priceValue == null ? "" : priceValue.toString())
+            + ", "
+            + (isSeason == null ? "" : (isSeason ? "w sezonie" : "poza sezonem"));
     }
 }
