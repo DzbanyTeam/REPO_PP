@@ -8,6 +8,7 @@ public interface IPriceService {
 
     Price getPriceById(Long id);
     Price getPriceByTypeAndCategory(Long typeId, Long categoryId);
+    Price getPriceByTypeAndCategoryAndSeason(Long typeId, Long categoryId, Boolean isSeason);
     boolean savePrice(Price price);
     boolean deletePrices(List<Long> ids);
     List<Price> getAllPrices();

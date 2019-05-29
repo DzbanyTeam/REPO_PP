@@ -26,7 +26,7 @@
     </header>
 
     <main class="bg-white rounded p-5">
-        <h1>Cennik karnetów</h1>
+        <h1>Cennik karnetów w sezonie</h1>
         <table class="table">
             <thead>
             <tr>
@@ -42,8 +42,8 @@
                     <th scope="row">${ticketCategory.name}</th>
                     <c:forEach items="${ticketTypes}" var="ticketType">
                         <td>
-                            <c:if test="${prices.get(ticketCategory).get(ticketType) != null}">
-                                ${prices.get(ticketCategory).get(ticketType).getPriceValue()} zł
+                            <c:if test="${pricesInSeason.get(ticketCategory).get(ticketType) != null}">
+                                ${pricesInSeason.get(ticketCategory).get(ticketType).getPriceValue()} zł
                             </c:if>
                         </td>
                     </c:forEach>
@@ -51,6 +51,33 @@
             </c:forEach>
             </tbody>
         </table>
+
+        <h1>Cennik karnetów poza sezonem</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <c:forEach items="${ticketTypes}" var="ticketType">
+                    <th scope="col">${ticketType.name}</th>
+                </c:forEach>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${ticketCategories}" var="ticketCategory">
+                <tr>
+                    <th scope="row">${ticketCategory.name}</th>
+                    <c:forEach items="${ticketTypes}" var="ticketType">
+                        <td>
+                            <c:if test="${pricesOutSeason.get(ticketCategory).get(ticketType) != null}">
+                                ${pricesOutSeason.get(ticketCategory).get(ticketType).getPriceValue()} zł
+                            </c:if>
+                        </td>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
     </main>
 </div>
 </body>

@@ -53,18 +53,30 @@ public class IndexController {
         model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories()); // DONE: TODO: implement
 
 
-        // zwraca poprawne ceny. zbebuggowane. Ale za to front nie wyświetla tych cen
-        HashMap<TicketCategory, Map<TicketType, Price>> categoryTypesPricesMap = new HashMap<>();
+        // zwraca ceny w sezonie
+        HashMap<TicketCategory, Map<TicketType, Price>> categoryTypesPricesInSeasonMap = new HashMap<>();
         for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
             Map<TicketType, Price> typePriceMap = new HashMap<>();
             for (TicketType type : ticketTypeService.getAllTicketTypes()) {
-                Price price = priceService.getPriceByTypeAndCategory(type.getId(), category.getId());
+                Price price = priceService.getPriceByTypeAndCategoryAndSeason(type.getId(), category.getId(), true);
                 typePriceMap.put(type, price);
-                categoryTypesPricesMap.put(category, typePriceMap);
+                categoryTypesPricesInSeasonMap.put(category, typePriceMap);
             }
         }
 
-        model.addAttribute("prices", categoryTypesPricesMap); // IN PROGRESS: TODO: implement
+        // zwraca ceny poza sezonem
+        HashMap<TicketCategory, Map<TicketType, Price>> categoryTypesPricesOutSeasonMap = new HashMap<>();
+        for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
+            Map<TicketType, Price> typePriceMap = new HashMap<>();
+            for (TicketType type : ticketTypeService.getAllTicketTypes()) {
+                Price price = priceService.getPriceByTypeAndCategoryAndSeason(type.getId(), category.getId(), false);
+                typePriceMap.put(type, price);
+                categoryTypesPricesOutSeasonMap.put(category, typePriceMap);
+            }
+        }
+
+        model.addAttribute("pricesInSeason", categoryTypesPricesInSeasonMap); // IN PROGRESS: TODO: implement
+        model.addAttribute("pricesOutSeason", categoryTypesPricesOutSeasonMap); // IN PROGRESS: TODO: implement
         return "site/ski/prices";
     }
 
