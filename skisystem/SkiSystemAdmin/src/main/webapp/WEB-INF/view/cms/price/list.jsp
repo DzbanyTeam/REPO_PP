@@ -39,7 +39,7 @@
         <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Rodzaje biletów</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
@@ -76,8 +76,13 @@
                 <tr>
                     <td><input type="checkbox" name="ids[]" value="${price.id}"></td>
                     <td>${price.ticketType == null ? "" : price.ticketType.getName()} ${price.ticketCategory == null ? "" : price.ticketCategory.getName()}</td>
-                    <td>${price.startDatetime} - ${price.endDatetime}</td>
-                    <td>${price.price} zł</td>
+                    <c:if test="${price.getIsSeason()}">
+                        <td>W sezonie</td>
+                    </c:if>
+                    <c:if test="${!price.getIsSeason()}">
+                        <td>Poza sezonem</td>
+                    </c:if>
+                    <td>${price.priceValue} zł</td>
                     <td class="text-right py-2">
                         <div class="btn-group">
                             <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/prices/edit/${price.id}"/>"></a>

@@ -43,7 +43,7 @@
                     <c:forEach items="${ticketTypes}" var="ticketType">
                         <td>
                             <c:if test="${prices.get(ticketCategory).get(ticketType) != null}">
-                                ${prices.get(ticketCategory).get(ticketType).getPrice()} zł
+                                ${prices.get(ticketCategory).get(ticketType).getPriceValue()} zł
                             </c:if>
                         </td>
                     </c:forEach>

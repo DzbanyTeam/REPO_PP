@@ -97,39 +97,21 @@
                 </div>
                 <div class="form-group">
                     <label>Cena</label>
-                    <spring:bind path="price">
+                    <spring:bind path="priceValue">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">zł</div>
                             </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="price"/>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="priceValue"/>
                         </div>
                     </spring:bind>
-                    <form:errors path="price" class="invalid-feedback" />
+                    <form:errors path="priceValue" class="invalid-feedback" />
                 </div>
-                <div class="form-group">
-                    <label>Początek okresu obowiązywania</label>
-                    <spring:bind path="startDatetime">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                            </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="startDatetime"/>
-                        </div>
-                    </spring:bind>
-                    <form:errors path="startDatetime" class="invalid-feedback" />
-                </div>
-                <div class="form-group">
-                    <label>Koniec okresu obowiązywania</label>
-                    <spring:bind path="endDatetime">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                            </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="endDatetime"/>
-                        </div>
-                    </spring:bind>
-                    <form:errors path="endDatetime" class="invalid-feedback" />
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <form:checkbox path="isSeason" class="form-check-input"/>
+                        W sezonie
+                    </label>
                 </div>
                 <div class="text-right">
                     <a href="<spring:url value="/admin/prices"/>" class="btn btn-light">Wróć</a>&ensp;
