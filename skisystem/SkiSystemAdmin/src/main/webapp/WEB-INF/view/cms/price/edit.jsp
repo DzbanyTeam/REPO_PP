@@ -67,10 +67,10 @@
         <div class="col-lg-6 offset-lg-3">
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/prices"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${price.id != 0}">
+            <c:if test="${price.id != null}">
                 <h1 id="header">Edycja ceny biletu ${price}</h1>
             </c:if>
-            <c:if test="${price.id == 0}">
+            <c:if test="${price.id == null}">
                 <h1 id="header">Dodawanie ceny biletu</h1>
             </c:if>
 
