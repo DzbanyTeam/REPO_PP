@@ -26,17 +26,18 @@ public class Price {
     @Column(nullable = false)
     private BigDecimal priceValue;
 
-    @Column(nullable = false)
-    private Boolean isSeason;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="season_id", nullable = false)
+    private Season season;
 
     public Price() {
     }
 
-    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal priceValue, Boolean isSeason) {
+    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, Season season) {
         this.ticketType = ticketType;
         this.ticketCategory = ticketCategory;
-        this.priceValue = priceValue;
-        this.isSeason = isSeason;
+        this.price = price;
+        this.season = season;
     }
 
     public Long getId() {
@@ -71,22 +72,19 @@ public class Price {
         this.priceValue = priceValue;
     }
 
-
-    public Boolean getIsSeason() {
-        return isSeason;
+    public Season getSeason() {
+        return season;
     }
 
-    public void setIsSeason(Boolean season) {
-        isSeason = season;
+    public void setSeason(Season season) {
+        this.season = season;
     }
 
     public String toString() {
         return (ticketType == null ? "" : ticketType.getName())
             + ", "
             + (ticketCategory == null ? "" : ticketCategory.getName())
-            + ", "
-            + (priceValue == null ? "" : priceValue.toString())
-            + ", "
-            + (isSeason == null ? "" : (isSeason ? "w sezonie" : "poza sezonem"));
+            + " "
+            + (season == null ? "" : season.getName());
     }
 }

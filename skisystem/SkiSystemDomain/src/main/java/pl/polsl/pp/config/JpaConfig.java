@@ -82,4 +82,8 @@ public class JpaConfig {
     @Bean
     @Qualifier("dayOfTheWeekService")
     public DayOfTheWeekService dayOfTheWeekServiceInterface() {return new DayOfTheWeekService();}
+
+    @Bean
+    @Qualifier("seasonService")
+    public SeasonService seasonServiceInterface(){return new SeasonService(); }
 }
