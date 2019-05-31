@@ -62,10 +62,10 @@
         <div class="col-lg-6 offset-lg-3">
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/purchased-tickets/${purchasedTicket.getCustomer().getId()}"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${purchasedTicket.id != 0}">
+            <c:if test="${purchasedTicket.id != null}">
                 <h1 id="header">Edycja biletu klienta ${purchasedTicket.getCustomer().getUsername()}</h1>
             </c:if>
-            <c:if test="${purchasedTicket.id == 0}">
+            <c:if test="${purchasedTicket.id == null}">
                 <h1 id="header">Dodawanie biletu klienta ${purchasedTicket.getCustomer().getUsername()}</h1>
             </c:if>
 
@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <label>Rodzaj biletu</label>
                     <form:select class="custom-select" path="price">
-                        <form:options items="${prices}" itemValue="id"/>
+                        <form:options items="${prices}" itemValue="id" itemLabel="string"/>
                     </form:select>
                 </div>
                 <div class="form-group">
