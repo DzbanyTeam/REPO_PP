@@ -33,10 +33,10 @@ public class PriceService implements IPriceService {
     }
 
     @Override
-    public Price getPriceByTypeAndCategoryAndSeason(Long typeId, Long categoryId, Boolean isSeason) {
+    public Price getPriceByTypeAndCategoryAndSeason(Long typeId, Long categoryId, Long seasonId) {
 
         for(Price price: this.getAllPrices()) {
-            if(price.getTicketType().getId().equals(typeId) && price.getTicketCategory().getId().equals(categoryId) && price.getIsSeason() == isSeason) {
+            if(price.getTicketType().getId().equals(typeId) && price.getTicketCategory().getId().equals(categoryId) && price.getSeason().getId().equals(seasonId)) {
                 return price;
             }
         }

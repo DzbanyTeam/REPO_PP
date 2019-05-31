@@ -12,4 +12,5 @@ public interface ISeasonService {
     boolean activateSeasons(List<Long> ids);
     boolean deactivateSeasons(List<Long> ids);
     List<Season> getAllSeasons();
+    List<Season> getAllActiveSeasons();
 }

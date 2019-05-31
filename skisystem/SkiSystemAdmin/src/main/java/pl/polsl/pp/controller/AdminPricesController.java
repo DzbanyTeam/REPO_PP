@@ -59,10 +59,12 @@ public class AdminPricesController {
     @PostMapping("/submit")
     public String submitPrice(@ModelAttribute("price") Price priceRequest, Model model, final RedirectAttributes redirectAttributes) {
         // DONE: TODO: implement
+
+        // DONE: TODO: refactor (seasons)
         Long typeId = priceRequest.getTicketType().getId();
         Long categoryId = priceRequest.getTicketCategory().getId();
-        Boolean isSeason = priceRequest.getIsSeason();
-        Price price = priceService.getPriceByTypeAndCategoryAndSeason(typeId, categoryId, isSeason);
+        Long seasonId = priceRequest.getSeason().getId();
+        Price price = priceService.getPriceByTypeAndCategoryAndSeason(typeId, categoryId, seasonId);
         if(price != null && priceRequest.getId() == null)
         {
                 model.addAttribute("alertText", "Taka pozycja w cenniku już istnieje.");

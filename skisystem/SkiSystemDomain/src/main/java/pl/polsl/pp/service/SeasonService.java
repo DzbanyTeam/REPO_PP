@@ -70,4 +70,15 @@ public class SeasonService implements ISeasonService {
         seasonRepository.findAll().forEach(s -> seasonList.add(s));
         return seasonList;
     }
+
+    @Override
+    public List<Season> getAllActiveSeasons() {
+        List<Season> activeSeasonList = new ArrayList<>();
+        seasonRepository.findAll().forEach(s -> {
+            if(s.getIsActive()){
+                activeSeasonList.add(s);
+            }
+        });
+        return activeSeasonList;
+    }
 }

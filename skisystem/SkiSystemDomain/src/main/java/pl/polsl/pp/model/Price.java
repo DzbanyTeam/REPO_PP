@@ -33,10 +33,10 @@ public class Price {
     public Price() {
     }
 
-    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal price, Season season) {
+    public Price(TicketType ticketType, TicketCategory ticketCategory, BigDecimal priceValue, Season season) {
         this.ticketType = ticketType;
         this.ticketCategory = ticketCategory;
-        this.price = price;
+        this.priceValue = priceValue;
         this.season = season;
     }
 
