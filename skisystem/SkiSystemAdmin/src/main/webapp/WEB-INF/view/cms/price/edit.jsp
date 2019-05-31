@@ -17,10 +17,10 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${price.id != 0}">
-        <title>SkiSystem - panel administracyjny - edycja ceny biletu ${price}</title>
+    <c:if test="${price.id != null}">
+        <title>SkiSystem - panel administracyjny - edycja ceny biletu ${price.string}</title>
     </c:if>
-    <c:if test="${price.id == 0}">
+    <c:if test="${price.id == null}">
         <title>SkiSystem - panel administracyjny - dodawanie ceny biletu</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
@@ -107,11 +107,11 @@
                     </spring:bind>
                     <form:errors path="priceValue" class="invalid-feedback" />
                 </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <form:checkbox path="isSeason" class="form-check-input"/>
-                        W sezonie
-                    </label>
+                <div class="form-group">
+                    <label>Sezon</label>
+                    <form:select class="custom-select" path="season">
+                        <form:options items="${seasons}" itemValue="id" itemLabel="name"/>
+                    </form:select>
                 </div>
                 <div class="text-right">
                     <a href="<spring:url value="/admin/prices"/>" class="btn btn-light">Wróć</a>&ensp;

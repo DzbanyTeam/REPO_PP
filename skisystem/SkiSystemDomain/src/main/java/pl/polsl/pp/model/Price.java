@@ -80,7 +80,7 @@ public class Price {
         this.season = season;
     }
 
-    public String toString() {
+    public String getString() {
         return (ticketType == null ? "" : ticketType.getName())
             + ", "
             + (ticketCategory == null ? "" : ticketCategory.getName())

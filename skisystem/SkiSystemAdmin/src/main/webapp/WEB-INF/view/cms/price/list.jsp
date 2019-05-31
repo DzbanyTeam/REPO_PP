@@ -66,7 +66,7 @@
             <tr>
                 <th></th>
                 <th>Bilet</th>
-                <th>Okres ważności</th>
+                <th>Sezon</th>
                 <th>Cena</th>
                 <th class="text-right">Akcje</th>
             </tr>
@@ -76,12 +76,7 @@
                 <tr>
                     <td><input type="checkbox" name="ids[]" value="${price.id}"></td>
                     <td>${price.ticketType == null ? "" : price.ticketType.getName()} ${price.ticketCategory == null ? "" : price.ticketCategory.getName()}</td>
-                    <c:if test="${price.getIsSeason()}">
-                        <td>W sezonie</td>
-                    </c:if>
-                    <c:if test="${!price.getIsSeason()}">
-                        <td>Poza sezonem</td>
-                    </c:if>
+                    <td>${price.season.name}</td>
                     <td>${price.priceValue} zł</td>
                     <td class="text-right py-2">
                         <div class="btn-group">

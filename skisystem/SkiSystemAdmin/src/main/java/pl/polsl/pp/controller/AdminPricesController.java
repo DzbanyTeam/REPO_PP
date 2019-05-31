@@ -12,6 +12,7 @@ import pl.polsl.pp.model.Price;
 import pl.polsl.pp.model.TicketCategory;
 import pl.polsl.pp.model.TicketType;
 import pl.polsl.pp.service.interfaces.IPriceService;
+import pl.polsl.pp.service.interfaces.ISeasonService;
 import pl.polsl.pp.service.interfaces.ITicketCategoryService;
 import pl.polsl.pp.service.interfaces.ITicketTypeService;
 
@@ -34,33 +35,36 @@ public class AdminPricesController {
     @Qualifier("ticketTypeServiceInterface")
     private ITicketTypeService ticketTypeService;
 
+    @Autowired
+    @Qualifier("seasonServiceInterface")
+    private ISeasonService seasonService;
+
     @GetMapping("")
     public String showPrices(Model model) {
-        model.addAttribute("prices", priceService.getAllPrices()); // DONE: TODO: implement
+        model.addAttribute("prices", priceService.getAllPrices());
         return "cms/price/list";
     }
 
     @GetMapping("/add")
     public String showPricesAdd(Model model) {
         model.addAttribute("price", new Price());
-        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories()); // DONE: TODO: implement
-        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes()); // DONE: TODO: implement
+        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories());
+        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes());
+        model.addAttribute("seasons", seasonService.getAllSeasons());
         return "cms/price/edit";
     }
 
     @GetMapping("/edit/{id}")
     public String showPricesEdit(Model model, @PathVariable Long id) {
-        model.addAttribute("price", priceService.getPriceById(id)); // DONE: TODO: get the ticket (edit by Pawel: you mean price?)
-        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories()); // DONE TODO: implement
-        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes()); // DONE: TODO: implement
+        model.addAttribute("price", priceService.getPriceById(id));
+        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories());
+        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes());
+        model.addAttribute("seasons", seasonService.getAllSeasons());
         return "cms/price/edit";
     }
 
     @PostMapping("/submit")
     public String submitPrice(@ModelAttribute("price") Price priceRequest, Model model, final RedirectAttributes redirectAttributes) {
-        // DONE: TODO: implement
-
-        // DONE: TODO: refactor (seasons)
         Long typeId = priceRequest.getTicketType().getId();
         Long categoryId = priceRequest.getTicketCategory().getId();
         Long seasonId = priceRequest.getSeason().getId();
@@ -69,8 +73,8 @@ public class AdminPricesController {
         {
                 model.addAttribute("alertText", "Taka pozycja w cenniku już istnieje.");
                 model.addAttribute("alertType", "danger");
-                model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories()); // DONE: TODO: implement
-                model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes()); // DONE: TODO: implement
+                model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories());
+                model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes());
                 return "cms/price/edit";
         }
 
@@ -81,7 +85,6 @@ public class AdminPricesController {
 
     @GetMapping("/update")
     public String showPricesUpdate(@RequestParam(name = "action") String action, @RequestParam(name = "ids[]", required = false) List<Long> ids, final RedirectAttributes redirectAttributes) {
-        // DONE: TODO: implement
         int size = ids.size();
 
         switch (action) {
