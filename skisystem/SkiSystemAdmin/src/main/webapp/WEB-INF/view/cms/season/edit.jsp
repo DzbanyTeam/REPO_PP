@@ -17,13 +17,14 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${lift.id != null}">
-        <title>SkiSystem - panel administracyjny - edycja stoku ${lift.name}</title>
+    <c:if test="${season.id != null}">
+        <title>SkiSystem - panel administracyjny - edycja sezonu ${season.name}</title>
     </c:if>
-    <c:if test="${lift.id == null}">
-        <title>SkiSystem - panel administracyjny - dodawanie stoku</title>
+    <c:if test="${season.id == null}">
+        <title>SkiSystem - panel administracyjny - dodawanie sezonu</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap-datepicker.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
 </head>
@@ -42,10 +43,10 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
@@ -65,16 +66,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
-            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/lifts"/>"><i class="fas fa-arrow-left"></i></a>
+            <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/seasons"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${lift.id != null}">
-                <h1 id="header">Edycja wyciągu ${lift.name}</h1>
+            <c:if test="${season.id != null}">
+                <h1 id="header">Edycja sezonu ${season.name}</h1>
             </c:if>
-            <c:if test="${lift.id == null}">
-                <h1 id="header">Dodawanie wyciągu</h1>
+            <c:if test="${season.id == null}">
+                <h1 id="header">Dodawanie sezonu</h1>
             </c:if>
 
-            <form:form method="post" class="mt-5" modelAttribute="lift" action="/admin/lifts/submit">
+            <form:form method="post" class="mt-5" modelAttribute="season" action="/admin/seasons/submit">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">
                             ${alertText}
@@ -90,43 +91,30 @@
                     </spring:bind>
                     <form:errors path="name" class="invalid-feedback" />
                 </div>
-                <div class="form-group">
-                    <label>Długość</label>
-                    <spring:bind path="length">
+                <div class="form-group date">
+                    <label>Data rozpoczęcia</label>
+                    <spring:bind path="startDatetime">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">m</div>
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
                             </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="length"/>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="startDatetime"/>
                         </div>
                     </spring:bind>
-                    <form:errors path="length" class="invalid-feedback" />
+                    <form:errors path="startDatetime" class="invalid-feedback" />
                 </div>
-                <div class="form-group">
-                    <label>Wysokość początkowa</label>
-                    <spring:bind path="startElevation">
+                <div class="form-group date">
+                    <label>Data zakończenia</label>
+                    <spring:bind path="endDatetime">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">mnpm</div>
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
                             </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="startElevation"/>
+                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="endDatetime"/>
                         </div>
                     </spring:bind>
-                    <form:errors path="startElevation" class="invalid-feedback" />
+                    <form:errors path="endDatetime" class="invalid-feedback" />
                 </div>
-                <div class="form-group">
-                    <label>Wysokość końcowa</label>
-                    <spring:bind path="endElevation">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">mnpm</div>
-                            </div>
-                            <form:input class="form-control ${status.error ? 'is-invalid' : ''}" path="endElevation"/>
-                        </div>
-                    </spring:bind>
-                    <form:errors path="endElevation" class="invalid-feedback" />
-                </div>
-
                 <div class="form-check">
                     <label class="form-check-label">
                         <form:checkbox path="isActive" class="form-check-input"/>
@@ -134,7 +122,7 @@
                     </label>
                 </div>
                 <div class="text-right">
-                    <a href="<spring:url value="/admin/lifts"/>" class="btn btn-light">Wróć</a>&ensp;
+                    <a href="<spring:url value="/admin/seasons"/>" class="btn btn-light">Wróć</a>&ensp;
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </form:form>
@@ -144,6 +132,14 @@
 
 <script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
 <script src="<spring:url value="/resources/common/js/bootstrap.bundle.min.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap-datepicker.min.js"/>"></script>
+<script>
+    $('.date').datepicker({
+        'language': 'pl',
+        'weekstart': 1,
+        'format': 'dd.mm.yyyy'
+    });
+</script>
 
 </body>
 </html>

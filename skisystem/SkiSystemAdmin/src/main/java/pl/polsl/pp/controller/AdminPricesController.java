@@ -80,6 +80,9 @@ public class AdminPricesController {
 
         priceService.savePrice(priceRequest);
 
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano cenę.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
         return "redirect:/admin/prices/edit/" + priceRequest.getId();
     }
 

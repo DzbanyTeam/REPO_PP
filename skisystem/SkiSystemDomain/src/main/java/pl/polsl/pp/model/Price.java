@@ -84,7 +84,8 @@ public class Price {
         return (ticketType == null ? "" : ticketType.getName())
             + ", "
             + (ticketCategory == null ? "" : ticketCategory.getName())
-            + " "
-            + (season == null ? "" : season.getName());
+            + " ("
+            + (season == null ? "" : season.getName())
+            + ")";
     }
 }

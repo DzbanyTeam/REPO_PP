@@ -51,6 +51,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
@@ -68,7 +69,7 @@
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/prices"/>"><i class="fas fa-arrow-left"></i></a>
 
             <c:if test="${price.id != null}">
-                <h1 id="header">Edycja ceny biletu ${price}</h1>
+                <h1 id="header">Edycja ceny biletu ${price.string}</h1>
             </c:if>
             <c:if test="${price.id == null}">
                 <h1 id="header">Dodawanie ceny biletu</h1>

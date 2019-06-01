@@ -1,6 +1,9 @@
 package pl.polsl.pp.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -18,9 +21,11 @@ public class Season {
     private String name;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date startDatetime;
 
     @Column
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date endDatetime;
 
     @Column(nullable = false)
@@ -56,12 +61,22 @@ public class Season {
         return startDatetime;
     }
 
+    public String getStartDatetimeString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(startDatetime);
+    }
+
     public void setStartDatetime(Date startDatetime) {
         this.startDatetime = startDatetime;
     }
 
     public Date getEndDatetime() {
         return endDatetime;
+    }
+
+    public String getEndDatetimeString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(endDatetime);
     }
 
     public void setEndDatetime(Date endDatetime) {

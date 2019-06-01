@@ -1,6 +1,10 @@
 package pl.polsl.pp.model;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -23,9 +27,11 @@ public class PurchasedTicket {
     private Price price;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date purchaseDatetime;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date expirationDatetime;
 
     @Column(nullable = false)
@@ -70,12 +76,22 @@ public class PurchasedTicket {
         return purchaseDatetime;
     }
 
+    public String getPurchaseDatetimeString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(purchaseDatetime);
+    }
+
     public void setPurchaseDatetime(Date purchaseDatetime) {
         this.purchaseDatetime = purchaseDatetime;
     }
 
     public Date getExpirationDatetime() {
         return expirationDatetime;
+    }
+
+    public String getExpirationDatetimeString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        return format.format(expirationDatetime);
     }
 
     public void setExpirationDatetime(Date expirationDatetime) {

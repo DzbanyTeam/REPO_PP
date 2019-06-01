@@ -45,6 +45,9 @@ public class AdminTicketCategoriesController {
         // DONE: TODO: implement
         ticketCategoryService.saveTicketCategory(ticketCategoryRequest);
 
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano kategorię.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
         return "redirect:/admin/ticket-categories/edit/" + ticketCategoryRequest.getId();
     }
 

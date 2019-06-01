@@ -18,10 +18,10 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${adminAccount.id != 0}">
+    <c:if test="${adminAccount.id != null}">
         <title>SkiSystem - panel administracyjny - edycja administratora ${adminAccount.username}</title>
     </c:if>
-    <c:if test="${adminAccount.id == 0}">
+    <c:if test="${adminAccount.id == null}">
         <title>SkiSystem - panel administracyjny - dodawanie administratora</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
@@ -51,6 +51,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
@@ -67,10 +68,10 @@
         <div class="col-lg-6 offset-lg-3">
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/admins"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${adminAccount.id != 0}">
+            <c:if test="${adminAccount.id != null}">
                 <h1 id="header">Edycja administratora ${adminAccount.username}</h1>
             </c:if>
-            <c:if test="${adminAccount.id == 0}">
+            <c:if test="${adminAccount.id == null}">
                 <h1 id="header">Dodawanie administratora</h1>
             </c:if>
 

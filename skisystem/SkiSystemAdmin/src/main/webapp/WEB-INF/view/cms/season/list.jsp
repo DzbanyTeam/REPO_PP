@@ -13,7 +13,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>SkiSystem - panel administracyjny - edycja klientów</title>
+    <title>SkiSystem - panel administracyjny - edycja sezonów</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -23,11 +23,11 @@
 <nav class="navbar navbar-expand bg-light">
     <a class="navbar-brand" href="<spring:url value="/admin"/>">SkiSystem</a>
 
-    <ul class="navbar-nav mr-auto" id="navbar">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/admins"/>">Administratorzy</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
         <li class="nav-item">
@@ -36,7 +36,7 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
@@ -54,8 +54,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Klienci</h1>
-    <form action="<spring:url value="/admin/customers/update"/>" method="GET" class="mt-5">
+    <h1 id="header">Sezony</h1>
+    <form action="<spring:url value="/admin/seasons/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
@@ -66,42 +66,36 @@
             <thead class="thead-dark">
             <tr>
                 <th></th>
-                <th>Nazwa użytkownika</th>
-                <th>Imię i nazwisko</th>
-                <th>Kupione bilety</th>
+                <th>Nazwa</th>
+                <th>Okres</th>
                 <th>Aktywny</th>
                 <th class="text-right">Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${customerAccounts}" var="customerAccount">
-            <tr>
-                <td><input type="checkbox" name="ids[]" value="${customerAccount.id}"></td>
-                <td>${customerAccount.username}</td>
-                <td>${customerAccount.name} ${customerAccount.surname}</td>
-                <td>
-                    <a class="btn btn-secondary py-0" href="<spring:url value="/admin/purchased-tickets/${customerAccount.id}"/>">
-                        ${customerAccount.getPurchasedTickets().size()}
-                    </a>
-                </td>
-                <c:if test="${customerAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
-                </c:if>
-                <c:if test="${!customerAccount.getIsActive()}">
-                    <td><a class="text-success" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
-                </c:if>
-                <td class="text-right py-2">
-                    <div class="btn-group">
-                        <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/customers/edit/${customerAccount.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/customers/update?ids%5B%5D=${customerAccount.id}&action=delete"/>"></a>
-                    </div>
-                </td>
-            </tr>
+            <c:forEach items="${seasons}" var="season">
+                <tr>
+                    <td><input type="checkbox" name="ids[]" value="${season.id}"></td>
+                    <td>${season.name}</td>
+                    <td>${season.startDatetimeString} - ${season.endDatetimeString}</td>
+                    <c:if test="${season.getIsActive()}">
+                        <td><a class="text-success" href="<spring:url value="/admin/seasons/update?ids%5B%5D=${season.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
+                    </c:if>
+                    <c:if test="${!season.getIsActive()}">
+                        <td><a class="text-success" href="<spring:url value="/admin/seasons/update?ids%5B%5D=${season.id}&action=activate"/>" title="Aktywuj"><i class="fas fa-times text-danger"></i></a></td>
+                    </c:if>
+                    <td class="text-right py-2">
+                        <div class="btn-group">
+                            <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/seasons/edit/${season.id}"/>"></a>
+                            <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/seasons/update?ids%5B%5D=${season.id}&action=delete"/>"></a>
+                        </div>
+                    </td>
+                </tr>
             </c:forEach>
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/customers/add"/>" class="btn btn-primary float-right">Dodaj klienta&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/seasons/add"/>" class="btn btn-primary float-right">Dodaj sezon&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>

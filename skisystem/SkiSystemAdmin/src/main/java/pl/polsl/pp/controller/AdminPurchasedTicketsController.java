@@ -64,12 +64,15 @@ public class AdminPurchasedTicketsController {
         // DONE: TODO: implement
 
         purchasedTicketService.savePurchasedTicket(purchasedTicketRequest);
+
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano bilet.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
         return "redirect:/admin/purchased-tickets/edit/" + purchasedTicketRequest.getId();
     }
 
     @GetMapping("/update")
     public String showPurchasedTicketsUpdate(@RequestParam(name = "action") String action, @RequestParam(name = "ids[]", required = false) List<Long> ids, final RedirectAttributes redirectAttributes) {
-        // DONE: TODO: implement
 
         Long customerId = null; // DONE: TODO: get first purchasedTicket's customer ID
         int size = ids.size();
@@ -90,6 +93,8 @@ public class AdminPurchasedTicketsController {
                 redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Dezaktywowano bilet." : ("Dezaktywowano " + size + " bilety."));
                 break;
         }
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
         return "redirect:/admin/purchased-tickets/" + customerId.toString();
     }
 }

@@ -45,6 +45,10 @@ public class AdminTicketTypesController {
         // DONE: TODO: implement
 
         ticketTypeService.saveTicketType(ticketTypeRequest);
+
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano typ.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+
         return "redirect:/admin/ticket-types/edit/" + ticketTypeRequest.getId();
     }
 

@@ -40,6 +40,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>

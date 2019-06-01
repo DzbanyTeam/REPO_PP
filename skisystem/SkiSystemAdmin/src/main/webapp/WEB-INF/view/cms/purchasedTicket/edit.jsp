@@ -20,6 +20,7 @@
     <meta charset="utf-8">
     <title>SkiSystem - panel administracyjny - bilet klienta ${purchasedTicket.getCustomer().getUsername()}</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
+    <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap-datepicker.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
 </head>
@@ -46,6 +47,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
@@ -85,7 +87,7 @@
                         <form:options items="${prices}" itemValue="id" itemLabel="string"/>
                     </form:select>
                 </div>
-                <div class="form-group">
+                <div class="form-group date">
                     <label>Data zakupu</label>
                     <spring:bind path="purchaseDatetime">
                         <div class="input-group">
@@ -97,7 +99,7 @@
                     </spring:bind>
                     <form:errors path="purchaseDatetime" class="invalid-feedback" />
                 </div>
-                <div class="form-group">
+                <div class="form-group date">
                     <label>Data wygaśnięcia</label>
                     <spring:bind path="expirationDatetime">
                         <div class="input-group">
@@ -126,6 +128,14 @@
 
 <script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
 <script src="<spring:url value="/resources/common/js/bootstrap.bundle.min.js"/>"></script>
+<script src="<spring:url value="/resources/common/js/bootstrap-datepicker.min.js"/>"></script>
+<script>
+    $('.date').datepicker({
+        'language': 'pl',
+        'weekstart': 1,
+        'format': 'dd.mm.yyyy'
+    });
+</script>
 
 </body>
 </html>

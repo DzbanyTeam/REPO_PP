@@ -41,6 +41,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
@@ -76,7 +77,7 @@
             <tr>
                 <td><input type="checkbox" name="ids[]" value="${purchasedTicket.id}"></td>
                 <td>${purchasedTicket.getPrice().getTicketType().getName()} ${purchasedTicket.getPrice().getTicketCategory().getName()}</td>
-                <td>${purchasedTicket.purchaseDatetime}</td>
+                <td>${purchasedTicket.purchaseDatetimeString}</td>
                 <c:if test="${purchasedTicket.getIsActive()}">
                     <td><a class="text-success" href="<spring:url value="/admin/purchased-tickets/update?ids%5B%5D=${purchasedTicket.id}&action=deactivate"/>" title="Dezaktywuj"><i class="fas fa-check text-success"></i></a></td>
                 </c:if>

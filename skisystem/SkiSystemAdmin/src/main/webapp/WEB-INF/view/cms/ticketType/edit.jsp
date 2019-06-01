@@ -17,10 +17,10 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <c:if test="${ticketType.id != 0}">
+    <c:if test="${ticketType.id != null}">
         <title>SkiSystem - panel administracyjny - edycja rodzaju biletu ${ticketType.name}</title>
     </c:if>
-    <c:if test="${ticketType.id == 0}">
+    <c:if test="${ticketType.id == null}">
         <title>SkiSystem - panel administracyjny - dodawanie rodzaju biletu</title>
     </c:if>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
@@ -51,6 +51,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
@@ -67,10 +68,10 @@
         <div class="col-lg-6 offset-lg-3">
             <a class="btn btn-lg btn-light float-left mr-3" href="<spring:url value="/admin/ticket-types"/>"><i class="fas fa-arrow-left"></i></a>
 
-            <c:if test="${ticketType.id != 0}">
+            <c:if test="${ticketType.id != null}">
                 <h1 id="header">Edycja rodzaju biletu ${ticketType.name}</h1>
             </c:if>
-            <c:if test="${ticketType.id == 0}">
+            <c:if test="${ticketType.id == null}">
                 <h1 id="header">Dodawanie rodzaju biletu</h1>
             </c:if>
 
