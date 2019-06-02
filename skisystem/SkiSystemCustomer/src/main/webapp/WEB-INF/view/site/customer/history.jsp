@@ -1,4 +1,3 @@
-<jsp:useBean id="customerAccount" scope="request" type="pl.polsl.pp.model.CustomerAccount"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -27,9 +26,6 @@
             margin-right: 20px;
             height: 800px;
         }
-        h5{
-            color: darkgray;
-        }
     </style>
 </head>
 <body class="bg-light">
@@ -40,26 +36,38 @@
 </div>
 <div class="d-flex flex-md-row">
     <div class="list-group flex-column ">
-        <a href="<spring:url value="/customer"/>" class="list-group-item active"><i class="fa fa-home"></i> <span>Podgląd</span></a>
+        <a href="<spring:url value="/customer"/>" class="list-group-item"><i class="fa fa-home"></i> <span>Podgląd</span></a>
         <a href="<spring:url value="/customer/data"/>" class="list-group-item"><i class="fa fa-address-card"></i> <span>Edycja danych</span></a>
-        <a href="<spring:url value="/customer/tickets/history"/>" class="list-group-item"><i class="fa fa-barcode"></i> <span>Zakupione bilety</span></a>
+        <a href="<spring:url value="/customer/tickets/history"/>" class="list-group-item active"><i class="fa fa-barcode"></i> <span>Zakupione bilety</span></a>
         <a href="#" class="list-group-item"><i class="fa fa-chart-line"></i> <span>Moje statystyki</span></a>
         <a href="<spring:url value="/customer/tickets/purchase"/>" class="list-group-item"><i class="fa fa-money-bill"></i> <span>Kup bilet</span></a>
     </div>
     <div class="flex-column panel-content bg-white border-bottom border-top border-left border-right shadow-sm">
-        <h1 id="header">Panel klienta</h1>
+        <h1 id="header">Historia biletów</h1>
         <br>
-        <h5>Nazwa użytkownika</h5>
-        <h3>${customerAccount.username}</h3>
-        <br>
-        <h5>Imię i nazwisko</h5>
-        <h3>${customerAccount.name} ${customerAccount.surname}</h3>
-        <br>
-        <h5>Adres e-mail</h5>
-        <h3>${customerAccount.email}</h3>
-        <br>
-        <h5>Numer telefonu</h5>
-        <h3>${customerAccount.phoneNumber}</h3>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>Bilet</th>
+                <th>Data zakupu</th>
+                <th>Aktywny</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${tickets}" var="purchasedTicket">
+                <tr>
+                    <td>${purchasedTicket.getPrice().getTicketType().getName()} ${purchasedTicket.getPrice().getTicketCategory().getName()}</td>
+                    <td>${purchasedTicket.purchaseDatetimeString}</td>
+                    <c:if test="${purchasedTicket.getIsActive()}">
+                        <td><a class="text-success"><i class="fas fa-check text-success"></i></a></td>
+                    </c:if>
+                    <c:if test="${!purchasedTicket.getIsActive()}">
+                        <td><a class="text-success"><i class="fas fa-times text-danger"></i></a></td>
+                    </c:if>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

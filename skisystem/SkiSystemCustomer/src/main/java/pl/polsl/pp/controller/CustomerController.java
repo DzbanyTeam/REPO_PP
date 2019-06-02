@@ -75,37 +75,27 @@ public class CustomerController {
     }
 
     @GetMapping("")
-    public String showCustomer() {
+    public String showCustomer(Model model) {
+        /**
+         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
+         */
+        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(1L);
+        model.addAttribute("customerAccount", customerAccount);
         return "site/customer/panel";
     }
 
     @GetMapping("/data")
-    public String showData() {
-        return "index";
+    public String showData(Model model) {
+        /**
+         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
+         */
+        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(1L);
+        model.addAttribute("customerAccount", customerAccount);
+        return "site/customer/edit";
     }
 
     @GetMapping("/stats")
     public String showStats() {
-        return "index";
-    }
-
-    @GetMapping("/tickets}")
-    public String showTickets() {
-        return "index";
-    }
-
-    @GetMapping("/tickets/purchase")
-    public String showTicketsPurchase() {
-        return "index";
-    }
-
-    @GetMapping("/tickets/purchase/success")
-    public String showTicketsPurchaseSuccess() {
-        return "index";
-    }
-
-    @GetMapping("/tickets/purchase/error")
-    public String showTicketsPurchaseError() {
         return "index";
     }
 
@@ -125,13 +115,16 @@ public class CustomerController {
     }
 
     @PostMapping("/data")
-    public String submitData() {
-        return "index";
-    }
-
-    @PostMapping("/tickets/purchase")
-    public String submitTicketsPurchase() {
-        return "index";
+    public String submitData(@ModelAttribute("customerAccount") @Validated CustomerAccount customerAccountRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("alertText", "Nie można zapisać klienta. Sprawdź błędy formularza.");
+            model.addAttribute("alertType", "danger");
+            return "site/customer/edit";
+        }
+        customerAccountService.saveCustomerAccount(customerAccountRequest);
+        redirectAttributes.addFlashAttribute("alertText", "Zmieniono dane.");
+        redirectAttributes.addFlashAttribute("alertType", "success");
+        return "redirect:/customer/data";
     }
 
 }

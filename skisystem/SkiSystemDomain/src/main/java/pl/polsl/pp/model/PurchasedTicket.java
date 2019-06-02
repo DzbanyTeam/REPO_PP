@@ -1,5 +1,6 @@
 package pl.polsl.pp.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,10 +28,11 @@ public class PurchasedTicket {
     private Price price;
 
     @Column(nullable = false)
+    @CreationTimestamp
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date purchaseDatetime;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date expirationDatetime;
 

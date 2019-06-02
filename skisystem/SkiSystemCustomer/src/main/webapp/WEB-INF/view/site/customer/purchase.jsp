@@ -1,4 +1,3 @@
-<jsp:useBean id="customerAccount" scope="request" type="pl.polsl.pp.model.CustomerAccount"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -27,9 +26,6 @@
             margin-right: 20px;
             height: 800px;
         }
-        h5{
-            color: darkgray;
-        }
     </style>
 </head>
 <body class="bg-light">
@@ -40,26 +36,37 @@
 </div>
 <div class="d-flex flex-md-row">
     <div class="list-group flex-column ">
-        <a href="<spring:url value="/customer"/>" class="list-group-item active"><i class="fa fa-home"></i> <span>Podgląd</span></a>
+        <a href="<spring:url value="/customer"/>" class="list-group-item"><i class="fa fa-home"></i> <span>Podgląd</span></a>
         <a href="<spring:url value="/customer/data"/>" class="list-group-item"><i class="fa fa-address-card"></i> <span>Edycja danych</span></a>
         <a href="<spring:url value="/customer/tickets/history"/>" class="list-group-item"><i class="fa fa-barcode"></i> <span>Zakupione bilety</span></a>
         <a href="#" class="list-group-item"><i class="fa fa-chart-line"></i> <span>Moje statystyki</span></a>
-        <a href="<spring:url value="/customer/tickets/purchase"/>" class="list-group-item"><i class="fa fa-money-bill"></i> <span>Kup bilet</span></a>
+        <a href="<spring:url value="/customer/tickets/purchase"/>" class="list-group-item active"><i class="fa fa-money-bill"></i> <span>Kup bilet</span></a>
     </div>
     <div class="flex-column panel-content bg-white border-bottom border-top border-left border-right shadow-sm">
-        <h1 id="header">Panel klienta</h1>
-        <br>
-        <h5>Nazwa użytkownika</h5>
-        <h3>${customerAccount.username}</h3>
-        <br>
-        <h5>Imię i nazwisko</h5>
-        <h3>${customerAccount.name} ${customerAccount.surname}</h3>
-        <br>
-        <h5>Adres e-mail</h5>
-        <h3>${customerAccount.email}</h3>
-        <br>
-        <h5>Numer telefonu</h5>
-        <h3>${customerAccount.phoneNumber}</h3>
+
+        <h1 id="header">Zakup biletu</h1>
+
+        <form:form method="post" class="mt-5" modelAttribute="purchasedTicket" action="/customer/tickets/purchase">
+            <c:if test="${alertText != null}">
+                <div class="alert alert-${alertType}">
+                        ${alertText}
+                    <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
+                </div>
+            </c:if>
+
+            <form:hidden path="id"/>
+            <form:hidden path="customer"/>
+            <div class="form-group">
+                <label>Rodzaj biletu</label>
+                <form:select class="custom-select" path="price">
+                    <form:options items="${prices}" itemValue="id"  itemLabel="string"/>
+                </form:select>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Kup</button>
+            </div>
+        </form:form>
     </div>
+</div>
 </body>
 </html>
