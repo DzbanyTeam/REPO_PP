@@ -81,7 +81,7 @@
                 <td>${customerAccount.name} ${customerAccount.surname}</td>
                 <td>
                     <a class="btn btn-secondary py-0" href="<spring:url value="/admin/purchased-tickets/${customerAccount.id}"/>">
-                        ${customerAccount.getPurchasedTickets().size()}
+                        ${purchasedTicketsByCustomerId.get(customerAccount.id).size()}
                     </a>
                 </td>
                 <c:if test="${customerAccount.getIsActive()}">

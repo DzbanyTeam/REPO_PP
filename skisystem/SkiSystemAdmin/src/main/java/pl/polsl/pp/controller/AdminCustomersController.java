@@ -10,10 +10,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.polsl.pp.model.CustomerAccount;
+import pl.polsl.pp.model.PurchasedTicket;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
+import pl.polsl.pp.service.interfaces.IPurchasedTicketService;
 import pl.polsl.pp.validator.CustomerAccountValidator;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/customers")
@@ -26,6 +30,9 @@ public class AdminCustomersController {
     @Autowired
     private CustomerAccountValidator customerAccountValidator;
 
+    @Autowired
+    private IPurchasedTicketService purchasedTicketService;
+
     @InitBinder
     protected void initBinderCustomer(WebDataBinder binder) {
         binder.addValidators(customerAccountValidator);
@@ -36,7 +43,16 @@ public class AdminCustomersController {
 
     @GetMapping("")
     public String showCustomers(Model model) {
-        model.addAttribute("customerAccounts", customerAccountService.getAllCustomerAccounts());
+        List<CustomerAccount> customerAccountList = customerAccountService.getAllCustomerAccounts();
+        model.addAttribute("customerAccounts", customerAccountList);
+        Map<Long, List<PurchasedTicket>> purchasedTicketsByCustomerId = new HashMap<>();
+
+        for(CustomerAccount customerAccount : customerAccountList){
+            Long id = customerAccount.getId();
+            purchasedTicketsByCustomerId.put(id,purchasedTicketService.getAllPurchasedTicketsByCustomerId(id));
+        }
+
+        model.addAttribute("purchasedTicketsByCustomerId", purchasedTicketsByCustomerId);
         return "cms/customerAccount/list";
     }
     @GetMapping("/edit/{id}")

@@ -44,7 +44,7 @@
                         <th scope="row">${ticketCategory.name}</th>
                         <c:forEach items="${ticketTypes}" var="ticketType">
                             <td>
-                                <c:if test="${pricesInSeason.get(ticketCategory).get(ticketType) != null}">
+                                <c:if test="${pricesInSeason.get(season).get(ticketCategory).get(ticketType) != null}">
                                     ${pricesInSeason.get(season).get(ticketCategory).get(ticketType).getPriceValue()} zł
                                 </c:if>
                             </td>

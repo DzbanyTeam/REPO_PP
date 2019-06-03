@@ -2,6 +2,9 @@ package pl.polsl.pp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.polsl.pp.model.CustomerAccount;
 import pl.polsl.pp.service.interfaces.ICustomerAccountService;
 import pl.polsl.pp.validator.CustomerAccountValidator;
+
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/customer")
@@ -76,20 +81,17 @@ public class CustomerController {
 
     @GetMapping("")
     public String showCustomer(Model model) {
-        /**
-         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
-         */
-        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(1L);
+
+        Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(requestCustomerAccountId);
         model.addAttribute("customerAccount", customerAccount);
         return "site/customer/panel";
     }
 
     @GetMapping("/data")
     public String showData(Model model) {
-        /**
-         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
-         */
-        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(1L);
+        Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(requestCustomerAccountId);
         model.addAttribute("customerAccount", customerAccount);
         return "site/customer/edit";
     }
@@ -124,6 +126,9 @@ public class CustomerController {
         customerAccountService.saveCustomerAccount(customerAccountRequest);
         redirectAttributes.addFlashAttribute("alertText", "Zmieniono dane.");
         redirectAttributes.addFlashAttribute("alertType", "success");
+        Collection<SimpleGrantedAuthority> nowAuthorities =(Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(customerAccountRequest.getUsername(), customerAccountRequest.getPassword(), nowAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         return "redirect:/customer/data";
     }
 

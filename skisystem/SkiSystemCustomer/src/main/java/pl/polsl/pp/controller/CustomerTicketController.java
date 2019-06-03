@@ -2,6 +2,7 @@ package pl.polsl.pp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,10 +42,8 @@ public class CustomerTicketController {
 
     @GetMapping("/history")
     public String showTickets(Model model) {
-        /**
-         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
-         */
-        List<PurchasedTicket> tickets = purchasedTicketService.getAllPurchasedTicketsByCustomerId(1L);
+        Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        List<PurchasedTicket> tickets = purchasedTicketService.getAllPurchasedTicketsByCustomerId(requestCustomerAccountId);
         model.addAttribute("tickets", tickets);
         return "site/customer/history";
     }
@@ -61,11 +60,9 @@ public class CustomerTicketController {
 
     @GetMapping("/purchase")
     public String showTicketsPurchase(Model model) {
-        /**
-         * TODO: zmienic zeby bralo id aktualnie zalogowanego customera
-         */
         PurchasedTicket ticket = new PurchasedTicket();
-        ticket.setCustomer(customerAccountService.getCustomerAccountById(1L));
+        Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
+        ticket.setCustomer(customerAccountService.getCustomerAccountById(requestCustomerAccountId));
         model.addAttribute("purchasedTicket", ticket);
         model.addAttribute("prices", priceService.getAllPrices());
         return "site/customer/purchase";
@@ -73,7 +70,6 @@ public class CustomerTicketController {
 
     @PostMapping("/purchase")
     public String submitTicketsPurchase(@ModelAttribute("purchasedTicket") PurchasedTicket purchasedTicketRequest, Model model, final RedirectAttributes redirectAttributes) {
-        // DONE: TODO: implement
 
         purchasedTicketService.savePurchasedTicket(purchasedTicketRequest);
         redirectAttributes.addFlashAttribute("alertText", "Zakupiono bilet.");

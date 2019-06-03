@@ -53,48 +53,40 @@ public class IndexController {
 
     @GetMapping("/prices")
     public String showPrices(Model model) {
-        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes()); // DONE: TODO: implement
-        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories()); // DONE: TODO: implement
+        model.addAttribute("ticketTypes", ticketTypeService.getAllTicketTypes());
+        model.addAttribute("ticketCategories", ticketCategoryService.getAllTicketCategories());
         model.addAttribute("seasons", seasonService.getAllActiveSeasons());
 
- // TODO: refactor (seasons): we need to return map with additional dimension - seasaons (only active)
+        // zwraca ceny w sezonie
+        HashMap<Season, Map<TicketCategory,Map<TicketType, Price>>> categoryTypesPricesInSeasonMap = new HashMap<>();
 
-//        // zwraca ceny w sezonie
-//        HashMap<TicketCategory, Map<TicketType, Price>> categoryTypesPricesInSeasonMap = new HashMap<>();
-//        for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
-//            Map<TicketType, Price> typePriceMap = new HashMap<>();
-//            for (TicketType type : ticketTypeService.getAllTicketTypes()) {
-//                Price price = priceService.getPriceByTypeAndCategoryAndSeason(type.getId(), category.getId(), 1);
-//                typePriceMap.put(type, price);
-//                categoryTypesPricesInSeasonMap.put(category, typePriceMap);
-//            }
-//        }
-//
-//        // zwraca ceny poza sezonem
-//        HashMap<TicketCategory, Map<TicketType, Price>> categoryTypesPricesOutSeasonMap = new HashMap<>();
-//        for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
-//            Map<TicketType, Price> typePriceMap = new HashMap<>();
-//            for (TicketType type : ticketTypeService.getAllTicketTypes()) {
-//                Price price = priceService.getPriceByTypeAndCategoryAndSeason(type.getId(), category.getId(), 0);
-//                typePriceMap.put(type, price);
-//                categoryTypesPricesOutSeasonMap.put(category, typePriceMap);
-//            }
-//        }
-//
-//        model.addAttribute("pricesInSeason", categoryTypesPricesInSeasonMap); // IN PROGRESS: TODO: implement
-//        model.addAttribute("pricesOutSeason", categoryTypesPricesOutSeasonMap); // IN PROGRESS: TODO: implement
+        for(Season season: seasonService.getAllActiveSeasons()){
+            Map<TicketCategory,Map<TicketType, Price>> seasonMap = new HashMap<>();
+            for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
+                Map<TicketType, Price> typePriceMap = new HashMap<>();
+                seasonMap.put(category, typePriceMap);
+                for (TicketType type : ticketTypeService.getAllTicketTypes()) {
+                    Price price = priceService.getPriceByTypeAndCategoryAndSeason(type.getId(), category.getId(), season.getId());
+                    typePriceMap.put(type, price);
+                    categoryTypesPricesInSeasonMap.put(season, seasonMap);
+                }
+            }
+        }
+
+
+        model.addAttribute("pricesInSeason", categoryTypesPricesInSeasonMap);
         return "site/ski/prices";
     }
 
     @GetMapping("/lifts")
     public String showLifts(Model model) {
-        model.addAttribute("lifts", liftService.getAllLifts()); //DONE: TODO: implement
+        model.addAttribute("lifts", liftService.getAllLifts());
         return "site/ski/lifts";
     }
 
     @GetMapping("/slopes")
     public String showSlopes(Model model) {
-        model.addAttribute("slopes", slopeService.getAllSlopes()); // DONE: TODO: implement
+        model.addAttribute("slopes", slopeService.getAllSlopes());
         return "site/ski/slopes";
     }
 

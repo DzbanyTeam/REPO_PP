@@ -34,7 +34,7 @@ public class AdminPurchasedTicketsController {
     @Qualifier("priceServiceInterface")
     private IPriceService priceService;
 
-    @GetMapping("{customerId}")
+    @GetMapping("/{customerId}")
     public String showPurchasedTickets(Model model, @PathVariable Long customerId) {
         model.addAttribute("purchasedTickets", purchasedTicketService.getAllPurchasedTicketsByCustomerId(customerId)); // DONE: TODO: implement as such: purchasedTicketService.getAllPurchasedTicketsByCustomerId(customerId)
         model.addAttribute("customerAccount", customerAccountService.getCustomerAccountById(customerId)); // DONE:  TODO: get the customer account object
