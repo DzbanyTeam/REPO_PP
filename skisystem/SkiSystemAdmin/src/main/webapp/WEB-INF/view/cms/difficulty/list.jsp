@@ -13,7 +13,7 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <title>SkiSystem - panel administracyjny - edycja kategorii biletów</title>
+    <title>SkiSystem - panel administracyjny - edycja poziomów trudności</title>
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/cms/css/style.css"/>">
@@ -30,13 +30,13 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/lifts"/>">Wyciągi</a>
         </li>
-        <li class="nav-item dropdown active">
+        <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Cennik</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-types"/>">Rodzaje biletów</a>
@@ -54,8 +54,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Kategorie cenowe</h1>
-    <form action="<spring:url value="/admin/ticket-categories/update"/>" method="GET" class="mt-5">
+    <h1 id="header">Poziomy trudności</h1>
+    <form action="<spring:url value="/admin/difficulties/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
                     ${alertText}
@@ -71,14 +71,14 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${ticketCategories}" var="ticketCategory">
+            <c:forEach items="${difficulties}" var="difficulty">
                 <tr>
-                    <td><input type="checkbox" name="ids[]" value="${ticketCategory.id}"></td>
-                    <td>${ticketCategory.name}</td>
+                    <td><input type="checkbox" name="ids[]" value="${difficulty.id}"></td>
+                    <td>${difficulty.name}</td>
                     <td class="text-right py-2">
                         <div class="btn-group">
-                            <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/ticket-categories/edit/${ticketCategory.id}"/>"></a>
-                            <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/ticket-categories/update?ids%5B%5D=${ticketCategory.id}&action=delete"/>"></a>
+                            <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/difficulties/edit/${difficulty.id}"/>"></a>
+                            <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/difficulties/update?ids%5B%5D=${difficulty.id}&action=delete"/>"></a>
                         </div>
                     </td>
                 </tr>
@@ -86,7 +86,7 @@
             </tbody>
         </table>
         <div>
-            <a href="<spring:url value="/admin/ticket-categories/add"/>" class="btn btn-primary float-right">Dodaj kategorię biletu&ensp;<i class="fas fa-plus"></i></a>
+            <a href="<spring:url value="/admin/difficulties/add"/>" class="btn btn-primary float-right">Dodaj poziom trudności <i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
                 <option value="delete">Usuń zaznaczone</option>

@@ -129,9 +129,14 @@
                 </div>
                 <div class="form-group">
                     <label>Trudność</label>
-                    <form:select class="custom-select" path="difficulty">
-                        <form:options items="${difficulties}" itemValue="id" itemLabel="name"/>
-                    </form:select>
+                    <div class="input-group">
+                        <form:select class="custom-select" path="difficulty">
+                            <form:options items="${difficulties}" itemValue="id" itemLabel="name"/>
+                        </form:select>
+                        <div class="input-group-append">
+                            <a href="<spring:url value="/admin/difficulties"/>" class="btn btn-secondary">Edytuj poziomy trudności&ensp;<i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Powiązane wyciągi</label>
