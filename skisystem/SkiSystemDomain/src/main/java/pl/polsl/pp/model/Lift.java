@@ -1,6 +1,7 @@
 package pl.polsl.pp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,5 +99,9 @@ public class Lift {
 
     public void setAssociatedSlopes(List<Slope> associatedSlopes) {
         this.associatedSlopes = associatedSlopes;
+    }
+
+    public List<LiftBusinessHours> getLiftBusinessHours() {
+        return new ArrayList<>(); // TODO Implement
     }
 }

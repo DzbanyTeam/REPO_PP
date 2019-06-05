@@ -27,30 +27,44 @@
 
     <main class="bg-white rounded p-5">
         <h1>Wyciągi</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Nazwa</th>
-                <th scope="col">Dystans</th>
-                <th scope="col">Wysokość</th>
-                <th scope="col">Stoki, na które wiedzie wyciąg</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${lifts}" var="lift">
-                <tr id="lift-${lift.id}">
-                    <td>${lift.name}</td>
-                    <td>${lift.length} m</td>
-                    <td>${lift.startElevation} mnpm - ${lift.endElevation} mnpm</td>
-                    <td>
+
+        <c:forEach items="${lifts}" var="lift">
+            <hr>
+            <div id="slope-${lift.id}">
+                <h3>${lift.name}</h3>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p><b>Długość</b></p>
+                        <p>${lift.length} m</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p><b>Wysokość</b></p>
+                        <p>${lift.startElevation} mnpm - ${lift.endElevation} mnpm</p>
+                    </div>
+                </div>
+                <c:if test="${lift.getAssociatedSlopes().size() > 0}">
+                    <p><b>Stoki, na które prowadzi wyciąg</b></p>
+                    <p>
                         <c:forEach items="${lift.getAssociatedSlopes()}" var="slope">
                             <a href="<spring:url value="/slopes#slope-${slope.id}"/>" class="badge badge-secondary">${slope.name}</a>
                         </c:forEach>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                    </p>
+                </c:if>
+                <c:if test="${lift.getLiftBusinessHours().size() > 0}">
+                    <p><b>Wyciąg czynny w godzinach:</b></p>
+                    <table class="table table-sm">
+                        <tbody>
+                        <c:forEach items="${lift.getLiftBusinessHours()}" var="businessHours">
+                            <tr>
+                                <td>${businessHours.dayOfTheWeek.name}</td>
+                                <td>${businessHours.openingHour} - ${businessHours.closingHour}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+            </div>
+        </c:forEach>
     </main>
 </div>
 </body>

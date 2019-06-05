@@ -26,8 +26,10 @@
     </header>
 
     <main class="bg-white rounded p-5">
+        <h1>Cennik</h1>
         <c:forEach items="${seasons}" var="season">
-            <h1>${season.name}</h1>
+            <hr>
+            <h3>${season.name}</h3>
             <p>Poniższy cennik obowiązuje w okresie od ${season.startDatetimeString} do ${season.endDatetimeString}</p>
             <table class="table">
                 <thead>

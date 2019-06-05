@@ -62,4 +62,9 @@ public class BusinessHours {
     public void setClosingHour(Time closingHour) {
         this.closingHour = closingHour;
     }
+
+    public DayOfTheWeek getDayOfTheWeek()
+    {
+        return new DayOfTheWeek(); // TODO implement
+    }
 }

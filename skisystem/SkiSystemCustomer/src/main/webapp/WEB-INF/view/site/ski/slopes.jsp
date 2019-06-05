@@ -27,32 +27,47 @@
 
     <main class="bg-white rounded p-5">
         <h1>Stoki</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Nazwa</th>
-                <th scope="col">Dystans</th>
-                <th scope="col">Wysokość</th>
-                <th scope="col">Trudność</th>
-                <th scope="col">Wyciągi, które wiodą na stok</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${slopes}" var="slope">
-                <tr id="slope-${slope.id}">
-                    <td>${slope.name}</td>
-                    <td>${slope.length} m</td>
-                    <td>${slope.startElevation} mnpm - ${slope.endElevation} mnpm</td>
-                    <td><c:if test="${slope.difficulty != null}"><span class="badge badge-primary badge-pill">${slope.difficulty.getName()}</span></c:if></td>
-                    <td>
+        <c:forEach items="${slopes}" var="slope">
+            <hr>
+            <div id="slope-${slope.id}">
+                <h3>${slope.name}</h3>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><b>Długość</b></p>
+                        <p>${slope.length} m</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><b>Wysokość</b></p>
+                        <p>${slope.startElevation} mnpm - ${slope.endElevation} mnpm</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><b>Trudność</b></p>
+                        <p><c:if test="${slope.difficulty != null}"><span class="badge badge-primary badge-pill">${slope.difficulty.getName()}</span></c:if></p>
+                    </div>
+                </div>
+                <c:if test="${slope.getAssociatedLifts().size() > 0}">
+                    <p><b>Wyciągi prowadzące na stok</b></p>
+                    <p>
                         <c:forEach items="${slope.getAssociatedLifts()}" var="lift">
                             <a href="<spring:url value="/lifts#lift-${lift.id}"/>" class="badge badge-secondary">${lift.name}</a>
                         </c:forEach>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                    </p>
+                </c:if>
+                <c:if test="${slope.getSlopeBusinessHours().size() > 0}">
+                    <p><b>Stok czynny w godzinach:</b></p>
+                    <table class="table table-sm">
+                        <tbody>
+                        <c:forEach items="${slope.getSlopeBusinessHours()}" var="businessHours">
+                            <tr>
+                                <td>${businessHours.dayOfTheWeek.name}</td>
+                                <td>${businessHours.openingHour} - ${businessHours.closingHour}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+            </div>
+        </c:forEach>
     </main>
 </div>
 </body>
