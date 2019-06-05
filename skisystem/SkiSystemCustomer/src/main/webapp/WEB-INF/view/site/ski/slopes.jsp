@@ -60,7 +60,7 @@
                         <c:forEach items="${slope.getSlopeBusinessHours()}" var="businessHours">
                             <tr>
                                 <td>${businessHours.dayOfTheWeek.name}</td>
-                                <td>${businessHours.openingHour} - ${businessHours.closingHour}</td>
+                                <td>${businessHours.openingHourString} - ${businessHours.closingHourString}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

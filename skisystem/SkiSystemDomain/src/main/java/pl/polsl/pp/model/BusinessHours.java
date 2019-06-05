@@ -2,6 +2,7 @@ package pl.polsl.pp.model;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 
 /**
  * Klasa bazowa reprezentująca godziny otwarcia w zależności od dnia
@@ -44,12 +45,22 @@ public class BusinessHours {
         return openingHour;
     }
 
+    public String getOpeningHourString() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(openingHour);
+    }
+
     public void setOpeningHour(Time openingHour) {
         this.openingHour = openingHour;
     }
 
     public Time getClosingHour() {
         return closingHour;
+    }
+
+    public String getClosingHourString() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(closingHour);
     }
 
     public void setClosingHour(Time closingHour) {
