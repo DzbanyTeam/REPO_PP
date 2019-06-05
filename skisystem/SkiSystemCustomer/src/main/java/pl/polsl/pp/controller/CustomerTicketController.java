@@ -64,7 +64,7 @@ public class CustomerTicketController {
         Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();
         ticket.setCustomer(customerAccountService.getCustomerAccountById(requestCustomerAccountId));
         model.addAttribute("purchasedTicket", ticket);
-        model.addAttribute("prices", priceService.getAllPrices());
+        model.addAttribute("prices", priceService.getAllPricesInActiveSeasons());
         return "site/customer/purchase";
     }
 

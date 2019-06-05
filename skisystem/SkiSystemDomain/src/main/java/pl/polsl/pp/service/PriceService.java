@@ -3,8 +3,11 @@ package pl.polsl.pp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import pl.polsl.pp.model.Price;
+import pl.polsl.pp.model.Season;
 import pl.polsl.pp.repository.PriceRepository;
+import pl.polsl.pp.repository.SeasonRepository;
 import pl.polsl.pp.service.interfaces.IPriceService;
+import pl.polsl.pp.service.interfaces.ISeasonService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,10 @@ public class PriceService implements IPriceService {
     @Autowired
     @Qualifier("priceRepository")
     private PriceRepository priceRepository;
+
+    @Autowired
+    @Qualifier("seasonService")
+    private ISeasonService seasonService;
 
     @Override
     public Price getPriceById(Long id) {
@@ -42,6 +49,18 @@ public class PriceService implements IPriceService {
         }
         return null;
 
+    }
+
+    @Override
+    public List<Price> getAllPricesInActiveSeasons() {
+        List<Price> priceList = new ArrayList<>();
+        List<Season> activeSeasons = seasonService.getAllActiveSeasons();
+        priceRepository.findAll().forEach(p -> {
+            if(activeSeasons.contains(p.getSeason())){
+                priceList.add(p);
+            }
+        });
+        return priceList;
     }
 
     @Override
