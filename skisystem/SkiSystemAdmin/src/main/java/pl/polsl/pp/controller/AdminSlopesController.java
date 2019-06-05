@@ -68,7 +68,12 @@ public class AdminSlopesController {
         model.addAttribute("difficulties", difficultyService.getAllDifficulties());
         model.addAttribute("lifts", liftService.getAllLifts());
         model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
-        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, SlopeBusinessHours>()); // TODO Get this slope's business hours in a map identified by day of the week
+        HashMap<DayOfTheWeek, SlopeBusinessHours> dayOfTheWeekSlopeBusinessHoursHashMap = new HashMap<DayOfTheWeek, SlopeBusinessHours>();
+
+        slopeBusinessHoursService.getAllSlopeBusinessHours().forEach(sb ->{
+            dayOfTheWeekSlopeBusinessHoursHashMap.put(sb.getDayOfTheWeek(),sb);
+        });
+        model.addAttribute("businessHours", dayOfTheWeekSlopeBusinessHoursHashMap);
         return "cms/slope/edit";
     }
 

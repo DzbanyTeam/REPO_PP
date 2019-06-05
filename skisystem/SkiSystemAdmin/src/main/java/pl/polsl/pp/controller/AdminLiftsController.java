@@ -59,7 +59,14 @@ public class AdminLiftsController {
     public String showLiftsEdit(Model model, @PathVariable Long id) {
         model.addAttribute("lift", liftService.getLiftById(id));
         model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
-        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, LiftBusinessHours>()); // TODO Get this lift's business hours in a map identified by day of the week
+
+        HashMap<DayOfTheWeek, LiftBusinessHours> dayOfTheWeekLiftBusinessHoursHashMap = new HashMap<DayOfTheWeek, LiftBusinessHours>();
+
+        liftBusinessHoursService.getAllLiftBusinessHours().forEach(lb ->{
+            dayOfTheWeekLiftBusinessHoursHashMap.put(lb.getDayOfTheWeek(),lb);
+        });
+
+        model.addAttribute("businessHours", dayOfTheWeekLiftBusinessHoursHashMap);
         return "cms/lift/edit";
     }
 
