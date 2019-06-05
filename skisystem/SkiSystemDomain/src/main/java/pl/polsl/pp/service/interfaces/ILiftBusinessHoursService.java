@@ -10,4 +10,5 @@ public interface ILiftBusinessHoursService {
     boolean saveLiftBusinessHours(LiftBusinessHours liftBusinessHours);
     boolean deleteLiftBusinessHours(List<Long> ids);
     List<LiftBusinessHours> getAllLiftBusinessHours();
+    boolean deleteLiftBusinnesHoursBySlopeIdAndDayId(Long slopeId, Long dayId);
 }

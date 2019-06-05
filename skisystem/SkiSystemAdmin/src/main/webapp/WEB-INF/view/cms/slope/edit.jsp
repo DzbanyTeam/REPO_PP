@@ -159,11 +159,11 @@
                                 <td>${dayOfTheWeek.name}</td>
                                 <td>
                                     <div class="input-group float-right">
-                                        <input type="text" class="form-control" name="businessHours[${dayOfTheWeek.id}][openingHour]" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].openingHour : ""}">
+                                        <input type="text" class="form-control" name="businessHours" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].openingHourString : ""}">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">-</span>
                                         </div>
-                                        <input type="text" class="form-control" name="businessHours[${dayOfTheWeek.id}][closingHour]" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].closingHour : ""}">
+                                        <input type="text" class="form-control" name="businessHours" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].closingHourString : ""}">
                                     </div>
                                 </td>
                             </tr>

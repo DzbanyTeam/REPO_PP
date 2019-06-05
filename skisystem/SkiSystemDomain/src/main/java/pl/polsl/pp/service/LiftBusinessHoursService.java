@@ -46,4 +46,16 @@ public class LiftBusinessHoursService implements ILiftBusinessHoursService {
         liftBusinessHoursRepository.findAll().forEach(bh -> liftBusinessHoursList.add(bh));
         return liftBusinessHoursList;
     }
+
+    @Override
+    public boolean deleteLiftBusinnesHoursBySlopeIdAndDayId(Long liftId, Long dayId) {
+        List<LiftBusinessHours> slopeBusinessHoursList = (List<LiftBusinessHours>)liftBusinessHoursRepository.findAll();
+
+        for(LiftBusinessHours slopeBusinessHours : slopeBusinessHoursList){
+            if(slopeBusinessHours.getLift().getId().equals(liftId) && slopeBusinessHours.getDayOfTheWeek().getId().equals(dayId)){
+                liftBusinessHoursRepository.deleteById(slopeBusinessHours.getId());
+            }
+        }
+        return true;
+    }
 }

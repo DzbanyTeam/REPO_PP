@@ -42,7 +42,7 @@ public class AdminDaysOfTheWeekControllerController {
         // DONE: TODO: implement
         dayOfTheWeekService.saveDayOfTheWeek(dayOfTheWeekRequest);
 
-        redirectAttributes.addFlashAttribute("alertText", "Zapisano poziom trudności.");
+        redirectAttributes.addFlashAttribute("alertText", "Zapisano dzień tygodnia.");
         redirectAttributes.addFlashAttribute("alertType", "success");
 
         return "redirect:/admin/days-of-the-week/edit/" + dayOfTheWeekRequest.getId();
@@ -55,7 +55,7 @@ public class AdminDaysOfTheWeekControllerController {
             case "delete":
                 dayOfTheWeekService.deleteDaysOfTheWeek(ids);
 
-                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Usunięto poziom trudności." : ("Usunięto " + size + " poziomów trudności."));
+                redirectAttributes.addFlashAttribute("alertText", size == 1 ? "Usunięto dzień tygodnia." : ("Usunięto " + size + " dni tygodnia."));
                 break;
         }
         redirectAttributes.addFlashAttribute("alertType", "success");

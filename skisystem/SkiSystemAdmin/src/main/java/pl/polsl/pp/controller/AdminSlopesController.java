@@ -2,6 +2,7 @@ package pl.polsl.pp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,16 +10,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.polsl.pp.model.BusinessHours;
 import pl.polsl.pp.model.DayOfTheWeek;
 import pl.polsl.pp.model.Slope;
 import pl.polsl.pp.model.SlopeBusinessHours;
-import pl.polsl.pp.service.interfaces.IDayOfTheWeekService;
-import pl.polsl.pp.service.interfaces.IDifficultyService;
-import pl.polsl.pp.service.interfaces.ILiftService;
-import pl.polsl.pp.service.interfaces.ISlopeService;
+import pl.polsl.pp.service.interfaces.*;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/slopes")
@@ -39,6 +41,10 @@ public class AdminSlopesController {
     @Autowired
     @Qualifier("dayOfTheWeekServiceInterface")
     private IDayOfTheWeekService dayOfTheWeekService;
+
+    @Autowired
+    @Qualifier("slopeBusinessHoursServiceInterface")
+    private ISlopeBusinessHoursService slopeBusinessHoursService;
 
     //@Autowired
     //private SlopeValidator slopeValidator;
@@ -77,14 +83,27 @@ public class AdminSlopesController {
     }
 
     @PostMapping("/submit")
-    public String submitSlope(@ModelAttribute("slope") @Validated Slope slopeRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
+    public String submitSlope(@ModelAttribute("slope") @Validated Slope slopeRequest, @RequestParam(name="businessHours") @DateTimeFormat(pattern = "HH:mm")  List<Date> businessHours, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors() || businessHours.contains(null)) {
             model.addAttribute("alertText", "Nie można zapisać stoku. Sprawdź błędy formularza.");
             model.addAttribute("alertType", "danger");
+            model.addAttribute("difficulties", difficultyService.getAllDifficulties());
+            model.addAttribute("lifts", liftService.getAllLifts());
+            model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+            model.addAttribute("businessHours", new HashMap<DayOfTheWeek, SlopeBusinessHours>());
             return "cms/slope/edit";
         }
 
         slopeService.saveSlope(slopeRequest);
+
+        List<DayOfTheWeek> dayOfTheWeeks = dayOfTheWeekService.getAllDaysOfTheWeek();
+        int i = 0;
+        for(DayOfTheWeek dayOfTheWeek : dayOfTheWeeks){
+            slopeBusinessHoursService.deleteSlopeBusinnesHoursBySlopeIdAndDayId(slopeRequest.getId(),dayOfTheWeek.getId());
+            SlopeBusinessHours slopeBusinessHours = new SlopeBusinessHours(dayOfTheWeek,new Time(businessHours.get(i).getTime()),new Time(businessHours.get(i+1).getTime()),slopeRequest);
+            i += 2;
+            slopeBusinessHoursService.saveSlopeBusinessHours(slopeBusinessHours);
+        }
 
         redirectAttributes.addFlashAttribute("alertText", "Zapisano stok.");
         redirectAttributes.addFlashAttribute("alertType", "success");

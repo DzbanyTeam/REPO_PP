@@ -2,6 +2,7 @@ package pl.polsl.pp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,10 +10,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.polsl.pp.model.*;
+import pl.polsl.pp.model.DayOfTheWeek;
+import pl.polsl.pp.model.Lift;
+import pl.polsl.pp.model.LiftBusinessHours;
+import pl.polsl.pp.model.SlopeBusinessHours;
 import pl.polsl.pp.service.interfaces.IDayOfTheWeekService;
+import pl.polsl.pp.service.interfaces.ILiftBusinessHoursService;
 import pl.polsl.pp.service.interfaces.ILiftService;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +34,10 @@ public class AdminLiftsController {
     @Autowired
     @Qualifier("dayOfTheWeekServiceInterface")
     private IDayOfTheWeekService dayOfTheWeekService;
+
+    @Autowired
+    @Qualifier("liftBusinessHoursServiceInterface")
+    private ILiftBusinessHoursService liftBusinessHoursService;
 
     //@Autowired
     //private LiftValidator liftValidator;
@@ -61,14 +72,25 @@ public class AdminLiftsController {
     }
 
     @PostMapping("/submit")
-    public String submitCustomer(@ModelAttribute("lift") @Validated Lift liftRequest, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
+    public String submitCustomer(@ModelAttribute("lift") @Validated Lift liftRequest, @RequestParam(name="businessHours") @DateTimeFormat(pattern = "HH:mm")  List<Date> businessHours, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("alertText", "Nie można zapisać wyciągu. Sprawdź błędy formularza.");
             model.addAttribute("alertType", "danger");
+            model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+            model.addAttribute("businessHours", new HashMap<DayOfTheWeek, LiftBusinessHours>());
             return "cms/lift/edit";
         }
 
         liftService.saveLift(liftRequest);
+
+        List<DayOfTheWeek> dayOfTheWeeks = dayOfTheWeekService.getAllDaysOfTheWeek();
+        int i = 0;
+        for(DayOfTheWeek dayOfTheWeek : dayOfTheWeeks){
+            liftBusinessHoursService.deleteLiftBusinnesHoursBySlopeIdAndDayId(liftRequest.getId(),dayOfTheWeek.getId());
+            LiftBusinessHours liftBusinessHours = new LiftBusinessHours(dayOfTheWeek,new Time(businessHours.get(i).getTime()),new Time(businessHours.get(i+1).getTime()),liftRequest);
+            i += 2;
+            liftBusinessHoursService.saveLiftBusinessHours(liftBusinessHours);
+        }
 
         redirectAttributes.addFlashAttribute("alertText", "Zapisano wyciąg.");
         redirectAttributes.addFlashAttribute("alertType", "success");
