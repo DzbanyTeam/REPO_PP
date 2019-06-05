@@ -9,11 +9,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.polsl.pp.model.DayOfTheWeek;
 import pl.polsl.pp.model.Slope;
+import pl.polsl.pp.model.SlopeBusinessHours;
+import pl.polsl.pp.service.interfaces.IDayOfTheWeekService;
 import pl.polsl.pp.service.interfaces.IDifficultyService;
 import pl.polsl.pp.service.interfaces.ILiftService;
 import pl.polsl.pp.service.interfaces.ISlopeService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -31,6 +35,10 @@ public class AdminSlopesController {
     @Autowired
     @Qualifier("liftServiceInterface")
     private ILiftService liftService;
+
+    @Autowired
+    @Qualifier("dayOfTheWeekServiceInterface")
+    private IDayOfTheWeekService dayOfTheWeekService;
 
     //@Autowired
     //private SlopeValidator slopeValidator;
@@ -53,6 +61,8 @@ public class AdminSlopesController {
         model.addAttribute("slope", slopeService.getSlopeById(id));
         model.addAttribute("difficulties", difficultyService.getAllDifficulties());
         model.addAttribute("lifts", liftService.getAllLifts());
+        model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, SlopeBusinessHours>()); // TODO Get this slope's business hours in a map identified by day of the week
         return "cms/slope/edit";
     }
 
@@ -61,6 +71,8 @@ public class AdminSlopesController {
         model.addAttribute("slope", new Slope());
         model.addAttribute("difficulties", difficultyService.getAllDifficulties());
         model.addAttribute("lifts", liftService.getAllLifts());
+        model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, SlopeBusinessHours>());
         return "cms/slope/edit";
     }
 

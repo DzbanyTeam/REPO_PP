@@ -9,10 +9,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.polsl.pp.model.CustomerAccount;
-import pl.polsl.pp.model.Lift;
+import pl.polsl.pp.model.*;
+import pl.polsl.pp.service.interfaces.IDayOfTheWeekService;
 import pl.polsl.pp.service.interfaces.ILiftService;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -22,6 +23,10 @@ public class AdminLiftsController {
     @Autowired
     @Qualifier("liftServiceInterface")
     private ILiftService liftService;
+
+    @Autowired
+    @Qualifier("dayOfTheWeekServiceInterface")
+    private IDayOfTheWeekService dayOfTheWeekService;
 
     //@Autowired
     //private LiftValidator liftValidator;
@@ -42,12 +47,16 @@ public class AdminLiftsController {
     @GetMapping("/edit/{id}")
     public String showLiftsEdit(Model model, @PathVariable Long id) {
         model.addAttribute("lift", liftService.getLiftById(id));
+        model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, LiftBusinessHours>()); // TODO Get this lift's business hours in a map identified by day of the week
         return "cms/lift/edit";
     }
 
     @GetMapping("/add")
     public String showSlopesAdd(Model model) {
         model.addAttribute("lift", new Lift());
+        model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
+        model.addAttribute("businessHours", new HashMap<DayOfTheWeek, LiftBusinessHours>());
         return "cms/lift/edit";
     }
 

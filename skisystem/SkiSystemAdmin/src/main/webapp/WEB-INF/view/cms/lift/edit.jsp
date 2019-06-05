@@ -126,6 +126,34 @@
                     </spring:bind>
                     <form:errors path="endElevation" class="invalid-feedback" />
                 </div>
+                <div class="form-group">
+                    <label>Godziny otwarcia</label>
+                    <table class="table mb-0">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 50%">Dzień tygodnia</th>
+                            <th class="text-right">Zakres godzin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${daysOfTheWeek}" var="dayOfTheWeek">
+                            <tr>
+                                <td>${dayOfTheWeek.name}</td>
+                                <td>
+                                    <div class="input-group float-right">
+                                        <input type="text" class="form-control" name="businessHours[${dayOfTheWeek.id}][openingHour]" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].openingHour : ""}">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">-</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="businessHours[${dayOfTheWeek.id}][closingHour]" placeholder="HH:MM" value="${businessHours[dayOfTheWeek] != null ? businessHours[dayOfTheWeek].closingHour : ""}">
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <a href="<spring:url value="/admin/days-of-the-week"/>">Edytuj dni tygodnia</a>
+                </div>
 
                 <div class="form-check">
                     <label class="form-check-label">
