@@ -33,6 +33,9 @@ public class Lift {
     @ManyToMany(mappedBy = "associatedLifts")
     private List<Slope> associatedSlopes;
 
+    @OneToMany(mappedBy = "lift")
+    List<LiftBusinessHours> liftBusinessHours;
+
     public Lift() {
     }
 
@@ -102,6 +105,10 @@ public class Lift {
     }
 
     public List<LiftBusinessHours> getLiftBusinessHours() {
-        return new ArrayList<>(); // TODO Implement
+        return liftBusinessHours;
+    }
+
+    public void setLiftBusinessHours(ArrayList<LiftBusinessHours> liftBusinessHours) {
+        this.liftBusinessHours = liftBusinessHours;
     }
 }

@@ -13,8 +13,9 @@ public class BusinessHours {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long dayId;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="day_id", nullable = false)
+    private DayOfTheWeek dayOfTheWeek;
 
     @Column(nullable = false)
     private Time openingHour;
@@ -25,8 +26,8 @@ public class BusinessHours {
     public BusinessHours() {
     }
 
-    public BusinessHours(Long dayId, Time openingHour, Time closingHour) {
-        this.dayId = dayId;
+    public BusinessHours(DayOfTheWeek dayOfTheWeek, Time openingHour, Time closingHour) {
+        this.dayOfTheWeek = dayOfTheWeek;
         this.openingHour = openingHour;
         this.closingHour = closingHour;
     }
@@ -37,14 +38,6 @@ public class BusinessHours {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getDayId() {
-        return dayId;
-    }
-
-    public void setDayId(Long dayId) {
-        this.dayId = dayId;
     }
 
     public Time getOpeningHour() {
@@ -63,8 +56,11 @@ public class BusinessHours {
         this.closingHour = closingHour;
     }
 
-    public DayOfTheWeek getDayOfTheWeek()
-    {
-        return new DayOfTheWeek(); // TODO implement
+    public DayOfTheWeek getDayOfTheWeek() {
+        return dayOfTheWeek;
+    }
+
+    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
     }
 }

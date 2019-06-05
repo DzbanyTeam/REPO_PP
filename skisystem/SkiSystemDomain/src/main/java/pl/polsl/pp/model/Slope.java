@@ -27,7 +27,7 @@ public class Slope {
     @Column
     private Integer endElevation;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="difficulty_id", nullable = false)
     private Difficulty difficulty;
 
@@ -40,6 +40,9 @@ public class Slope {
             joinColumns=@JoinColumn(name="slope_id", referencedColumnName="id", nullable = false),
             inverseJoinColumns=@JoinColumn(name="lift_id", referencedColumnName="id", nullable = false))
     private List<Lift> associatedLifts;
+
+    @OneToMany(mappedBy = "slope")
+    List<SlopeBusinessHours> slopeBusinessHours;
 
     public Slope() {
     }
@@ -118,6 +121,10 @@ public class Slope {
     }
 
     public List<SlopeBusinessHours> getSlopeBusinessHours() {
-        return new ArrayList<>(); // TODO Implement
+        return slopeBusinessHours;
+    }
+
+    public void setSlopeBusinessHours(ArrayList<SlopeBusinessHours> slopeBusinessHours) {
+        this.slopeBusinessHours = slopeBusinessHours;
     }
 }

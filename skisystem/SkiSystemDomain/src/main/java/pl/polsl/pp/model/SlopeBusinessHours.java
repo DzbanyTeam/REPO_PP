@@ -17,8 +17,8 @@ public class SlopeBusinessHours extends BusinessHours {
     public SlopeBusinessHours() {
     }
 
-    public SlopeBusinessHours(Long dayId, Time openingHour, Time closingHour, Slope slope) {
-        super(dayId, openingHour, closingHour);
+    public SlopeBusinessHours(DayOfTheWeek dayOfTheWeek, Time openingHour, Time closingHour, Slope slope) {
+        super(dayOfTheWeek, openingHour, closingHour);
         this.slope = slope;
     }
 

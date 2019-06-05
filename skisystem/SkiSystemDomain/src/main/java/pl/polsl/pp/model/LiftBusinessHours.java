@@ -17,8 +17,8 @@ public class LiftBusinessHours extends BusinessHours {
     public LiftBusinessHours() {
     }
 
-    public LiftBusinessHours(Long dayId, Time openingHour, Time closingHour, Lift lift) {
-        super(dayId, openingHour, closingHour);
+    public LiftBusinessHours(DayOfTheWeek dayOfTheWeek, Time openingHour, Time closingHour, Lift lift) {
+        super(dayOfTheWeek, openingHour, closingHour);
         this.lift = lift;
     }
 
