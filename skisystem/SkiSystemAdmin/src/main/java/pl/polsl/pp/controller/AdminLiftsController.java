@@ -80,7 +80,7 @@ public class AdminLiftsController {
 
     @PostMapping("/submit")
     public String submitCustomer(@ModelAttribute("lift") @Validated Lift liftRequest, @RequestParam(name="businessHours") @DateTimeFormat(pattern = "HH:mm")  List<Date> businessHours, BindingResult bindingResult, Model model, final RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || businessHours.contains(null)) {
             model.addAttribute("alertText", "Nie można zapisać wyciągu. Sprawdź błędy formularza.");
             model.addAttribute("alertType", "danger");
             model.addAttribute("daysOfTheWeek", dayOfTheWeekService.getAllDaysOfTheWeek());
