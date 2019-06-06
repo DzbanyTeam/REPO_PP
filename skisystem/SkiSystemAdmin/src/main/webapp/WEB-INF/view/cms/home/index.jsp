@@ -44,6 +44,13 @@
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Konfiguracja</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<spring:url value="/admin/difficulties"/>">Poziomy trudności stoków</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/days-of-the-week"/>">Dni tygodnia</a>
+            </div>
+        </li>
     </ul>
 
     <a href="<spring:url value="/admin/logout"/>" class="navbar-brand" id="logout-button">
@@ -53,8 +60,8 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Strona główna panelu administracyjnego</h1>
-    <p>Na chwilę obecną dość pusta.</p>
+    <h1 id="header">Witaj w panelu administracyjnym</h1>
+    <p>Wybierz pozycję z menu powyżej, aby przejść do edycji komponentu.</p>
 </div>
 
 <script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>

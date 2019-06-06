@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/customers"/>">Klienci</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="<spring:url value="/admin/slopes"/>">Stoki</a>
         </li>
         <li class="nav-item">
@@ -53,6 +53,13 @@
                 <a class="dropdown-item" href="<spring:url value="/admin/ticket-categories"/>">Kategorie cenowe</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/seasons"/>">Sezony</a>
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Konfiguracja</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<spring:url value="/admin/difficulties"/>">Poziomy trudności stoków</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/days-of-the-week"/>">Dni tygodnia</a>
             </div>
         </li>
     </ul>

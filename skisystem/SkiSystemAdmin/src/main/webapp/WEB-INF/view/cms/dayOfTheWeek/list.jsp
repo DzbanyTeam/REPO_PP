@@ -45,6 +45,13 @@
                 <a class="dropdown-item" href="<spring:url value="/admin/prices"/>">Ceny</a>
             </div>
         </li>
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Konfiguracja</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<spring:url value="/admin/difficulties"/>">Poziomy trudności stoków</a>
+                <a class="dropdown-item" href="<spring:url value="/admin/days-of-the-week"/>">Dni tygodnia</a>
+            </div>
+        </li>
     </ul>
 
     <a href="<spring:url value="/admin/logout"/>" class="navbar-brand" id="logout-button">
@@ -54,45 +61,49 @@
 
 
 <div class="container py-5">
-    <h1 id="header">Dni tygodnia</h1>
-    <form action="<spring:url value="/admin/days-of-the-week/update"/>" method="GET" class="mt-5">
-        <c:if test="${alertText != null}">
-            <div class="alert alert-${alertType}">
-                    ${alertText}
-                <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
-            </div>
-        </c:if>
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th></th>
-                <th>Nazwa</th>
-                <th class="text-right">Akcje</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${daysOfTheWeek}" var="dayOfTheWeek">
-                <tr>
-                    <td><input type="checkbox" name="ids[]" value="${dayOfTheWeek.id}"></td>
-                    <td>${dayOfTheWeek.name}</td>
-                    <td class="text-right py-2">
-                        <div class="btn-group">
-                            <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/days-of-the-week/edit/${dayOfTheWeek.id}"/>"></a>
-                            <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/days-of-the-week/update?ids%5B%5D=${dayOfTheWeek.id}&action=delete"/>"></a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-        <div>
-            <a href="<spring:url value="/admin/days-of-the-week/add"/>" class="btn btn-primary float-right">Dodaj dzień tygodnia <i class="fas fa-plus"></i></a>
-            <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
-                <option value="" disabled selected>Masowa edycja</option>
-                <option value="delete">Usuń zaznaczone</option>
-            </select>
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <h1 id="header">Dni tygodnia</h1>
+            <form action="<spring:url value="/admin/days-of-the-week/update"/>" method="GET" class="mt-5">
+                <c:if test="${alertText != null}">
+                    <div class="alert alert-${alertType}">
+                            ${alertText}
+                        <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
+                    </div>
+                </c:if>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th>Nazwa</th>
+                        <th class="text-right">Akcje</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${daysOfTheWeek}" var="dayOfTheWeek">
+                        <tr>
+                            <td><input type="checkbox" name="ids[]" value="${dayOfTheWeek.id}"></td>
+                            <td>${dayOfTheWeek.name}</td>
+                            <td class="text-right py-2">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/days-of-the-week/edit/${dayOfTheWeek.id}"/>"></a>
+                                    <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/days-of-the-week/update?ids%5B%5D=${dayOfTheWeek.id}&action=delete"/>"></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <div>
+                    <a href="<spring:url value="/admin/days-of-the-week/add"/>" class="btn btn-primary float-right">Dodaj dzień tygodnia <i class="fas fa-plus"></i></a>
+                    <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
+                        <option value="" disabled selected>Masowa edycja</option>
+                        <option value="delete">Usuń zaznaczone</option>
+                    </select>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 

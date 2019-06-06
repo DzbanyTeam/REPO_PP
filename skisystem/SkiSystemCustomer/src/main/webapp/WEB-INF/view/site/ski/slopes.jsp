@@ -55,12 +55,12 @@
                 </c:if>
                 <c:if test="${slope.getSlopeBusinessHours().size() > 0}">
                     <p><b>Stok czynny w godzinach:</b></p>
-                    <table class="table table-sm">
+                    <table class="table table-sm" style="max-width:300px">
                         <tbody>
                         <c:forEach items="${slope.getSlopeBusinessHours()}" var="businessHours">
                             <tr>
                                 <td>${businessHours.dayOfTheWeek.name}</td>
-                                <td>${businessHours.openingHourString} - ${businessHours.closingHourString}</td>
+                                <td class="text-right">${businessHours.openingHourString} - ${businessHours.closingHourString}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

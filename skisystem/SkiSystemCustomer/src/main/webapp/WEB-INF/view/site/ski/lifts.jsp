@@ -30,7 +30,7 @@
 
         <c:forEach items="${lifts}" var="lift">
             <hr>
-            <div id="slope-${lift.id}">
+            <div id="lift-${lift.id}">
                 <h3>${lift.name}</h3>
                 <div class="row">
                     <div class="col-sm-6">
@@ -52,12 +52,12 @@
                 </c:if>
                 <c:if test="${lift.getLiftBusinessHours().size() > 0}">
                     <p><b>Wyciąg czynny w godzinach:</b></p>
-                    <table class="table table-sm">
+                    <table class="table table-sm" style="max-width:300px">
                         <tbody>
                         <c:forEach items="${lift.getLiftBusinessHours()}" var="businessHours">
                             <tr>
                                 <td>${businessHours.dayOfTheWeek.name}</td>
-                                <td>${businessHours.openingHourString} - ${businessHours.closingHourString}</td>
+                                <td class="text-right">${businessHours.openingHourString} - ${businessHours.closingHourString}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
