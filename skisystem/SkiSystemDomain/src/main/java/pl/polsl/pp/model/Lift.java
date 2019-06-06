@@ -30,10 +30,10 @@ public class Lift {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @ManyToMany(mappedBy = "associatedLifts")
+    @ManyToMany(mappedBy = "associatedLifts", cascade = CascadeType.REMOVE)
     private List<Slope> associatedSlopes;
 
-    @OneToMany(mappedBy = "lift")
+    @OneToMany(mappedBy = "lift", cascade = CascadeType.REMOVE)
     List<LiftBusinessHours> liftBusinessHours;
 
     public Lift() {

@@ -1,5 +1,7 @@
 package pl.polsl.pp.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +36,14 @@ public class Slope {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name="Lifts_Slopes",
             joinColumns=@JoinColumn(name="slope_id", referencedColumnName="id", nullable = false),
             inverseJoinColumns=@JoinColumn(name="lift_id", referencedColumnName="id", nullable = false))
     private List<Lift> associatedLifts;
 
-    @OneToMany(mappedBy = "slope")
+    @OneToMany(mappedBy = "slope", cascade = CascadeType.REMOVE)
     List<SlopeBusinessHours> slopeBusinessHours;
 
     public Slope() {

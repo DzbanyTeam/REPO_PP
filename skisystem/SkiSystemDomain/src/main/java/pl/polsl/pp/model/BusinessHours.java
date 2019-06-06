@@ -1,5 +1,8 @@
 package pl.polsl.pp.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -15,6 +18,7 @@ public class BusinessHours {
     private Long id;
 
     @ManyToOne(fetch=FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="day_id", nullable = false)
     private DayOfTheWeek dayOfTheWeek;
 
