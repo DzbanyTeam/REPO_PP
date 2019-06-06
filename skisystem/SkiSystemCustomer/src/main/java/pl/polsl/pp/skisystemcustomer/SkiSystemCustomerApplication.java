@@ -13,12 +13,12 @@ public class SkiSystemCustomerApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SkiSystemCustomerApplication.class);
+		return application.sources(SkiSystemDomainApplication.class);
 	}
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(SkiSystemCustomerApplication.class, args);
+		SpringApplication.run(SkiSystemDomainApplication.class, args);
 
 	}
 }
