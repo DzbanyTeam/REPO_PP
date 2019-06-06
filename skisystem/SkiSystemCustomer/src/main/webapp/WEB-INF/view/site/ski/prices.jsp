@@ -36,14 +36,24 @@
                 <tr>
                     <th scope="col"></th>
                     <c:forEach items="${ticketTypes}" var="ticketType">
-                        <th scope="col">${ticketType.name}</th>
+                        <td scope="col">
+                            <b>${ticketType.name}</b>
+                            <c:if test="${ticketType.description != null && ticketType.description.length() > 0}">
+                                <br>${ticketType.description}
+                            </c:if>
+                        </td>
                     </c:forEach>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${ticketCategories}" var="ticketCategory">
                     <tr>
-                        <th scope="row">${ticketCategory.name}</th>
+                        <td scope="row">
+                            <b>${ticketCategory.name}</b>
+                            <c:if test="${ticketCategory.description != null && ticketCategory.description.length() > 0}">
+                                <br>${ticketCategory.description}
+                            </c:if>
+                        </td>
                         <c:forEach items="${ticketTypes}" var="ticketType">
                             <td>
                                 <c:if test="${pricesInSeason.get(season).get(ticketCategory).get(ticketType) != null}">
