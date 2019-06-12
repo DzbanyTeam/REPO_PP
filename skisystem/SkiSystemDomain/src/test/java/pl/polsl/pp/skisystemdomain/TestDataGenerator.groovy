@@ -16,4 +16,11 @@ class TestDataGenerator {
 
     }
 
+    static AdminAccount createIncorrectAdminAccount(){
+        Fairy f = Fairy.create()
+        Person p = f.person()
+
+        new AdminAccount(p.username(),"",true, p.firstName(), p.lastName(),p.email(),p.telephoneNumber())
+
+    }
 }
