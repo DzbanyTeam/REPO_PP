@@ -22,7 +22,7 @@ public class DayOfTheWeekService implements IDayOfTheWeekService {
 
     @Override
     public boolean saveDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
-        try{
+        try{ 
             dayOfTheWeekRepository.save(dayOfTheWeek);
             return true;
         }catch (Exception e){

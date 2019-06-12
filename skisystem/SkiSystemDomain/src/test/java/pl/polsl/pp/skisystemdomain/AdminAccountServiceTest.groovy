@@ -27,11 +27,10 @@ class AdminAccountServiceTest extends Specification {
     }
     def "should not return AdminAccount by id"() {
         when:
-        def adminAccount = adminAccountService.getAdminAccountById(0)
+        adminAccountService.getAdminAccountById(0)
 
         then:
-        adminAccount == null
-        noExceptionThrown()
+        thrown NoSuchElementException
     }
     //getAdminAccountByUsername
     def "should return AdminAccount by username"() {
@@ -43,7 +42,7 @@ class AdminAccountServiceTest extends Specification {
         AdminAccount returnedAdminAccount = adminAccountService.getAdminAccountByUsername(adminAccount.getUsername())
 
         then:
-        adminAccount.name == returnedAdminAccount.getName()
+        adminAccount.getName() == returnedAdminAccount.getName()
         noExceptionThrown()
 
     }
