@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -18,6 +19,12 @@
 <div class="container">
         <h2>Rejestracja</h2>
         <form:form method="post" action="/customer/register">
+            <c:if test="${alertText != null}">
+                <div class="alert alert-${alertType}">
+                        ${alertText}
+                    <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
+                </div>
+            </c:if>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

@@ -39,12 +39,17 @@
         <a href="<spring:url value="/customer"/>" class="list-group-item"><i class="fa fa-home"></i> <span>Podgląd</span></a>
         <a href="<spring:url value="/customer/data"/>" class="list-group-item"><i class="fa fa-address-card"></i> <span>Edycja danych</span></a>
         <a href="<spring:url value="/customer/tickets/history"/>" class="list-group-item active"><i class="fa fa-barcode"></i> <span>Zakupione bilety</span></a>
-        <a href="#" class="list-group-item"><i class="fa fa-chart-line"></i> <span>Moje statystyki</span></a>
         <a href="<spring:url value="/customer/tickets/purchase"/>" class="list-group-item"><i class="fa fa-money-bill"></i> <span>Kup bilet</span></a>
     </div>
     <div class="flex-column panel-content bg-white border-bottom border-top border-left border-right shadow-sm">
         <h1 id="header">Historia biletów</h1>
         <br>
+        <c:if test="${alertText != null}">
+            <div class="alert alert-${alertType}">
+                    ${alertText}
+                <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
+            </div>
+        </c:if>
         <table class="table">
             <thead class="thead-dark">
             <tr>

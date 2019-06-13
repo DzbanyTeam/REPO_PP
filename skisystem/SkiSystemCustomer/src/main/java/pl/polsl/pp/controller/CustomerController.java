@@ -54,7 +54,7 @@ public class CustomerController {
         if (customerAccountRequest.getIsActive() != null) { //sprawdzenie czy uzytkownik wyrazil zgode na przetwarzanie danych osobowych
             customerAccountRequest.setIsActive(false);
             customerAccountService.saveCustomerAccount(customerAccountRequest);
-            redirectAttributes.addFlashAttribute("alertText", "Zapisano klienta.");
+            redirectAttributes.addFlashAttribute("alertText", "Konto zostało utworzone. Prosimy poczekać na jego aktywację.");
             redirectAttributes.addFlashAttribute("alertType", "success");
         } else {
             redirectAttributes.addFlashAttribute("alertText", "Zaakceptuj zgodę na przetwarzanie danych osobowych.");
@@ -62,21 +62,6 @@ public class CustomerController {
         }
 
         return "redirect:/customer/register";
-    }
-
-    @GetMapping("/remind-password")
-    public String showRemindPassword() {
-        return "index";
-    }
-
-    @PostMapping("/remind-password")
-    public String submitRemindPassword() {
-        return "index";
-    }
-
-    @GetMapping("/reset-password/{token}")
-    public String showResetPassword(@PathVariable String token) {
-        return "index";
     }
 
     @GetMapping("")
@@ -94,26 +79,6 @@ public class CustomerController {
         CustomerAccount customerAccount = customerAccountService.getCustomerAccountById(requestCustomerAccountId);
         model.addAttribute("customerAccount", customerAccount);
         return "site/customer/edit";
-    }
-
-    @GetMapping("/stats")
-    public String showStats() {
-        return "index";
-    }
-
-    @PostMapping("/reset-password/")
-    public String submitResetCustomerPassword() {
-        return "index";
-    }
-
-    @PostMapping("/api/use-ticket/{purchased_ticket_id}")
-    public String purchaseTicket(@PathVariable Long purchased_ticket_id) {
-        return "index";
-    }
-
-    @PostMapping("/api/payu-verify")
-    public String verifyPayU() {
-        return "index";
     }
 
     @PostMapping("/data")

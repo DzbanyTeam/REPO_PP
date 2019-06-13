@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan("pl.polsl.pp.config")
 @ComponentScan("pl.polsl.pp.validator")
+@ComponentScan("pl.polsl.pp.util")
 public class SkiSystemCustomerApplication extends SpringBootServletInitializer {
 
 	@Override
