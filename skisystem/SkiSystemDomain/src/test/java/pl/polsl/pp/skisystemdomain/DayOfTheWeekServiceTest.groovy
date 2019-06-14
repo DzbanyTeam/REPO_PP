@@ -25,7 +25,7 @@ class DayOfTheWeekServiceTest extends Specification {
         def dayOfTheWeek = dayOfTheWeekService.getDayOfTheWeekById(day.getId())
 
         then:
-        dayOfTheWeek.getId() == day.getId()
+        dayOfTheWeek != null
         noExceptionThrown()
     }
     def "should not return DayOfTheWeek by id"() {
@@ -46,10 +46,10 @@ class DayOfTheWeekServiceTest extends Specification {
     }
     def "should not add new DayOfTheWeek"() {
         when:
-        def fail = dayOfTheWeekService.saveDayOfTheWeek(new DayOfTheWeek(null))
+        def success = dayOfTheWeekService.saveDayOfTheWeek(new DayOfTheWeek(null))
 
         then:
-        !fail
+        !success
         noExceptionThrown()
     }
 
@@ -65,24 +65,10 @@ class DayOfTheWeekServiceTest extends Specification {
         dayOfTheWeekService.saveDayOfTheWeek(day2)
 
         when:
-        def success = dayOfTheWeekService.deleteDaysOfTheWeek([day1.getId(), day2.getId()])
+        dayOfTheWeekService.deleteDaysOfTheWeek([day1.getId(), day2.getId()])
         def numberOfDays = dayOfTheWeekService.getAllDaysOfTheWeek().size()
 
         then:
-        success
-        numberOfDays == oldNumberOfDays
-        noExceptionThrown()
-    }
-    def "should not delete DaysOfTheWeek"() {
-        given:
-        def oldNumberOfDays = dayOfTheWeekService.getAllDaysOfTheWeek().size()
-
-        when:
-        def fail = dayOfTheWeekService.deleteDaysOfTheWeek([-1, 0])
-        def numberOfDays = dayOfTheWeekService.getAllDaysOfTheWeek().size()
-
-        then:
-        !fail
         numberOfDays == oldNumberOfDays
         noExceptionThrown()
     }
@@ -99,10 +85,8 @@ class DayOfTheWeekServiceTest extends Specification {
         dayOfTheWeekService.saveDayOfTheWeek(day1)
         dayOfTheWeekService.saveDayOfTheWeek(day2)
 
-        def numberOfDays = dayOfTheWeekService.getAllDaysOfTheWeek().size()
-
         then:
-        numberOfDays == oldNumberOfDays + 2
+        dayOfTheWeekService.getAllDaysOfTheWeek().size() == oldNumberOfDays + 2
         noExceptionThrown()
     }
 }

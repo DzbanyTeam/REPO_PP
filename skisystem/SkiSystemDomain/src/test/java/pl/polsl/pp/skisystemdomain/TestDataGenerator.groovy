@@ -8,6 +8,10 @@ import pl.polsl.pp.model.CustomerAccount
 import pl.polsl.pp.model.DayOfTheWeek
 import pl.polsl.pp.model.Lift
 import pl.polsl.pp.model.LiftBusinessHours
+import pl.polsl.pp.model.Price
+import pl.polsl.pp.model.Season
+import pl.polsl.pp.model.TicketCategory
+import pl.polsl.pp.model.TicketType
 
 import java.sql.Time
 
@@ -67,7 +71,19 @@ class TestDataGenerator {
 
     //Lift Generator
     static Lift createLift(int offset) {
-        new Lift("New", 400 + offset, 1000 + offset, 1600 + offset, true)
+        new Lift("New" + offset.toString(), 400 + offset, 1000 + offset, 1600 + offset, true)
     }
 
+    //TicketType Generator
+    static TicketType createTicketType() {
+        new TicketType("Ticket", 5, "ticket", true)
+    }
+    //TicketCategory Generator
+    static TicketCategory createTicketCategory() {
+        new TicketCategory("Test", "test")
+    }
+    //Season Generator
+    static Season createSeason() {
+        new Season("TestSeason", new Date(2019, 12, 12), new Date(2020, 1, 12), true)
+    }
 }
