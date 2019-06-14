@@ -153,7 +153,6 @@ class LiftBusinessHoursServiceTest extends Specification {
         liftBusinessHoursService.deleteLiftBusinnesHoursBySlopeIdAndDayId(lift.getId(), day.getId())
 
         then:
-        success
         liftBusinessHoursService.getAllLiftBusinessHours().size() == oldNumberOfHours - 1
         noExceptionThrown()
     }

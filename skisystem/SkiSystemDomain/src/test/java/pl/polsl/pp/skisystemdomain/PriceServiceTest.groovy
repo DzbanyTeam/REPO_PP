@@ -3,6 +3,7 @@ package pl.polsl.pp.skisystemdomain
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.security.access.method.P
 import pl.polsl.pp.model.Price
 import pl.polsl.pp.service.interfaces.IPriceService
 import pl.polsl.pp.service.interfaces.ISeasonService
@@ -118,17 +119,56 @@ class PriceServiceTest extends Specification {
         def season = TestDataGenerator.createSeason()
         def price = new Price(ticketType, ticketCategory, BigDecimal.valueOf(30d), season)
 
-        def s1 = ticketTypeService.saveTicketType(ticketType)
-        def s2 = ticketCategoryService.saveTicketCategory(ticketCategory)
-        def s3 = seasonService.saveSeason(season)
+        ticketTypeService.saveTicketType(ticketType)
+        ticketCategoryService.saveTicketCategory(ticketCategory)
+        seasonService.saveSeason(season)
 
         when:
         def success = priceService.savePrice(price)
 
         then:
-        s1
-        s2
-        s3
         success
+    }
+
+    //deletePrices
+    def "should delete Prices"() {
+        given:
+        def ticketType = TestDataGenerator.createTicketType()
+        def ticketCategory = TestDataGenerator.createTicketCategory()
+        def season = TestDataGenerator.createSeason()
+        def price = new Price(ticketType, ticketCategory, BigDecimal.valueOf(30d), season)
+        def oldNumberOfPrices = priceService.getAllPrices().size()
+
+        ticketTypeService.saveTicketType(ticketType)
+        ticketCategoryService.saveTicketCategory(ticketCategory)
+        seasonService.saveSeason(season)
+        priceService.savePrice(price)
+
+        when:
+        priceService.deletePrices([price.getId()])
+
+        then:
+        priceService.getAllPrices().size() == oldNumberOfPrices
+    }
+
+    //getAllPrices
+    def "should return all Prices"() {
+        given:
+        def ticketType = TestDataGenerator.createTicketType()
+        def ticketCategory = TestDataGenerator.createTicketCategory()
+        def season = TestDataGenerator.createSeason()
+        def price = new Price(ticketType, ticketCategory, BigDecimal.valueOf(30d), season)
+        def oldNumberOfPrices = priceService.getAllPrices().size()
+
+        ticketTypeService.saveTicketType(ticketType)
+        ticketCategoryService.saveTicketCategory(ticketCategory)
+        seasonService.saveSeason(season)
+        priceService.savePrice(price)
+
+        when:
+        priceService.savePrice(price)
+
+        then:
+        priceService.getAllPrices().size() == oldNumberOfPrices + 1
     }
 }

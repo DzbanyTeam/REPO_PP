@@ -78,12 +78,14 @@ class TestDataGenerator {
     static TicketType createTicketType() {
         new TicketType("Ticket", 5, "ticket", true)
     }
+
     //TicketCategory Generator
     static TicketCategory createTicketCategory() {
-        new TicketCategory("Test", "test")
+        new TicketCategory("Category", "test category")
     }
+
     //Season Generator
-    static Season createSeason() {
-        new Season("TestSeason", new Date(2019, 12, 12), new Date(2020, 1, 12), true)
+    static createSeason() {
+        new Season("Season", new Date(2000, 12, 12), new Date(2001, 1, 12), true)
     }
 }
