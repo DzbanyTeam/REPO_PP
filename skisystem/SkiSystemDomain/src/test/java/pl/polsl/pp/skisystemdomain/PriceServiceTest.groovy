@@ -101,6 +101,7 @@ class PriceServiceTest extends Specification {
         ticketTypeService.saveTicketType(ticketType)
         ticketCategoryService.saveTicketCategory(ticketCategory)
         seasonService.saveSeason(season)
+        seasonService.saveSeason(seasonInactive)
         priceService.savePrice(price)
 
         when:

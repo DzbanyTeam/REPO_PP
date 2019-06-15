@@ -87,11 +87,11 @@ class PurchasedTicketServiceTest extends Specification {
         purchasedTicketService.savePurchasedTicket(ticket)
 
         when:
-        def success = purchasedTicketService.deletePurchasedTickets(ticket)
+        def success = purchasedTicketService.deletePurchasedTickets([ticket.getId()])
 
         then:
         success
-        purchasedTicketService.getAllPurchasedTickets() == oldNumberOfPurchasedTickets
+        purchasedTicketService.getAllPurchasedTickets().size() == oldNumberOfPurchasedTickets
     }
 
     //activatePurchasedTickets
@@ -133,7 +133,7 @@ class PurchasedTicketServiceTest extends Specification {
         purchasedTicketService.savePurchasedTicket(ticket)
 
         then:
-        purchasedTicketService.getAllPurchasedTickets() == oldNumberOfPurchasedTickets + 1
+        purchasedTicketService.getAllPurchasedTickets().size() == oldNumberOfPurchasedTickets + 1
     }
 
     //getAllPurchasedTicketsByCustomerId
