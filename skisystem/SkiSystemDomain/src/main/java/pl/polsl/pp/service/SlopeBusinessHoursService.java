@@ -80,7 +80,7 @@ public class SlopeBusinessHoursService implements ISlopeBusinessHoursService {
      * @param dayId DayOfTheWeek id
      * @param openingHour nowa godzina otwarcia
      * @param closingHour nowa godzina zamknięcia
-     * @return
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
      */
     @Override
     public boolean updateSlopeBusinnesHoursBySlopeIdAndDayId(Long slopeId, Long dayId, Time openingHour, Time closingHour) {
