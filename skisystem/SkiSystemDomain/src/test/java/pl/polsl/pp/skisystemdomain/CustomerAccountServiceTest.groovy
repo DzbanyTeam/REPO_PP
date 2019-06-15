@@ -84,11 +84,7 @@ class CustomerAccountServiceTest extends Specification {
         customerAccount.getPassword() == customerAccountService.getCustomerAccountById(customerAccount.getId()).getPassword()
         noExceptionThrown()
     }
-    def "should not add new Customer"() {
-        expect:
-        !customerAccountService.saveCustomerAccount(TestDataGenerator.createCustomerAccountWithoutPassword())
-        !customerAccountService.saveCustomerAccount(TestDataGenerator.createCustomerAccountWithoutUsername())
-    }
+
     //deleteCustomerAccounts
     def "should delete Customer Accounts"() {
         given:

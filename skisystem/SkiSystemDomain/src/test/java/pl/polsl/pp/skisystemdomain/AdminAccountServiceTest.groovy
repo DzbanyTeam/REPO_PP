@@ -84,11 +84,7 @@ class AdminAccountServiceTest extends Specification {
         adminAccount.getPassword() == adminAccountService.getAdminAccountById(adminAccount.getId()).getPassword()
         noExceptionThrown()
     }
-    def "should not add new Admin"() {
-        expect:
-        !adminAccountService.saveAdminAccount(TestDataGenerator.createAdminAccountWithoutPassword())
-        !adminAccountService.saveAdminAccount(TestDataGenerator.createAdminAccountWithoutUsername())
-    }
+
     //deleteAdminAccounts
     def "should delete Admin Accounts"() {
         given:
