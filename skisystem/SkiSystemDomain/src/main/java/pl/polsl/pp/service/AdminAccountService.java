@@ -14,37 +14,64 @@ import pl.polsl.pp.service.interfaces.IRoleService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu AdminAccount
+ */
 @Service
 public class AdminAccountService implements IAdminAccountService {
 
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli admin_accounts
+     */
     @Autowired
     @Qualifier("adminAccountRepository")
     private AdminAccountRepository adminAccountRepository;
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli permissions
+     */
     @Autowired
     @Qualifier("permissionService")
     private IPermissionService permissionService;
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli roles
+     */
     @Autowired
     @Qualifier("roleService")
     private IRoleService roleService;
 
+    /**
+     * Obiekt pozwalający na szyfrowanie haseł
+     */
     @Autowired
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Tworzy nowy obiekt AdminAccountService
+     */
     public AdminAccountService() {
         super();
     }
 
-
+    /**
+     * Zwraca obiekt AdminAccount z danym id
+     * @param id AdminAccount id
+     * @return AdminAccount
+     */
     @Override
     public AdminAccount getAdminAccountById(Long id) {
 
         return adminAccountRepository.findById(id).get();
     }
 
+    /**
+     * Zwraca obiekt AdminAccount z daną nazwą użytkownika
+     * @param username AdminAccount username
+     * @return AdminAccount
+     */
     @Override
     public AdminAccount getAdminAccountByUsername(String username) {
         List<AdminAccount> adminAccountList = (List<AdminAccount>) adminAccountRepository.findAll();
@@ -56,6 +83,11 @@ public class AdminAccountService implements IAdminAccountService {
         return null;
     }
 
+    /**
+     * Dodaje dany obiekt AdminAccount do bazy danych
+     * @param adminAccount obiekt AdminAccount do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveAdminAccount(AdminAccount adminAccount) {
 
@@ -78,6 +110,11 @@ public class AdminAccountService implements IAdminAccountService {
         }
     }
 
+    /**
+     * Usuwa obiekty AdminAccount z podanymi id z bazy danych
+     * @param ids lista AdminAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteAdminAccounts(List<Long> ids) {
 
@@ -95,6 +132,11 @@ public class AdminAccountService implements IAdminAccountService {
 
     }
 
+    /**
+     * Dezaktywuje obiekty AdminAccount z podanymi id
+     * @param ids lista AdminAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deactivateAdminAccounts(List<Long> ids) {
 
@@ -112,6 +154,11 @@ public class AdminAccountService implements IAdminAccountService {
         }
     }
 
+    /**
+     * Aktywuje obiekty AdminAccount z podanymi id
+     * @param ids lista AdminAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean activateAdminAccounts(List<Long> ids) {
 
@@ -129,7 +176,10 @@ public class AdminAccountService implements IAdminAccountService {
         }
     }
 
-
+    /**
+     * Zwraca listę wszystkich obiektów AdminAccount
+     * @return lista AdminAccount
+     */
     @Override
     public List<AdminAccount> getAllAdminAccounts() {
 

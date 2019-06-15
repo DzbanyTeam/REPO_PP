@@ -12,21 +12,41 @@ import pl.polsl.pp.service.interfaces.ISeasonService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Price
+ */
 public class PriceService implements IPriceService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli prices
+     */
     @Autowired
     @Qualifier("priceRepository")
     private PriceRepository priceRepository;
 
+    /**
+     * Obiekt pozwalający na wykonywanie operacji na obiektach typu Season
+     */
     @Autowired
     @Qualifier("seasonService")
     private ISeasonService seasonService;
 
+    /**
+     * Zwraca obiekt Price z danym id
+     * @param id Price id
+     * @return Price
+     */
     @Override
     public Price getPriceById(Long id) {
         return priceRepository.findById(id).get();
     }
 
+    /**
+     * Zwraca obiekt Price z danym id typu i kategorii biletu
+     * @param typeId TicketType id
+     * @param categoryId TicketCategory id
+     * @return Price
+     */
     @Override
     public Price getPriceByTypeAndCategory(Long typeId, Long categoryId) {
 
@@ -39,6 +59,13 @@ public class PriceService implements IPriceService {
         return null;
     }
 
+    /**
+     * Zwraca obiekt Price z danym id sezonu, typu i kategorii biletu
+     * @param typeId TicketType id
+     * @param categoryId TicketCategory id
+     * @param seasonId Season id
+     * @return Price
+     */
     @Override
     public Price getPriceByTypeAndCategoryAndSeason(Long typeId, Long categoryId, Long seasonId) {
 
@@ -51,6 +78,10 @@ public class PriceService implements IPriceService {
 
     }
 
+    /**
+     * Zwraca listę obiektów Price dla których sezon jest aktywny
+     * @return list Price
+     */
     @Override
     public List<Price> getAllPricesInActiveSeasons() {
         List<Price> priceList = new ArrayList<>();
@@ -63,6 +94,11 @@ public class PriceService implements IPriceService {
         return priceList;
     }
 
+    /**
+     * Dodaje dany obiekt Price do bazy danych
+     * @param price obiekt Price do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean savePrice(Price price) {
         try{
@@ -73,6 +109,11 @@ public class PriceService implements IPriceService {
         }
     }
 
+    /**
+     * Usuwa obiekty Price z podanymi id z bazy danych
+     * @param ids lista Price id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deletePrices(List<Long> ids) {
         try{
@@ -83,6 +124,10 @@ public class PriceService implements IPriceService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów Price
+     * @return lista Price
+     */
     @Override
     public List<Price> getAllPrices() {
         List<Price> priceList = new ArrayList<>();

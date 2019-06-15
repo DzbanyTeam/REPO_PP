@@ -9,17 +9,33 @@ import pl.polsl.pp.service.interfaces.ITicketCategoryService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu TicketCategory
+ */
 public class TicketCategoryService implements ITicketCategoryService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli ticket_categories
+     */
     @Autowired
     @Qualifier("ticketCategoryRepository")
     private TicketCategoryRepository ticketCategoryRepository;
 
+    /**
+     * Zwraca obiekt TicketCategory z danym id
+     * @param id TicketCategory id
+     * @return TicketCategory
+     */
     @Override
     public TicketCategory getTicketCategoryById(Long id) {
         return ticketCategoryRepository.findById(id).get();
     }
 
+    /**
+     * Dodaje dany obiekt TicketCategory do bazy danych
+     * @param ticketCategory obiekt TicketCategory do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveTicketCategory(TicketCategory ticketCategory) {
         try{
@@ -30,6 +46,11 @@ public class TicketCategoryService implements ITicketCategoryService {
         }
     }
 
+    /**
+     * Usuwa obiekty TicketCategory z podanymi id z bazy danych
+     * @param ids lista TicketCategory id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteTicketCategories(List<Long> ids) {
         try{
@@ -40,6 +61,10 @@ public class TicketCategoryService implements ITicketCategoryService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów TicketCategory
+     * @return lista TicketCategory
+     */
     @Override
     public List<TicketCategory> getAllTicketCategories() {
         List<TicketCategory> ticketCategoryList = new ArrayList<>();

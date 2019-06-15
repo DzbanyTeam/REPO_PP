@@ -8,12 +8,24 @@ import pl.polsl.pp.service.interfaces.IPermissionService;
 
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Permission
+ */
 public class PermissionService implements IPermissionService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli permissions
+     */
     @Autowired
     @Qualifier("permissionRepository")
     private PermissionRepository permissionRepository;
 
+    /**
+     * Nadaje danemu użytkownikowi uprawnienia (role)
+     * @param userId AdminAccount/CustomerAccount id
+     * @param roleId Role id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean savePermission(long userId, long roleId) {
         try {
@@ -25,6 +37,11 @@ public class PermissionService implements IPermissionService {
         }
     }
 
+    /**
+     * Usuwa wybranym użytkownikom uprawienia
+     * @param userIds lista AdminAccount/CustomerAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deletePermissions(List<Long> userIds) {
         try {

@@ -9,17 +9,33 @@ import pl.polsl.pp.service.interfaces.ITicketUseService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu TicketUse
+ */
 public class TicketUseService implements ITicketUseService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli ticket_usages
+     */
     @Autowired
     @Qualifier("ticketUseRepository")
     private TicketUseRepository ticketUseRepository;
 
+    /**
+     * Zwraca obiekt TicketUse z danym id
+     * @param id TicketUse id
+     * @return TicketUse
+     */
     @Override
     public TicketUse getTicketUseById(Long id) {
         return ticketUseRepository.findById(id).get();
     }
 
+    /**
+     * Dodaje dany obiekt TicketUse do bazy danych
+     * @param ticketUse obiekt TicketUse do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveTicketUse(TicketUse ticketUse) {
         try{
@@ -30,6 +46,11 @@ public class TicketUseService implements ITicketUseService {
         }
     }
 
+    /**
+     * Usuwa obiekty TicketUse z podanymi id z bazy danych
+     * @param ids lista TicketUse id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteTicketUses(List<Long> ids) {
         try{
@@ -40,6 +61,10 @@ public class TicketUseService implements ITicketUseService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów TicketUse
+     * @return lista TicketUse
+     */
     @Override
     public List<TicketUse> getAllTicketUses() {
         List<TicketUse> ticketUseList = new ArrayList<>();

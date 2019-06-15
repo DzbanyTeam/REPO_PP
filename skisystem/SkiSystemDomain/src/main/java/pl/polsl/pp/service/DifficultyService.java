@@ -11,17 +11,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Difficulty
+ */
 public class DifficultyService implements IDifficultyService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli difficulties
+     */
     @Autowired
     @Qualifier("difficultyRepository")
     private DifficultyRepository difficultyRepository;
 
+    /**
+     * Zwraca obiekt Difficulty z danym id
+     * @param id Difficulty id
+     * @return Difficulty
+     */
     @Override
     public Difficulty getDifficultyById(Long id) {
         return difficultyRepository.findById(id).get();
     }
 
+    /**
+     * Dodaje dany obiekt Difficulty do bazy danych
+     * @param difficulty obiekt Difficulty do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveDifficulty(Difficulty difficulty) {
         try{
@@ -32,6 +48,11 @@ public class DifficultyService implements IDifficultyService {
         }
     }
 
+    /**
+     * Usuwa obiekty Difficulty z podanymi id z bazy danych
+     * @param ids lista Difficulty id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteDifficulties(List<Long> ids) {
         try{
@@ -42,6 +63,10 @@ public class DifficultyService implements IDifficultyService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów Difficulty
+     * @return lista Difficulty
+     */
     @Override
     public List<Difficulty> getAllDifficulties() {
         List<Difficulty> difficultyList = new ArrayList<>();
