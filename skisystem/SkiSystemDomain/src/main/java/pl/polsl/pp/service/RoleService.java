@@ -9,13 +9,24 @@ import pl.polsl.pp.service.interfaces.IRoleService;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Role
+ */
 @Service
 public class RoleService implements IRoleService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli roles
+     */
     @Autowired
     @Qualifier("roleRepository")
     private RoleRepository roleRepository;
 
+    /**
+     * Dodaje dany obiekt Role do bazy danych
+     * @param role obiekt Role do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     public boolean saveRole(Role role) {
         try {
             roleRepository.save(role);
@@ -25,6 +36,11 @@ public class RoleService implements IRoleService {
         }
     }
 
+    /**
+     * Zwraca obiekt Role z daną nazwą roli
+     * @param role Role name
+     * @return Role
+     */
     @Override
     public Role getByRole(String role) {
         Iterable<Role> roles = roleRepository.findAll();
@@ -38,6 +54,9 @@ public class RoleService implements IRoleService {
         return returnRole;
     }
 
+    /**
+     * Dodaje role Admina i Klienta na wypadek pustej bazy danych
+     */
     @PostConstruct
     private void initializeRoleTable(){
         this.saveRole(new Role("ROLE_ADMIN"));

@@ -14,27 +14,49 @@ import java.util.List;
 
 public class CustomerAccountService implements ICustomerAccountService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli customer_accounts
+     */
     @Autowired
     @Qualifier("customerAccountRepository")
     private CustomerAccountRepository customerAccountRepository;
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli permissions
+     */
     @Autowired
     @Qualifier("permissionService")
     private IPermissionService permissionService;
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli roles
+     */
     @Autowired
     @Qualifier("roleService")
     private RoleService roleService;
 
+    /**
+     * Obiekt pozwalający na szyfrowanie haseł
+     */
     @Autowired
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Zwraca obiekt CustomerAccount z danym id
+     * @param id CustomerAccount id
+     * @return CustomerAccount
+     */
     @Override
     public CustomerAccount getCustomerAccountById(Long id) {
         return customerAccountRepository.findById(id).get();
     }
 
+    /**
+     * Zwraca obiekt CustomerAccount z daną nazwą użytkownika
+     * @param username CustomerAccount username
+     * @return CustomerAccount
+     */
     @Override
     public CustomerAccount getCustomerAccountByUsername(String username) {
         List<CustomerAccount> customerAccountList = (List<CustomerAccount>) customerAccountRepository.findAll();
@@ -46,6 +68,11 @@ public class CustomerAccountService implements ICustomerAccountService {
         return null;
     }
 
+    /**
+     * Dodaje dany obiekt CustomerAccount do bazy danych
+     * @param customerAccount obiekt CustomerAccount do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveCustomerAccount(CustomerAccount customerAccount) {
         try {
@@ -67,6 +94,11 @@ public class CustomerAccountService implements ICustomerAccountService {
         }
     }
 
+    /**
+     * Usuwa obiekty CustomerAccount z podanymi id z bazy danych
+     * @param ids lista CustomerAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteCustomerAccounts(List<Long> ids) {
         try {
@@ -81,6 +113,11 @@ public class CustomerAccountService implements ICustomerAccountService {
         }
     }
 
+    /**
+     * Dezaktywuje obiekty CustomerAccount z podanymi id
+     * @param ids lista CustomerAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deactivateCustomerAccounts(List<Long> ids) {
 
@@ -99,6 +136,11 @@ public class CustomerAccountService implements ICustomerAccountService {
         }
     }
 
+    /**
+     * Aktywuje obiekty CustomerAccount z podanymi id
+     * @param ids lista CustomerAccount id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean activateCustomerAccounts(List<Long> ids) {
 
@@ -117,6 +159,10 @@ public class CustomerAccountService implements ICustomerAccountService {
 
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów CustomerAccount
+     * @return lista CustomerAccount
+     */
     @Override
     public List<CustomerAccount> getAllCustomerAccounts() {
         List<CustomerAccount> customerAccountList = new ArrayList<>();

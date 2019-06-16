@@ -9,17 +9,33 @@ import pl.polsl.pp.service.interfaces.ISeasonService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Season
+ */
 public class SeasonService implements ISeasonService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli seasons
+     */
     @Autowired
     @Qualifier("seasonRepository")
     private SeasonRepository seasonRepository;
 
+    /**
+     * Zwraca obiekt Season z danym id
+     * @param id Season id
+     * @return Season
+     */
     @Override
     public Season getSeasonById(Long id) {
         return seasonRepository.findById(id).get();
     }
 
+    /**
+     * Dodaje dany obiekt Season do bazy danych
+     * @param season obiekt Season do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveSeason(Season season) {
         try{
@@ -30,6 +46,11 @@ public class SeasonService implements ISeasonService {
         }
     }
 
+    /**
+     * Usuwa obiekty Season z podanymi id z bazy danych
+     * @param ids lista Season id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteSeasons(List<Long> ids) {
         try{
@@ -40,16 +61,32 @@ public class SeasonService implements ISeasonService {
         }
     }
 
+    /**
+     * Aktywuje obiekty Season z podanym id
+     * @param ids lista Season id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean activateSeasons(List<Long> ids) {
         return changeActiveStatus(ids, true);
     }
 
+    /**
+     * Dezaktywuje obiekty Season z podanym id
+     * @param ids lista Season id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deactivateSeasons(List<Long> ids) {
         return changeActiveStatus(ids, false);
     }
 
+    /**
+     * Aktywuje/dezaktywuje obiekty Season z podanym id
+     * @param ids lista Season id
+     * @param newStatus true jeśli obiekty mają być aktywowane, false jeśli mają być dezaktywowane
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @SuppressWarnings("Duplicates")
     private boolean changeActiveStatus(List<Long> ids, boolean newStatus){
         try{
@@ -64,6 +101,10 @@ public class SeasonService implements ISeasonService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów Season
+     * @return lista Season
+     */
     @Override
     public List<Season> getAllSeasons() {
         List<Season> seasonList = new ArrayList<>();
@@ -71,6 +112,10 @@ public class SeasonService implements ISeasonService {
         return seasonList;
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów Season, które są aktywne
+     * @return lista Season
+     */
     @Override
     public List<Season> getAllActiveSeasons() {
         List<Season> activeSeasonList = new ArrayList<>();

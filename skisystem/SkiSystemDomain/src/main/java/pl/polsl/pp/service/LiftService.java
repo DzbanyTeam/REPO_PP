@@ -11,17 +11,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Usługa wykonująca operacje na obiektach typu Lift
+ */
 public class LiftService implements ILiftService {
 
+    /**
+     * Repozytorium pozwalające na aktualizowanie tabeli lifts
+     */
     @Autowired
     @Qualifier("liftRepository")
     private LiftRepository liftRepository;
 
+    /**
+     * Zwraca obiekt Lift z danym id
+     * @param id Lift id
+     * @return Lift
+     */
     @Override
     public Lift getLiftById(Long id) {
         return liftRepository.findById(id).get();
     }
 
+    /**
+     * Dodaje dany obiekt Lift do bazy danych
+     * @param lift obiekt Lift do zapisu
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean saveLift(Lift lift) {
         try{
@@ -32,6 +48,11 @@ public class LiftService implements ILiftService {
         }
     }
 
+    /**
+     * Usuwa obiekty Lift z podanymi id z bazy danych
+     * @param ids lista Lift id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deleteLifts(List<Long> ids) {
         try{
@@ -42,16 +63,32 @@ public class LiftService implements ILiftService {
         }
     }
 
+    /**
+     * Aktywuje obiekty Lift z podanym id
+     * @param ids lista Lift id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean activateLifts(List<Long> ids) {
         return changeActiveStatus(ids, true);
     }
 
+    /**
+     * Dezaktywuje obiekty Lift z podanym id
+     * @param ids lista Lift id
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @Override
     public boolean deactivateLifts(List<Long> ids) {
         return changeActiveStatus(ids, false);
     }
 
+    /**
+     * Aktywuje/dezaktywuje obiekty Lift z podanym id
+     * @param ids lista Lift id
+     * @param newStatus true jeśli obiekty mają być aktywowane, false jeśli mają być dezaktywowane
+     * @return true jeśli operacja powiodłą się, false jeśli nie powiodła się
+     */
     @SuppressWarnings("Duplicates")
     private boolean changeActiveStatus(List<Long> ids, boolean newStatus){
         try{
@@ -66,6 +103,10 @@ public class LiftService implements ILiftService {
         }
     }
 
+    /**
+     * Zwraca listę wszystkich obiektów Lift
+     * @return lista Lift
+     */
     @Override
     public List<Lift> getAllLifts() {
         List<Lift> liftList = new ArrayList<>();
