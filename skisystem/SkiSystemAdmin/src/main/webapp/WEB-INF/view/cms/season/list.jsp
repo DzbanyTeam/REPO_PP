@@ -61,7 +61,17 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Sezony</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł umożliwia edycję przedziałów czasowych, w których obowiązują pozycje cennika. Deaktywacja sezonu ukrywa w witrynie część cennika przypisaną do danego sezonu, jest jednak nadal możliwe korzystanie z biletu, który został zakupiony, a którego sezon został zdeaktywowany.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Nazwa,</li>
+            <li>Data rozpoczęcia,</li>
+            <li>Data zakończenia.</li>
+        </ul>
+    </div>
     <form action="<spring:url value="/admin/seasons/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">

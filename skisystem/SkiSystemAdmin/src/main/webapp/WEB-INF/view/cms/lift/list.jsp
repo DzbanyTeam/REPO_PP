@@ -61,7 +61,20 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Wyciągi</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł umożliwia edycję wykazu wyciągów znajdującego się w serwisie. Wszystkie informacje podawane w polach są wyświetlane w serwisie publicznie i mają charakter czysto informacyjny. Deaktywacja wyciągu oznacza, że przestaje być widoczny w wykazie.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Nazwa</li>
+            <li>Długość - należy podać jako liczba całkowita,</li>
+            <li>Wysokość początkowa - należy podać jako liczba całkowita,</li>
+            <li>Wysokość końcowa - należy podać jako liczba całkowita,</li>
+            <li>Godziny otwarcia i zamknięcia w poszczególnych dniach tygodnia.</li>
+        </ul>
+        <p>Dni tygodnia, dla których definiuje się godziny otwarcia, można edytować w menu Konfiuracja <i class="fas fa-caret-right"></i> Dni tygodnia.</p>
+    </div>
     <form action="<spring:url value="/admin/lifts/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">

@@ -61,7 +61,21 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Klienci</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł służy do zarządzania użytkownikami mającymi dostęp do panelu klienckiego serwisu i mogącymi kupować bilety. Możliwa jest edycja danych do autoryzacji (nazwy użytkownika i hasła), danych identyfikacyjnych niemających wpływu na działanie systemu oraz biletów zakupionych przez użytkownika. Możliwa jest deaktywacja klienta - nieaktywny klient nie ma możliwości zalogowania do panelu klienckiego, a co za tym idzie - zakupu biletów.</p>
+        <p>Na liście w kolumnie "Kupione bilety" znajdują się przyciski przedstawiające liczbę biletów kupionych przez danego użytkownika. Kliknięcie przycisku umożliwia przejście do listy kupionych przez użytkownika biletów.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Nazwa użytkownika - nazwa, za pomocą której klient identyfikuje się w systemie, musi składać się przynajmniej z 3 znaków,</li>
+            <li>Hasło - wymagane do autoryzacji użytkownika podczas logowania, musi składać się conajmniej z 6 znaków, z których przynajmniej 1 jest wielką literą, przynajmniej 1 małą literą i przynajmniej 1 cyfrą,</li>
+            <li>Imię - część danych identyfikacyjnych,</li>
+            <li>Nazwisko - część danych identyfikacyjnych,</li>
+            <li>Adres e-mail - część danych identyfikacyjnych, wymagane podanie prawidłowego adresu e-mail,</li>
+            <li>Numer telefonu - część danych identyfikacyjnych, wymagane podanie prawidłowego numeru telefonu.</li>
+        </ul>
+    </div>
     <form action="<spring:url value="/admin/customers/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
