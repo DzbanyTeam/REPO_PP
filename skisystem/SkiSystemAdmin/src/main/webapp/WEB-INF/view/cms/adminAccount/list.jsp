@@ -61,7 +61,20 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Administratorzy</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł służy do zarządzania użytkownikami mającymi dostęp do panelu administracyjnego serwisu. Możliwa jest edycja danych do autoryzacji (nazwy użytkownika i hasła) oraz danych identyfikacyjnych niemających wpływu na działanie systemu. Możliwa jest deaktywacja administratora - nieaktywny administrator nie ma możliwości zalogowania do panelu administracyjnego.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Nazwa użytkownika - nazwa, za pomocą której administrator identyfikuje się w systemie, musi składać się przynajmniej z 3 znaków,</li>
+            <li>Hasło - wymagane do autoryzacji użytkownika podczas logowania, musi składać się conajmniej z 6 znaków, z których przynajmniej 1 jest wielką literą, przynajmniej 1 małą literą i przynajmniej 1 cyfrą,</li>
+            <li>Imię - część danych identyfikacyjnych,</li>
+            <li>Nazwisko - część danych identyfikacyjnych,</li>
+            <li>Adres e-mail - część danych identyfikacyjnych, wymagane podanie prawidłowego adresu e-mail,</li>
+            <li>Numer telefonu - część danych identyfikacyjnych, wymagane podanie prawidłowego numeru telefonu.</li>
+        </ul>
+    </div>
     <form action="<spring:url value="/admin/admins/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">

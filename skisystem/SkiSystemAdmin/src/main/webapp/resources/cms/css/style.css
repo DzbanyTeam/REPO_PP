@@ -28,3 +28,37 @@
 .form-control[readonly] {
     background-color: inherit;
 }
+
+.badge-tooltip-left {
+    position: absolute;
+    border-radius: .25em 0 0 0.25em;
+    padding-right: 0;
+}
+
+.badge-tooltip-left::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    border-left: 9px solid #dc3545;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    left: 100%;
+    top: 0;
+}
+
+.badge-tooltip-right {
+    position: absolute;
+    border-radius: 0 0.25em 0.25em 0;
+    padding-left: 0;
+}
+
+.badge-tooltip-right::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    border-right: 9px solid #dc3545;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    right: 100%;
+    top: 0;
+}

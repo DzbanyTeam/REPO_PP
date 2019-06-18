@@ -63,7 +63,15 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
+            <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
             <h1 id="header">Poziomy trudności</h1>
+            <div id="help" class="mt-4" style="display:none">
+                <p>Moduł umożliwia wybór dostępnych poziomów trudności dla stoków.</p>
+                <h3>Pola</h3>
+                <ul>
+                    <li>Nazwa.</li>
+                </ul>
+            </div>
             <form action="<spring:url value="/admin/difficulties/update"/>" method="GET" class="mt-5">
                 <c:if test="${alertText != null}">
                     <div class="alert alert-${alertType}">

@@ -61,7 +61,16 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Kategorie cenowe</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł umożliwia edycję kategorii cenowych, dla których możliwe jest zdefiniowanie pozycji cennika. Kategorie cenowe umożliwiają definiowanie grup konsumentów - np normalni, studenci, seniorzy.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Nazwa,</li>
+            <li>Opis - wyświetlany w serwisie w cenniku.</li>
+        </ul>
+    </div>
     <form action="<spring:url value="/admin/ticket-categories/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">

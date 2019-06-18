@@ -61,7 +61,19 @@
 
 
 <div class="container py-5">
+    <a class="btn btn-lg btn-light float-right ml-3" href="#" onclick="$('#help').slideToggle(); return false;"><i class="far fa-question-circle"></i></a>
     <h1 id="header">Bilety klienta ${customerAccount.username}</h1>
+    <div id="help" class="mt-4" style="display:none">
+        <p>Moduł służy do zarządzania zakupionymi przez danego klienta biletami. Deaktywacja biletu oznacza, że klient nie może z niego korzystać.</p>
+        <p>Administrator nie ma możliwości usuwania kupionych biletów.</p>
+        <h3>Pola</h3>
+        <ul>
+            <li>Rodzaj biletu - pole wyboru,</li>
+            <li>Data zakupu,</li>
+            <li>Data wygaśnięcia.</li>
+        </ul>
+        <p>Edycja dostępnych na liście rozwijanej biletów jest możliwa w menu Cennik <i class="fas fa-caret-right"></i> Ceny.</p>
+    </div>
     <form action="<spring:url value="/admin/purchased-tickets/update"/>" method="GET" class="mt-5">
         <c:if test="${alertText != null}">
             <div class="alert alert-${alertType}">
