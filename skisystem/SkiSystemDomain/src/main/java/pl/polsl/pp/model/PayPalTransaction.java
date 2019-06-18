@@ -25,13 +25,14 @@ public class PayPalTransaction {
     /**
      * Id kupionego biletu, do którego odnosi się transakcja
      */
-    @Column
-    private Long purchaseTicketId;
+    @OneToOne
+    @JoinColumn(name = "purchased_ticket_id", referencedColumnName = "id", nullable = false)
+    private PurchasedTicket purchasedTicket;
 
     /**
      * Status poprawności zakończenia transakcji
      */
-    @Column
+    @Column(nullable = false)
     private Boolean successStatus;
 
     /**
@@ -46,9 +47,10 @@ public class PayPalTransaction {
      * @param paymentId Id transakcji w serwisie PayPal
      * @param purchaseTicketId Id zakupionego biletu
      */
-    public PayPalTransaction(String paymentId, Long purchaseTicketId) {
+
+    public PayPalTransaction(String paymentId, PurchasedTicket purchasedTicket) {
         this.paymentId = paymentId;
-        this.purchaseTicketId = purchaseTicketId;
+        this.purchasedTicket = purchasedTicket;
         this.successStatus = false;
     }
 
@@ -73,21 +75,25 @@ public class PayPalTransaction {
      * @return id biletu
      */
     public Long getPurchaseTicketId() {
-        return purchaseTicketId;
+        return purchasedTicket.getId();
     }
 
     /**
      * Ustawia nowe id zakupionego biletu, do którego odnosi się transakcja.
      * @param purchaseTicketId
      */
-    public void setPurchaseTicketId(Long purchaseTicketId) {
-        this.purchaseTicketId = purchaseTicketId;
+    public PurchasedTicket getPurchasedTicket() {
+        return purchasedTicket;
     }
 
     /**
      * Zwraca status poprawności zakończenia transakcji.
      * @return true, jeśli transakcja zakończyła się sukcesem, false jeśli nie zakończyła się sukcesem
      */
+    public void setPurchasedTicket(PurchasedTicket purchasedTicket) {
+        this.purchasedTicket = purchasedTicket;
+    }
+
     public Boolean getSuccessStatus() {
         return successStatus;
     }
