@@ -23,43 +23,43 @@ public class CustomerAccount implements Serializable {
     /**
      * Unikalna nazwa użytkownika konta klienta
      */
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     /**
      * Hasło do konta klienta
      */
-    @Column
+    @Column(nullable = false)
     private String password;
 
     /**
      * Status aktywowania konta klienta
      */
-    @Column
+    @Column(nullable = false)
     private Boolean isActive;
 
     /**
      * Imię klienta
      */
-    @Column
+    @Column(length = 50)
     private String name;
 
     /**
      * Nazwisko klienta
      */
-    @Column
+    @Column(length = 100)
     private String surname;
 
     /**
      * Unikalny adres e-mail klienta
      */
-    @Column
+    @Column(nullable = false, length = 100)
     private String email;
 
     /**
      * Numer telefonu klienta
      */
-    @Column
+    @Column(length = 50)
     private String phoneNumber;
 
     /**

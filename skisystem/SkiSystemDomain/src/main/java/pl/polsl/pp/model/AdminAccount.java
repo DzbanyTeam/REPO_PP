@@ -23,43 +23,43 @@ public class AdminAccount implements Serializable {
     /**
      * Unikalna nazwa użytkownika konta administratora
      */
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
 
     /**
      * Hasło do konta administratora
      */
-    @Column
+    @Column(nullable = false)
     private String password;
 
     /**
      * Status aktywowania konta administratora
      */
-    @Column
+    @Column(nullable = false)
     private Boolean isActive;
 
     /**
      * Imię administratora
      */
-    @Column
+    @Column(length = 50)
     private String name;
 
     /**
      * Nazwisko administartora
      */
-    @Column
+    @Column(length = 100)
     private String surname;
 
     /**
      * Unikalny Adres e-mail administratora
      */
-    @Column
+    @Column(nullable = false, length = 100)
     private String email;
 
     /**
      * Numer telefonu administratora
      */
-    @Column
+    @Column(length = 50)
     private String phoneNumber;
 
 

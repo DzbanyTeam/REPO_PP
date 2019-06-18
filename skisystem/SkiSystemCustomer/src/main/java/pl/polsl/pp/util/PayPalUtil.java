@@ -73,7 +73,7 @@ public class PayPalUtil {
             List<Links> links = createdPayment.getLinks();
             for (Links link : links) {
                 if (link.getRel().equalsIgnoreCase("approval_url")) {
-                    payPalTransactionService.saveTransaction(new PayPalTransaction(createdPayment.getId(),purchasedTicket.getId()));
+                    payPalTransactionService.saveTransaction(new PayPalTransaction(createdPayment.getId(),purchasedTicket));
                     return link.getHref();
                 }
             }

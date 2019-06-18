@@ -13,10 +13,11 @@ public class PayPalTransaction {
     @Column(nullable = false, unique = true)
     private String paymentId;
 
-    @Column
-    private Long purchaseTicketId;
+    @OneToOne
+    @JoinColumn(name = "purchased_ticket_id", referencedColumnName = "id", nullable = false)
+    private PurchasedTicket purchasedTicket;
 
-    @Column
+    @Column(nullable = false)
     private Boolean successStatus;
 
     public PayPalTransaction(){
@@ -24,9 +25,9 @@ public class PayPalTransaction {
     }
 
 
-    public PayPalTransaction(String paymentId, Long purchaseTicketId) {
+    public PayPalTransaction(String paymentId, PurchasedTicket purchasedTicket) {
         this.paymentId = paymentId;
-        this.purchaseTicketId = purchaseTicketId;
+        this.purchasedTicket = purchasedTicket;
         this.successStatus = false;
     }
 
@@ -39,11 +40,15 @@ public class PayPalTransaction {
     }
 
     public Long getPurchaseTicketId() {
-        return purchaseTicketId;
+        return purchasedTicket.getId();
     }
 
-    public void setPurchaseTicketId(Long purchaseTicketId) {
-        this.purchaseTicketId = purchaseTicketId;
+    public PurchasedTicket getPurchasedTicket() {
+        return purchasedTicket;
+    }
+
+    public void setPurchasedTicket(PurchasedTicket purchasedTicket) {
+        this.purchasedTicket = purchasedTicket;
     }
 
     public Boolean getSuccessStatus() {
