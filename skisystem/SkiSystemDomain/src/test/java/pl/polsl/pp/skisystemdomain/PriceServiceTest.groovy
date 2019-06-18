@@ -91,6 +91,7 @@ class PriceServiceTest extends Specification {
     //getAllPricesInActiveSeasons
     def "should return Prices in active Seasons"() {
         given:
+        def sizeBeforeTest = priceService.getAllPricesInActiveSeasons().size()
         def ticketType = TestDataGenerator.createTicketType()
         def ticketCategory = TestDataGenerator.createTicketCategory()
         def season = TestDataGenerator.createSeason()
@@ -109,7 +110,7 @@ class PriceServiceTest extends Specification {
         priceService.savePrice(priceNotActive)
 
         then:
-        priceService.getAllPricesInActiveSeasons().size() == 1
+        priceService.getAllPricesInActiveSeasons().size() == sizeBeforeTest + 1
     }
 
     //savePrice
