@@ -73,6 +73,11 @@ public class CustomerController {
         return "site/customer/panel";
     }
 
+    @GetMapping("/help")
+    public String showHelp() {
+        return "site/customer/help";
+    }
+
     @GetMapping("/data")
     public String showData(Model model) {
         Long requestCustomerAccountId = customerAccountService.getCustomerAccountByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId();

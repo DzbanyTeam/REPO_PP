@@ -24,13 +24,14 @@
             padding:20px;
             width: 85%;
             margin-right: 20px;
-            height: 800px;
+            height: auto;
         }
     </style>
 </head>
 <body class="bg-light">
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">Strefa klienta SkiProject</h5>
+    <a class="btn btn-default mr-3" href="<spring:url value="/customer/help"/>"><i class="fas fa-question-circle"></i> Pomoc</a>
     <a class="btn btn-default mr-3" href="<spring:url value="/customer/logout"/>"><i class="fas fa-sign-out-alt"></i> Wyloguj się</a>
     <a class="btn btn-secondary" href="<spring:url value="/"/>">Powrót do serwisu</a>
 </div>

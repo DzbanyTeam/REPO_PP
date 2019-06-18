@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/bootstrap.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/common/css/fontawesome.min.css"/>">
     <link rel="stylesheet" href="<spring:url value="/resources/site/css/customer.css"/>">
+    <script src="<spring:url value="/resources/common/js/jquery.js"/>"></script>
 </head>
 <body class="bg-light">
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-white border-bottom shadow-sm">
@@ -18,13 +19,13 @@
 </div>
 <div class="container">
         <h2>Rejestracja</h2>
-        <form:form method="post" action="/customer/register">
             <c:if test="${alertText != null}">
                 <div class="alert alert-${alertType}">
                         ${alertText}
                     <button class="close" onclick="$(this).closest('.alert').slideUp(); return false;">&times;</button>
                 </div>
             </c:if>
+            <form:form method="post" action="/customer/register">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
