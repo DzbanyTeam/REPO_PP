@@ -94,7 +94,6 @@
                 <td class="text-right py-2">
                     <div class="btn-group">
                         <a class="btn btn-primary fas fa-pen" href="<spring:url value="/admin/purchased-tickets/edit/${purchasedTicket.id}"/>"></a>
-                        <a class="btn btn-light fas fa-trash-alt" href="<spring:url value="/admin/purchased-tickets/update?ids%5B%5D=${purchasedTicket.id}&action=delete"/>"></a>
                     </div>
                 </td>
             </tr>
@@ -105,7 +104,6 @@
             <a href="<spring:url value="/admin/purchased-tickets/add/${customerAccount.id}"/>" class="btn btn-primary float-right">Dodaj bilet klienta&ensp;<i class="fas fa-plus"></i></a>
             <select class="form-control" name="action" onchange="$(this).closest('form').submit()" style="width:auto">
                 <option value="" disabled selected>Masowa edycja</option>
-                <option value="delete">Usuń zaznaczone</option>
                 <option value="activate">Aktywuj zaznaczone</option>
                 <option value="deactivate">Dezaktywuj zaznaczone</option>
             </select>
