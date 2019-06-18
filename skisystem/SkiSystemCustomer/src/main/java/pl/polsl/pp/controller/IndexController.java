@@ -6,12 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.polsl.pp.model.*;
+import pl.polsl.pp.model.Price;
+import pl.polsl.pp.model.Season;
+import pl.polsl.pp.model.TicketCategory;
+import pl.polsl.pp.model.TicketType;
 import pl.polsl.pp.service.interfaces.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -47,7 +48,7 @@ public class IndexController {
     private ISeasonService seasonService;
 
     @GetMapping("/")
-    public String showIndexPage(){
+    public String showIndexPage() {
         return "site/home/index";
     }
 
@@ -58,11 +59,11 @@ public class IndexController {
         model.addAttribute("seasons", seasonService.getAllActiveSeasons());
 
         // zwraca ceny w sezonie
-        HashMap<Season, Map<TicketCategory,Map<TicketType, Price>>> categoryTypesPricesInSeasonMap = new HashMap<>();
+        HashMap<Season, Map<TicketCategory, Map<TicketType, Price>>> categoryTypesPricesInSeasonMap = new HashMap<>();
 
-        for(Season season: seasonService.getAllActiveSeasons()){
-            Map<TicketCategory,Map<TicketType, Price>> seasonMap = new HashMap<>();
-            for(TicketCategory category: ticketCategoryService.getAllTicketCategories()) {
+        for (Season season : seasonService.getAllActiveSeasons()) {
+            Map<TicketCategory, Map<TicketType, Price>> seasonMap = new HashMap<>();
+            for (TicketCategory category : ticketCategoryService.getAllTicketCategories()) {
                 Map<TicketType, Price> typePriceMap = new HashMap<>();
                 seasonMap.put(category, typePriceMap);
                 for (TicketType type : ticketTypeService.getAllTicketTypes()) {

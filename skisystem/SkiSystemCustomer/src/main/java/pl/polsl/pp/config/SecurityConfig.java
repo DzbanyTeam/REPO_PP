@@ -42,10 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery(ROLES_CUSTOMER_QUERY)
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder);
-
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("customer").password(passwordEncoder.encode("customer")).roles("CUSTOMER");
     }
 
 

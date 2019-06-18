@@ -85,4 +85,8 @@ public class JpaConfig {
     @Bean
     @Qualifier("seasonService")
     public SeasonService seasonServiceInterface(){return new SeasonService(); }
+
+    @Bean
+    @Qualifier("payPalTransactionService")
+    public PayPalTransactionService payPalTransactionServiceInterface(){return new PayPalTransactionService(); }
 }
