@@ -37,7 +37,7 @@ public class PayPalTransactionService implements IPayPalTransactionService {
      * Ustawia nowy status poprawności wykonania dla transakcji o podanym id transakcji w serwisie PayPal
      * @param paymentId id transakcji w serwisie PayPal
      * @param successStatus nowy status, true jeśli transakcja została poprawnie wykonana, false w przeciwnym wypadku
-     * @return
+     * @return status (true lub false) transakcji
      */
     @Override
     public boolean setTransactionSuccessStatusByPaymentId(String paymentId,Boolean successStatus) {

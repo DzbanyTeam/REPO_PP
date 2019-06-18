@@ -45,7 +45,7 @@ public class PayPalTransaction {
     /**
      * Tworzy nowy obiekt PayPalTransaction z podanymi parametrami.
      * @param paymentId Id transakcji w serwisie PayPal
-     * @param purchaseTicketId Id zakupionego biletu
+     * @param purchasedTicket zakupiony bilet
      */
 
     public PayPalTransaction(String paymentId, PurchasedTicket purchasedTicket) {
@@ -78,22 +78,28 @@ public class PayPalTransaction {
         return purchasedTicket.getId();
     }
 
+
     /**
-     * Ustawia nowe id zakupionego biletu, do którego odnosi się transakcja.
-     * @param purchaseTicketId
+     * Zwraca bilet, do którego odnosi się transakcja.
+     * @return bilet do którego odnosi się transakcja
      */
     public PurchasedTicket getPurchasedTicket() {
         return purchasedTicket;
+    }
+
+
+    /**
+     * Ustawia bilet, do którego odnosi się transakcja
+     * @param purchasedTicket bilet do którego odnosi się transakcja
+     */
+    public void setPurchasedTicket(PurchasedTicket purchasedTicket) {
+        this.purchasedTicket = purchasedTicket;
     }
 
     /**
      * Zwraca status poprawności zakończenia transakcji.
      * @return true, jeśli transakcja zakończyła się sukcesem, false jeśli nie zakończyła się sukcesem
      */
-    public void setPurchasedTicket(PurchasedTicket purchasedTicket) {
-        this.purchasedTicket = purchasedTicket;
-    }
-
     public Boolean getSuccessStatus() {
         return successStatus;
     }
